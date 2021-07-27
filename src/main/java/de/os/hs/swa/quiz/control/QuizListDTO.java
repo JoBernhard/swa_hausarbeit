@@ -1,6 +1,6 @@
 package de.os.hs.swa.quiz.control;
 
-public class QuizzListDTO {
+public class QuizListDTO {
     public String title;
     public int numberOfQuestions;
     public String linktToFirstQuestion;
