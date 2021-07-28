@@ -12,10 +12,10 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
-import de.os.hs.swa.quiz.entity.QuizDTO;
 
 @Path("/quizzes")
 @Tag(name = "Own Quizzes")
@@ -28,30 +28,34 @@ public class QuizzesRessource {
 
     @POST
     @Operation(description = "create a new Quiz in a category")
-    public Quiz createNewQuiz(QuizDTO quiz){
+    public Quiz createNewQuiz(QuizEditDTO quiz){
         return null;
     }
 
     @Path("{quizID}/edit")
     @GET
+    @Operation(description = "get created quiz by id to edit")
     public Quiz getQuizByID(@PathParam("quizID") Long quizID){
         return null;
     }
 
     @Path("{quizID}/edit")
     @POST
+    @Operation(description = "add new Question to quiz allowed for creator")
     public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, Question question){
         return null;
     }
 
     @Path("{quizID}/edit")
     @PUT
-    public Quiz editQuiz(@PathParam("quizID") Long quizID){
+    @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
+    public Quiz editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
         return null;
     }
 
     @Path("{quizID}/edit")
     @DELETE
+    @Operation(description = "delete quiz with id only for creator")
     public void deletQuizByID(@PathParam("quizID") Long quizID){
         
     }
