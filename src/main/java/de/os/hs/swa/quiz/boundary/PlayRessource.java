@@ -16,7 +16,8 @@ public class PlayRessource {
     }
 
     @POST
-    public ResultDTO answerQuestion(@PathParam("quizID") Long quizID, @PathParam("questionNr") int QuestionNr, int choosenAnswer){
+    @Path("/{answerIndex}")
+    public ResultDTO answerQuestion(@PathParam("quizID") Long quizID, @PathParam("questionNr") int QuestionNr, @PathParam("answerIndex") int choosenAnswer){
         return null;
     }
 }
