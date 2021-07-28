@@ -7,6 +7,9 @@ public class Question {
     private int questionNr;
     private Collection<Answer> answers;
 
+    public Question() {
+    }
+
 
     public Question(String text, int questionNr, Collection<Answer> answers) {
         this.text = text;

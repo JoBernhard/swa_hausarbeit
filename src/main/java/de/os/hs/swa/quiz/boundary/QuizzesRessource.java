@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
+import de.os.hs.swa.quiz.entity.QuizDTO;
 
 @Path("/quizzes")
 public class QuizzesRessource {
@@ -21,7 +22,7 @@ public class QuizzesRessource {
     }
 
     @POST
-    public Quiz createNewQuiz(Quiz quiz){
+    public Quiz createNewQuiz(QuizDTO quiz){
         return null;
     }
 
