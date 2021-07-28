@@ -3,13 +3,11 @@ package de.os.hs.swa.category.gateway;
 import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 
 import de.os.hs.swa.category.control.CategoryService;
 import de.os.hs.swa.category.control.QuizForCategoryDTO;
 import de.os.hs.swa.category.control.QuizService;
 import de.os.hs.swa.category.entity.Category;
-import de.os.hs.swa.quiz.acl.CategoryAdapter;
 
 @RequestScoped
 public class CategoryRepository implements QuizService, CategoryService{
