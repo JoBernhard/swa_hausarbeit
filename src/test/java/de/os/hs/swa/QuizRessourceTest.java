@@ -1,11 +1,10 @@
 package de.os.hs.swa;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
-import de.os.hs.swa.quiz.entity.Quiz;
+import de.os.hs.swa.quiz.entity.QuizDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
@@ -13,13 +12,7 @@ import io.restassured.http.ContentType;
 import static io.restassured.RestAssured.given;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.json.Json;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-
-
+import java.util.Collection;
 
 // @author: Laura Peter
 @QuarkusTest @TestSecurity(authorizationEnabled = false)
@@ -33,41 +26,100 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizOk(){
-        String quizString = createQuizString(categoryName, title, questionTitle, new Answer(firtstAnswerText, 1, true), new Answer(secondAnswerText, 2, true));
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        answers.add(new Answer(secondAnswerText, 2, false));
+        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
-        .body(new Quiz())
+        .body(quiz)
         .post("/quizzes")
         .then()
         .statusCode(201);
     }
 
+    @Test
+    public void createQuizNoTitle(){
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        answers.add(new Answer(secondAnswerText, 2, false));
+        QuizDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
 
-
-    public String createQuizString(String categoryName, String title, String questionText, Answer answer1, Answer answer2){
-        ArrayList<Answer> answers = new ArrayList<Answer>();
-        answers.add(answer1);
-        answers.add(answer2);
-        Question question = new Question(questionText, 1, answers);
+    @Test
+    public void createQuizInvalidCategory(){
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        answers.add(new Answer(secondAnswerText, 2, false));
+        QuizDTO quiz = createQuiz("", title, createQuestion(answers) );
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
+    
+    @Test
+    public void createQuizOneAnswer(){
         
-        JsonBuilderFactory factory = Json.createBuilderFactory(null);
-        JsonObject jsonObject = Json.createObjectBuilder()
-        .add("title", title)
-        .add("questions", factory.createArrayBuilder()
-            .add(factory.createObjectBuilder()
-                .add("nr",1)
-                .add("text", question.getText())
-                .add("answers", factory.createArrayBuilder()
-                    .add(factory.createObjectBuilder()
-                        .add("text", answer1.getText())
-                        .add("answerNr", answer1.getAnswerNr())
-                        .add("isCorrect",answer1.getIsCorrect()))
-                    .add(factory.createObjectBuilder()
-                        .add("text", answer2.getText())
-                        .add("answerNr", answer2.getAnswerNr())
-                        .add("isCorrect",answer2.getIsCorrect())
-                        ))))
-        .build();
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
 
-        return jsonObject.toString();
+    @Test
+    public void createQuizOneNoQuestion(){
+        QuizDTO quiz = createQuiz(categoryName, title, null);
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
+
+    @Test
+    public void createQuizInvalidAnswerText(){
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        answers.add(new Answer("", 2, false));
+        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
+
+    @Test
+    public void createQuizInvalidNoCorrectAnswer(){
+        ArrayList<Answer> answers = new ArrayList<>();
+        answers.add(new Answer(firtstAnswerText, 1, true));
+        answers.add(new Answer("", 2, false));
+        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        given().contentType(ContentType.JSON)
+        .body(quiz)
+        .post("/quizzes")
+        .then()
+        .statusCode(400);
+    }
+
+    public Question createQuestion(Collection<Answer> answers){
+        return new Question(questionTitle, 1, answers);
+    }
+
+    public QuizDTO createQuiz(String categoryName, String title, Question question){
+        
+        ArrayList<Question> questions = new ArrayList<Question>();
+        questions.add(question);
+        return new QuizDTO(categoryName, title, questions);
     }
 }

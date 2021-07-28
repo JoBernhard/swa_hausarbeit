@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
+import de.os.hs.swa.quiz.entity.QuizDTO;
 
 @Path("/quizzes")
 @Tag(name = "Own Quizzes")
@@ -27,7 +28,7 @@ public class QuizzesRessource {
 
     @POST
     @Operation(description = "create a new Quiz in a category")
-    public Quiz createNewQuiz(Quiz quiz){
+    public Quiz createNewQuiz(QuizDTO quiz){
         return null;
     }
 

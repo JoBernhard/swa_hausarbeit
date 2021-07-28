@@ -15,6 +15,9 @@ public class Question {
     private int questionNr;
     private Collection<Answer> answers;
 
+    public Question() {
+    }
+
 
     public Long getId() {
         return this.id;
