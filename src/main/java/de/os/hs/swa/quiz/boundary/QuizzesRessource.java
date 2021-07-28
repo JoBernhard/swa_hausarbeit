@@ -9,6 +9,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.quiz.control.QuizListDTO;
@@ -19,11 +20,13 @@ import de.os.hs.swa.quiz.entity.Quiz;
 @Tag(name = "Own Quizzes")
 public class QuizzesRessource {
     @GET
+    @Operation(description = "get the list of own created quizzes")
     public Collection<QuizListDTO> getOwnQuizzes(){
         return null;
     }
 
     @POST
+    @Operation(description = "create a new Quiz in a category")
     public Quiz createNewQuiz(Quiz quiz){
         return null;
     }
