@@ -2,9 +2,9 @@ package de.os.hs.swa;
 
 import org.junit.jupiter.api.Test;
 
+import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
-import de.os.hs.swa.quiz.entity.QuizDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
@@ -29,7 +29,7 @@ public class QuizRessourceTest {
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
         answers.add(new Answer(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -42,7 +42,7 @@ public class QuizRessourceTest {
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
         answers.add(new Answer(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -55,7 +55,7 @@ public class QuizRessourceTest {
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
         answers.add(new Answer(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz("", title, createQuestion(answers) );
+        QuizEditDTO quiz = createQuiz("", title, createQuestion(answers) );
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -68,7 +68,7 @@ public class QuizRessourceTest {
         
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -78,7 +78,7 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizOneNoQuestion(){
-        QuizDTO quiz = createQuiz(categoryName, title, null);
+        QuizEditDTO quiz = createQuiz(categoryName, title, null);
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -91,7 +91,7 @@ public class QuizRessourceTest {
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
         answers.add(new Answer("", 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -104,7 +104,7 @@ public class QuizRessourceTest {
         ArrayList<Answer> answers = new ArrayList<>();
         answers.add(new Answer(firtstAnswerText, 1, true));
         answers.add(new Answer("", 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -116,10 +116,10 @@ public class QuizRessourceTest {
         return new Question(questionTitle, 1, answers);
     }
 
-    public QuizDTO createQuiz(String categoryName, String title, Question question){
+    public QuizEditDTO createQuiz(String categoryName, String title, Question question){
         
         ArrayList<Question> questions = new ArrayList<Question>();
         questions.add(question);
-        return new QuizDTO(categoryName, title, questions);
+        return new QuizEditDTO(categoryName, title, questions);
     }
 }
