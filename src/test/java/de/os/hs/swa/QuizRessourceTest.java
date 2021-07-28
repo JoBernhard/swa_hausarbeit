@@ -7,6 +7,7 @@ import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
@@ -21,21 +22,26 @@ import javax.json.JsonObject;
 
 
 // @author: Laura Peter
-@QuarkusTest 
+@QuarkusTest @TestSecurity(authorizationEnabled = false)
 public class QuizRessourceTest {
 
-    private static String validCatigoryname="Natur";
-    private static String validTitle = "Naturquiz";
-    private static String validQuestion = "Was ist keine Zimmerpflanze?";
-    private static String validFirstAnswer = "Baum";
-    private static String validSecondAnswer = "Aloe Vera";
+    private static String categoryName="Natur";
+    private static String title = "Naturquiz";
+    private static String questionTitle = "Was ist keine Zimmerpflanze?";
+    private static String firtstAnswerText = "Baum";
+    private static String secondAnswerText = "Aloe Vera";
 
     @Test
     public void createQuizOk(){
-        String quizString = createQuizString(validCatigoryname, validTitle, validQuestion, new Answer(validFirstAnswer, 1, true), new Answer(validFirstAnswer, 2, true));
-        given().body(quizString).contentType(ContentType.JSON)
-        .when().post("/quizzes").then().statusCode(201);
+        String quizString = createQuizString(categoryName, title, questionTitle, new Answer(firtstAnswerText, 1, true), new Answer(secondAnswerText, 2, true));
+        given().contentType(ContentType.JSON)
+        .body(new Quiz())
+        .post("/quizzes")
+        .then()
+        .statusCode(201);
     }
+
+
 
     public String createQuizString(String categoryName, String title, String questionText, Answer answer1, Answer answer2){
         ArrayList<Answer> answers = new ArrayList<Answer>();

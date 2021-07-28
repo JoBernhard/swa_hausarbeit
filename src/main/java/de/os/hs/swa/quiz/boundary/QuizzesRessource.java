@@ -20,6 +20,11 @@ public class QuizzesRessource {
         return null;
     }
 
+    @POST
+    public Quiz createNewQuiz(Quiz quiz){
+        return null;
+    }
+
     @Path("{quizID}/edit")
     @GET
     public Quiz getQuizByID(@PathParam("quizID") Long quizID){
