@@ -9,11 +9,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
 @Path("/quizzes")
+@Tag(name = "Own Quizzes")
 public class QuizzesRessource {
     @GET
     public Collection<QuizListDTO> getOwnQuizzes(){

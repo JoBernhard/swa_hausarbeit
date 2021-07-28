@@ -11,10 +11,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import de.os.hs.swa.category.entity.Category;
 
 @RequestScoped
 @Path("/category")
+@Tag(name = "category", description = "get and edit info about categorys")
 public class CategoryRessource {
     
     @GET @Path("/{categoryName}")
