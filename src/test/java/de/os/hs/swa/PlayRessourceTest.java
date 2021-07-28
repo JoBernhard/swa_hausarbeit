@@ -14,6 +14,8 @@ import static io.restassured.RestAssured.given;
 @TestSecurity(authorizationEnabled = false)
 public class PlayRessourceTest{
 
+    //TODO: Datenbank setup für test
+
     // Frage beantworten Tests
     @Test
     public void playQuizCorrectAnswerOk(){
