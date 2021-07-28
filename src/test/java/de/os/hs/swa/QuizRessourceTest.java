@@ -1,26 +1,73 @@
 package de.os.hs.swa;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import de.os.hs.swa.quiz.entity.Answer;
+import de.os.hs.swa.quiz.entity.Question;
+import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
+import io.restassured.http.ContentType;
+
 import static io.restassured.RestAssured.given;
 
-@QuarkusTest
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+
+
+
+// @author: Laura Peter
+@QuarkusTest @TestSecurity(authorizationEnabled = false)
 public class QuizRessourceTest {
-    
-    @Test
-    public void getQuizOk(){
-        Long quizId = 1L;
-        given()
-          .when().get("/quizzes/"+quizId)
-          .then().statusCode(200);
-    }
+
+    private static String categoryName="Natur";
+    private static String title = "Naturquiz";
+    private static String questionTitle = "Was ist keine Zimmerpflanze?";
+    private static String firtstAnswerText = "Baum";
+    private static String secondAnswerText = "Aloe Vera";
 
     @Test
-    public void getQuizNotFound(){
-        Long quizId = 0L;
-        given()
-          .when().get("/quizzes/"+quizId)
-          .then().statusCode(404);
+    public void createQuizOk(){
+        String quizString = createQuizString(categoryName, title, questionTitle, new Answer(firtstAnswerText, 1, true), new Answer(secondAnswerText, 2, true));
+        given().contentType(ContentType.JSON)
+        .body(new Quiz())
+        .post("/quizzes")
+        .then()
+        .statusCode(201);
+    }
+
+
+
+    public String createQuizString(String categoryName, String title, String questionText, Answer answer1, Answer answer2){
+        ArrayList<Answer> answers = new ArrayList<Answer>();
+        answers.add(answer1);
+        answers.add(answer2);
+        Question question = new Question(questionText, 1, answers);
+        
+        JsonBuilderFactory factory = Json.createBuilderFactory(null);
+        JsonObject jsonObject = Json.createObjectBuilder()
+        .add("title", title)
+        .add("questions", factory.createArrayBuilder()
+            .add(factory.createObjectBuilder()
+                .add("nr",1)
+                .add("text", question.getText())
+                .add("answers", factory.createArrayBuilder()
+                    .add(factory.createObjectBuilder()
+                        .add("text", answer1.getText())
+                        .add("answerNr", answer1.getAnswerNr())
+                        .add("isCorrect",answer1.getIsCorrect()))
+                    .add(factory.createObjectBuilder()
+                        .add("text", answer2.getText())
+                        .add("answerNr", answer2.getAnswerNr())
+                        .add("isCorrect",answer2.getIsCorrect())
+                        ))))
+        .build();
+
+        return jsonObject.toString();
     }
 }

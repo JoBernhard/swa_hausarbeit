@@ -1,5 +1,7 @@
 package de.os.hs.swa.quiz.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ public class Question {
     @Id @GeneratedValue private Long id;
     private String text;
     private int questionNr;
-    private Answer[] answers;
+    private Collection<Answer> answers;
 
 
     public Long getId() {
@@ -38,11 +40,12 @@ public class Question {
         this.questionNr = questionNr;
     }
 
-    public Answer[] getAnswers() {
+
+    public Collection<Answer> getAnswers() {
         return this.answers;
     }
 
-    public void setAnswers(Answer[] answers) {
+    public void setAnswers(Collection<Answer> answers) {
         this.answers = answers;
     }
 

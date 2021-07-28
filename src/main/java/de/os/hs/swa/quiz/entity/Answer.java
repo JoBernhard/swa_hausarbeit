@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Answer {
     @Id @GeneratedValue private Long id;
     private String text;
-    private int Number;
+    private int answerNr;
     private boolean isCorrect;
 
     public String getText() {
@@ -21,11 +21,11 @@ public class Answer {
     }
 
     public int getNumber() {
-        return this.Number;
+        return this.answerNr;
     }
 
     public void setNumber(int Number) {
-        this.Number = Number;
+        this.answerNr = Number;
     }
 
     public boolean isIsCorrect() {
