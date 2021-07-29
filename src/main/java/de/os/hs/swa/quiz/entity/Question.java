@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 //@author: Johanna Bernhard
@@ -17,6 +18,8 @@ public class Question {
     private int questionNr;
     @Transient
     private Collection<Answer> answers;
+    @ManyToOne
+    private Quiz quiz;
 
     public Question() {
     }
@@ -56,6 +59,14 @@ public class Question {
 
     public void setAnswers(Collection<Answer> answers) {
         this.answers = answers;
+    }
+
+    public Quiz getQuiz() {
+        return this.quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
 }

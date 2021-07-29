@@ -1,9 +1,13 @@
 package de.os.hs.swa.quiz.gateway;
 
+import javax.enterprise.context.RequestScoped;
+
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.entity.Question;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-public class EditQuestionRepository implements EditQuestionService{
+@RequestScoped
+public class EditQuestionRepository implements EditQuestionService, PanacheRepository<Question>{
 
     @Override
     public Question updateQuestion(Long quizID, int questionNr, Question question) {
@@ -12,7 +16,7 @@ public class EditQuestionRepository implements EditQuestionService{
     }
 
     @Override
-    public void deleteQuiz(Long quizID) {
+    public void deleteQuestion(Long quizID, int questionNr) {
         // TODO Auto-generated method stub
         
     }
