@@ -8,7 +8,6 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
-import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
