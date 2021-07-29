@@ -1,8 +1,11 @@
 package de.os.hs.swa.quiz.gateway;
 
+import javax.enterprise.context.RequestScoped;
+
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.entity.Question;
 
+@RequestScoped
 public class EditQuestionRepository implements EditQuestionService{
 
     @Override

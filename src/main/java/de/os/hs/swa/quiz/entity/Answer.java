@@ -3,6 +3,7 @@ package de.os.hs.swa.quiz.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 //@author: Johanna Bernhard
 @Entity
@@ -11,7 +12,8 @@ public class Answer {
     private String text;
     private int answerNr;
     private boolean isCorrect;
-
+    @ManyToOne
+    private Question question;
 
     public Answer(){
         
@@ -56,4 +58,11 @@ public class Answer {
         this.id = id;
     }
 
+    public Question getQuestion() {
+        return this.question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

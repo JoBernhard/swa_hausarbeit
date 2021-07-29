@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.boundary;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +13,8 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import de.os.hs.swa.quiz.control.EditQuestionService;
+import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
@@ -20,10 +23,16 @@ import de.os.hs.swa.quiz.entity.Quiz;
 @Path("/quizzes")
 @Tag(name = "Own Quizzes")
 public class QuizzesRessource {
+    @Inject
+    EditQuizService editQuiz;
+    @Inject
+    EditQuestionService editQuistion;
+
+
     @GET
     @Operation(description = "get the list of own created quizzes")
     public Collection<QuizListDTO> getOwnQuizzes(){
-        return null;
+        return editQuiz.getOwnQuizzes(0L);
     }
 
     @POST
