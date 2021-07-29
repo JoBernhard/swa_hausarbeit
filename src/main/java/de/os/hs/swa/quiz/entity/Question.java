@@ -1,6 +1,5 @@
 package de.os.hs.swa.quiz.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;

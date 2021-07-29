@@ -33,6 +33,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Override
     public Quiz getEditableQuiz(Long quizID) {
         // TODO error handeling
+        // find Qustions
 
         return findById(quizID);
     }
@@ -86,7 +87,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         QuizListDTO dto = new QuizListDTO();
         dto.title = q.getTitle();
         dto.linktToFirstQuestion = "";
-        dto.linktToEdit = "quizzes/"+q.getId();
+        dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
         dto.numberOfQuestions =0;
         return dto;
     }
