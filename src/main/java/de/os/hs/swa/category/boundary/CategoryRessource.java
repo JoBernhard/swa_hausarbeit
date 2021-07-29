@@ -20,7 +20,7 @@ import de.os.hs.swa.category.control.CategoryService;
 import de.os.hs.swa.category.entity.Category;
 
 //@author: Johanna Benhard
-
+// @author Laura Peter
 @RequestScoped
 @Path("/category")
 @Tag(name = "category", description = "get and edit info about categorys")

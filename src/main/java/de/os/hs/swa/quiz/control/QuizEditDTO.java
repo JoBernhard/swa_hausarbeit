@@ -1,14 +1,13 @@
 package de.os.hs.swa.quiz.control;
 import java.util.Collection;
 
-import de.os.hs.swa.quiz.entity.Question;
 
 public class QuizEditDTO {
     private String categoryName;
     private String title;
-    private Collection<Question> questions;
+    private Collection<QuestionDTO> questions;
 
-    public QuizEditDTO(String title, Collection<Question> questions){
+    public QuizEditDTO(String title, Collection<QuestionDTO> questions){
         this.title = title;
         this.questions = questions;
     }
@@ -17,7 +16,7 @@ public class QuizEditDTO {
     public QuizEditDTO() {
     }
 
-    public QuizEditDTO(String categoryId, String title, Collection<Question> questions) {
+    public QuizEditDTO(String categoryId, String title, Collection<QuestionDTO> questions) {
        
         this.categoryName = categoryId;
         this.title = title;
@@ -40,11 +39,11 @@ public class QuizEditDTO {
         this.title = title;
     }
 
-    public Collection<Question> getQuestions() {
+    public Collection<QuestionDTO> getQuestions() {
         return this.questions;
     }
 
-    public void setQuestions(Collection<Question> questions) {
+    public void setQuestions(Collection<QuestionDTO> questions) {
         this.questions = questions;
     }
 }
