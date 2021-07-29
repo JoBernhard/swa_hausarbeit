@@ -39,7 +39,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Question addQuestionToQuiz(Long quizID, Question question) {
-        // TODO Auto-generated method stub
+        // TODO error handeling
         if(checkValidQuestion(question)){
             question.setQuiz(findById(quizID));
             questionRepo.persist(question);
