@@ -20,7 +20,7 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 //@author: Johanna Bernhard, Laura Peter
 
 @RequestScoped
-public class PlayRepository implements PlayService {
+public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @ConfigProperty(name = "play.points")
     Integer points;
@@ -30,9 +30,6 @@ public class PlayRepository implements PlayService {
 
     @Inject
     PanacheRepository<Question> questionRepository;
-
-    @Inject
-    PanacheRepository<Answer> answerRepository;
 
     @Override
     public PlayQuestionDTO chooseQuiz(Long quizID) {
@@ -54,7 +51,7 @@ public class PlayRepository implements PlayService {
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
         // TODO error handeling
-        Answer a = answerRepository.find("quiz_id, qustionNr, answerNr", quizID, questionNr, answerNr).firstResult();
+        Answer a = find("quiz_id, qustionNr, answerNr", quizID, questionNr, answerNr).firstResult();
 
         if(a==null){
             throw new NotFoundException();
