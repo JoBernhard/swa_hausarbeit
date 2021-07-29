@@ -4,7 +4,7 @@ import de.os.hs.swa.quiz.entity.Question;
 
 public interface EditQuestionService {
     public Question updateQuestion(Long quizID, int questionNr, Question question);
-    public void deleteQuiz(Long quizID);
+    public void deleteQuestion(Long quizID, int questionNr);
     public Question getEditableQuestion(Long quizID, int questionNr);
 
 }

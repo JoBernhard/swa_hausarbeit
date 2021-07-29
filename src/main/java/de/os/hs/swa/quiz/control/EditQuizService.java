@@ -11,4 +11,5 @@ public interface EditQuizService {
     public Question addQuestionToQuiz(Long quizID, Question question);
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz);
     public void deletQuizByID(Long quizID);
+    public Quiz createNewQuiz(Quiz quiz);
 }

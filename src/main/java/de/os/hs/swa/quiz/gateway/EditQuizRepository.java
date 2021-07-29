@@ -8,6 +8,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
+import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
@@ -69,8 +70,16 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         }else{
             throw new NotFoundException();
         }
-        
-        
+    }
+
+    @Override
+    public Quiz createNewQuiz(Quiz quiz) {
+        if(checkValidQuiz(quiz)){
+            persist(quiz);
+            return quiz;
+        } else{
+            throw new BadRequestException("Quiz dosen't fullfill Requirements");
+        }
     }
 
     private QuizListDTO quizToListDTO(Quiz q){
@@ -89,4 +98,8 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     private boolean checkValidQuiz(Quiz q){
         return true;
     }
+
+    
+
+    
 }

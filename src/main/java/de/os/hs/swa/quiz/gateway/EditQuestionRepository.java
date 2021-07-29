@@ -16,7 +16,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
     }
 
     @Override
-    public void deleteQuiz(Long quizID) {
+    public void deleteQuestion(Long quizID, int questionNr) {
         // TODO Auto-generated method stub
         
     }
