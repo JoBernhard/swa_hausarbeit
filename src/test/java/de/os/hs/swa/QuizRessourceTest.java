@@ -7,6 +7,7 @@ import org.postgresql.copy.CopyManager;
 
 import de.os.hs.swa.quiz.control.AnswerDTO;
 import de.os.hs.swa.quiz.control.QuestionDTO;
+import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import io.quarkus.test.junit.QuarkusTest;
@@ -34,10 +35,13 @@ public class QuizRessourceTest {
     @BeforeAll
     public static void init(){
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestDB");
-            System.out.println("connected");
+            Class.forName("org.postgresql.Driver");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("driver not available");
             e.printStackTrace();
         }
        
@@ -48,7 +52,7 @@ public class QuizRessourceTest {
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -61,7 +65,7 @@ public class QuizRessourceTest {
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -74,7 +78,7 @@ public class QuizRessourceTest {
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO(secondAnswerText, 2, false));
-        QuizDTO quiz = createQuiz("", title, createQuestion(answers) );
+        QuizEditDTO quiz = createQuiz("", title, createQuestion(answers) );
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -87,7 +91,7 @@ public class QuizRessourceTest {
         
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -110,7 +114,7 @@ public class QuizRessourceTest {
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO("", 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -123,7 +127,7 @@ public class QuizRessourceTest {
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO("", 2, false));
-        QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -135,7 +139,7 @@ public class QuizRessourceTest {
         return new QuestionDTO(questionTitle, 1, answers);
     }
 
-    public QuizDTO createQuiz(String categoryName, String title, QuestionDTO question){
+    public QuizEditDTO createQuiz(String categoryName, String title, QuestionDTO question){
         
         ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
         questions.add(question);

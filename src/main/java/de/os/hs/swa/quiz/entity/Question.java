@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 //@author: Johanna Bernhard
 
@@ -14,6 +15,7 @@ public class Question {
     @Id @GeneratedValue private Long id;
     private String text;
     private int questionNr;
+    @Transient
     private Collection<Answer> answers;
 
     public Question() {
