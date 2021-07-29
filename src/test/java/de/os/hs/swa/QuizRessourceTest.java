@@ -9,7 +9,6 @@ import de.os.hs.swa.quiz.control.AnswerDTO;
 import de.os.hs.swa.quiz.control.QuestionDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
-import de.os.hs.swa.quiz.entity.QuizDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
@@ -98,7 +97,7 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizOneNoQuestion(){
-        QuizDTO quiz = createQuiz(categoryName, title, null);
+        QuizEditDTO quiz = createQuiz(categoryName, title, null);
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
@@ -140,7 +139,7 @@ public class QuizRessourceTest {
         
         ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
         questions.add(question);
-        return new QuizDTO(categoryName, title, questions);
+        return new QuizEditDTO(categoryName, title, questions);
     }
 
 

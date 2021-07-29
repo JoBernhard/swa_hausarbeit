@@ -1,23 +1,22 @@
-package de.os.hs.swa.quiz.entity;
+package de.os.hs.swa.quiz.control;
 import java.util.Collection;
 
-import de.os.hs.swa.quiz.control.QuestionDTO;
 
-public class QuizDTO {
+public class QuizEditDTO {
     private String categoryName;
     private String title;
     private Collection<QuestionDTO> questions;
 
-    public QuizDTO(String title, Collection<QuestionDTO> questions){
+    public QuizEditDTO(String title, Collection<QuestionDTO> questions){
         this.title = title;
         this.questions = questions;
     }
 
 
-    public QuizDTO() {
+    public QuizEditDTO() {
     }
 
-    public QuizDTO(String categoryId, String title, Collection<QuestionDTO> questions) {
+    public QuizEditDTO(String categoryId, String title, Collection<QuestionDTO> questions) {
        
         this.categoryName = categoryId;
         this.title = title;

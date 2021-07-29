@@ -12,6 +12,14 @@ public class Answer {
     private int answerNr;
     private boolean isCorrect;
 
+
+    public Answer(){
+        
+    }
+
+    public Answer(String firtstAnswerText, int i, boolean b) {
+    }
+
     public String getText() {
         return this.text;
     }

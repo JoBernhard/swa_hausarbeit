@@ -4,11 +4,13 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.annotations.cache.NoCache;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
 @Path("/api/users")
+@Tag(name = "Users")
 public class UserResource {
 
     @Inject

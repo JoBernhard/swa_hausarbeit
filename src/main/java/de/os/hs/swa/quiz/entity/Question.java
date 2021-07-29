@@ -1,5 +1,6 @@
 package de.os.hs.swa.quiz.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -16,6 +17,9 @@ public class Question {
     private Collection<Answer> answers;
 
     public Question() {
+    }
+
+    public Question(String questionTitle, int i, Collection<Answer> answers) {
     }
 
 
