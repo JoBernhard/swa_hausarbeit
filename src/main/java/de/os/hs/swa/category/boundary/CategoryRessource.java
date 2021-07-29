@@ -3,6 +3,8 @@ package de.os.hs.swa.category.boundary;
 import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,13 +16,21 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import de.os.hs.swa.category.control.CategoryService;
 import de.os.hs.swa.category.entity.Category;
 
+//@author: Johanna Benhard
 // @author Laura Peter
 @RequestScoped
 @Path("/category")
 @Tag(name = "category", description = "get and edit info about categorys")
 public class CategoryRessource {
+
+    @Inject
+    CategoryService catServe;
+
+
+
     
     @GET @Path("/{categoryName}")
     @Operation(description = "get all Quizzes in Category")
@@ -29,20 +39,25 @@ public class CategoryRessource {
     }
 
     @GET
-    @Operation(description = "get a Listing of all availabel categorys")
-    public Collection<Category> getCategories(){
-        return null;
+    @Operation(description = "get a Listing of all category Names")
+    public Collection<String> getCategories(){
+        return catServe.getAllCategories();
     }
 
+    @Transactional
     @POST
     @Operation(description = "create a new category is only allowed for administrators")
-    public Response addNewCategory(@QueryParam("categoryName") String category){
-        return null;
+    public Category addNewCategory(@QueryParam("categoryName") String category){
+        return catServe.addCategory(category);
     }
 
+    @Transactional
     @DELETE
     @Operation(description = "delete category by name is only allowed for administrator if category is empty")
     public Response deleteEmptyCategory(@QueryParam("categoryName")String category){
-        return null;
+        if(catServe.deleteCategoryByName(category)){
+            return Response.noContent().build();
+        }
+        return Response.notModified("Category is Not empty").build();
     }
 }
