@@ -3,6 +3,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizListDTO;
@@ -14,6 +17,9 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @RequestScoped
 public class EditQuizRepository implements EditQuizService, PanacheRepository<Quiz> {
+    //TODO: Account handeling
+    @Inject
+    PanacheRepository<Question> questionRepo;
 
     @Override
     public Collection<QuizListDTO> getOwnQuizzes(Long UserID) {
@@ -25,25 +31,45 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz getEditableQuiz(Long quizID) {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO error handeling
+
+        return findById(quizID);
     }
 
     @Override
     public Question addQuestionToQuiz(Long quizID, Question question) {
         // TODO Auto-generated method stub
-        return null;
+        if(checkValidQuestion(question)){
+            question.setQuiz(findById(quizID));
+            questionRepo.persist(question);
+            return question;
+        }else{
+            throw new BadRequestException("Question dosen't fullfill Requirements");
+        }
     }
 
     @Override
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz) {
         // TODO Auto-generated method stub
-        return null;
+        if(checkValidQuiz(updatedQuiz)){
+            updatedQuiz.setId(quizID);
+            persist(updatedQuiz);
+            return updatedQuiz;
+        }else{
+            throw new BadRequestException("Quiz dosen't fullfill Requirements");
+        }
     }
 
     @Override
     public void deletQuizByID(Long quizID) {
         // TODO Auto-generated method stub
+        Quiz toDelete = findById(quizID);
+        if(toDelete!=null){
+            delete(toDelete);
+        }else{
+            throw new NotFoundException();
+        }
+        
         
     }
 
@@ -51,7 +77,16 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         QuizListDTO dto = new QuizListDTO();
         dto.title = q.getTitle();
         dto.linktToFirstQuestion = "";
+        dto.linktToEdit = "quizzes/"+q.getId();
         dto.numberOfQuestions =0;
         return dto;
+    }
+
+    private boolean checkValidQuestion(Question q){
+        return true;
+    }
+
+    private boolean checkValidQuiz(Quiz q){
+        return true;
     }
 }

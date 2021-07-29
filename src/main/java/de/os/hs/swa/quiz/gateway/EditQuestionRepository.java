@@ -4,9 +4,10 @@ import javax.enterprise.context.RequestScoped;
 
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.entity.Question;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @RequestScoped
-public class EditQuestionRepository implements EditQuestionService{
+public class EditQuestionRepository implements EditQuestionService, PanacheRepository<Question>{
 
     @Override
     public Question updateQuestion(Long quizID, int questionNr, Question question) {
