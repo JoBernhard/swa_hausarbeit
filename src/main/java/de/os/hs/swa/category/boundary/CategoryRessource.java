@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import de.os.hs.swa.category.entity.Category;
 
+// @author Laura Peter
 @RequestScoped
 @Path("/category")
 public class CategoryRessource {
