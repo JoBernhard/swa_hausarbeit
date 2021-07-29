@@ -1,7 +1,12 @@
 package de.os.hs.swa;
 
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.postgresql.copy.CopyManager;
+
+import de.os.hs.swa.quiz.control.AnswerDTO;
+import de.os.hs.swa.quiz.control.QuestionDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.QuizDTO;
@@ -11,6 +16,9 @@ import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -24,11 +32,23 @@ public class QuizRessourceTest {
     private static String firtstAnswerText = "Baum";
     private static String secondAnswerText = "Aloe Vera";
 
+    @BeforeAll
+    public static void init(){
+        try {
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestDB");
+            System.out.println("connected");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+       
+    }
+
     @Test
     public void createQuizOk(){
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
-        answers.add(new Answer(secondAnswerText, 2, false));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO(secondAnswerText, 2, false));
         QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -39,9 +59,9 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizNoTitle(){
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
-        answers.add(new Answer(secondAnswerText, 2, false));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO(secondAnswerText, 2, false));
         QuizDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -52,9 +72,9 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizInvalidCategory(){
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
-        answers.add(new Answer(secondAnswerText, 2, false));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO(secondAnswerText, 2, false));
         QuizDTO quiz = createQuiz("", title, createQuestion(answers) );
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -66,8 +86,8 @@ public class QuizRessourceTest {
     @Test
     public void createQuizOneAnswer(){
         
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -88,9 +108,9 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizInvalidAnswerText(){
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
-        answers.add(new Answer("", 2, false));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO("", 2, false));
         QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -101,9 +121,9 @@ public class QuizRessourceTest {
 
     @Test
     public void createQuizInvalidNoCorrectAnswer(){
-        ArrayList<Answer> answers = new ArrayList<>();
-        answers.add(new Answer(firtstAnswerText, 1, true));
-        answers.add(new Answer("", 2, false));
+        ArrayList<AnswerDTO> answers = new ArrayList<>();
+        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO("", 2, false));
         QuizDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -112,14 +132,16 @@ public class QuizRessourceTest {
         .statusCode(400);
     }
 
-    public Question createQuestion(Collection<Answer> answers){
-        return new Question(questionTitle, 1, answers);
+    public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
+        return new QuestionDTO(questionTitle, 1, answers);
     }
 
-    public QuizDTO createQuiz(String categoryName, String title, Question question){
+    public QuizDTO createQuiz(String categoryName, String title, QuestionDTO question){
         
-        ArrayList<Question> questions = new ArrayList<Question>();
+        ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
         questions.add(question);
         return new QuizDTO(categoryName, title, questions);
     }
+
+
 }
