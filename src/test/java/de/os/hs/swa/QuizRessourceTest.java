@@ -4,6 +4,7 @@ package de.os.hs.swa;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.postgresql.copy.CopyManager;
+import org.postgresql.core.BaseConnection;
 
 import de.os.hs.swa.quiz.control.AnswerDTO;
 import de.os.hs.swa.quiz.control.QuestionDTO;
@@ -16,8 +17,10 @@ import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,16 +38,28 @@ public class QuizRessourceTest {
     @BeforeAll
     public static void init(){
         try {
-            Class.forName("org.postgresql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
-        } catch (SQLException e) {
+            copyIntoTestDB("Category", "./testcategories.csv");
+            copyIntoTestDB("QuizUser", "./testuser.csv");
+            copyIntoTestDB("Quiz", "./testquiz.csv");
+            copyIntoTestDB("Question", "./testquestion.csv");
+            copyIntoTestDB("Answer", "./testanwser.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+       
+    }
+
+    private static void copyIntoTestDB(String tablename, String file){
+        try {
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testdb","postgres","annie_box");
+            long rowsInserted = new CopyManager((BaseConnection) con)
+            .copyIn("COPY "+tablename+" FROM STDIN (FORMAT csv, HEADER)", new FileReader(file));
+            System.out.printf("%d row(s) inserted%n", rowsInserted);
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("driver not available");
-            e.printStackTrace();
         }
-       
+
     }
 
     @Test
@@ -100,7 +115,7 @@ public class QuizRessourceTest {
     }
 
     @Test
-    public void createQuizOneNoQuestion(){
+    public void createQuizNoQuestion(){
         QuizEditDTO quiz = createQuiz(categoryName, title, null);
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -123,7 +138,7 @@ public class QuizRessourceTest {
     }
 
     @Test
-    public void createQuizInvalidNoCorrectAnswer(){
+    public void createQuizNoCorrectAnswer(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, 1, true));
         answers.add(new AnswerDTO("", 2, false));
@@ -144,6 +159,37 @@ public class QuizRessourceTest {
         ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
         questions.add(question);
         return new QuizEditDTO(categoryName, title, questions);
+    }
+
+
+    @Test
+    @TestSecurity(user = "theErstellerIn")
+    public void getOwnQuizzesOk(){
+        int userId = 1;
+        given().contentType(ContentType.JSON)
+        .get("/quizzes")
+        .then()
+        .statusCode(200);
+    }
+
+    @Test
+    @TestSecurity(user = "theSpielerIn")
+    public void getOwnQuizzesNoContent(){
+        int userId = 1;
+        given().contentType(ContentType.JSON)
+        .get("/quizzes")
+        .then()
+        .statusCode(204);
+    }
+
+    @Test
+    @TestSecurity(user = "")
+    public void getOwnQuizzesNotLoggedIn(){
+        int userId = 1;
+        given().contentType(ContentType.JSON)
+        .get("/quizzes")
+        .then()
+        .statusCode(403);
     }
 
 
