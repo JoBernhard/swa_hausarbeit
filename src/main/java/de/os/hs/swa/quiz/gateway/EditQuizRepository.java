@@ -7,12 +7,14 @@ import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
+import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizLogikService;
 import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.security.UnauthorizedException;
 
 //@author: Johannna Benrhard
 
@@ -23,6 +25,9 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Inject
     QuizLogikService logik;
+
+    @Inject
+    UserAdapter userService;
 
     @Override
     public Collection<QuizListDTO> getOwnQuizzes(String UserName) {
@@ -35,8 +40,12 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     public Quiz getEditableQuiz(Long quizID) {
         Quiz q = findById(quizID);
         if(q != null){
-            q.setQuestions(questionRepo.list("quiz_id", q.getId()));
-            return q;
+            if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                q.setQuestions(questionRepo.list("quiz_id", q.getId()));
+                return q;
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
             throw new NotFoundException();
         }
@@ -46,12 +55,16 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     public Question addQuestionToQuiz(Long quizID, Question question) {
         Quiz q = findById(quizID);
         if(q != null){
-            if(checkValidQuestion(question)){
-                question.setQuiz(q);
-                questionRepo.persist(question);
-                return question;
+            if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                if(checkValidQuestion(question)){
+                    question.setQuiz(q);
+                    questionRepo.persist(question);
+                    return question;
+                }else{
+                    throw new BadRequestException("Question dosen't fullfill Requirements");
+                }
             }else{
-                throw new BadRequestException("Question dosen't fullfill Requirements");
+                throw new UnauthorizedException();
             }
         }else{
             throw new NotFoundException();
@@ -60,20 +73,34 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz) {
-        if(checkValidQuiz(updatedQuiz)){
-            updatedQuiz.setId(quizID);
-            persist(updatedQuiz);
-            return updatedQuiz;
+        Quiz toUpdate = findById(quizID);
+        if(toUpdate != null){
+            if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){
+                if(checkValidQuiz(updatedQuiz)){
+                    updatedQuiz.setId(quizID);
+                    persist(updatedQuiz);
+                    return updatedQuiz;
+                }else{
+                    throw new BadRequestException("Quiz dosen't fullfill Requirements");
+                } 
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
-            throw new BadRequestException("Quiz dosen't fullfill Requirements");
+            throw new NotFoundException();
         }
+        
     }
 
     @Override
     public void deletQuizByID(Long quizID) {
         Quiz toDelete = findById(quizID);
         if(toDelete!=null){
-            delete(toDelete);
+            if(userService.isAuthorizedToEdit(toDelete.getCreatorName())){
+                delete(toDelete);
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
             throw new NotFoundException();
         }
@@ -82,6 +109,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Override
     public Quiz createNewQuiz(Quiz quiz) {
         if(checkValidQuiz(quiz)){
+            quiz.setCreatorName(userService.getCurrentUser());
             persist(quiz);
             return quiz;
         } else{
