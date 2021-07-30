@@ -6,6 +6,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuestionService;
+import de.os.hs.swa.quiz.control.QuizLogikService;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -18,6 +19,9 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
     //check if user is creator
     @Inject
     PanacheRepository<Quiz> quizRepository; 
+
+    @Inject
+    QuizLogikService logik;
 
     @Override
     public Question updateQuestion(Long quizID, int questionNr, Question question) {
@@ -53,7 +57,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
 
     private boolean checkValidQuestion(Question q){
         //TODO check if conditions are met
-        return true;
+        return logik.checkValidQuestion(q);
     }
     
 }

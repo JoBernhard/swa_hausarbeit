@@ -9,6 +9,7 @@ import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizListDTO;
+import de.os.hs.swa.quiz.control.QuizLogikService;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -20,6 +21,9 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     //TODO: Account handeling
     @Inject
     PanacheRepository<Question> questionRepo;
+
+    @Inject
+    QuizLogikService logik;
 
     @Override
     public Collection<QuizListDTO> getOwnQuizzes(Long UserID) {
@@ -92,11 +96,11 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     }
 
     private boolean checkValidQuestion(Question q){
-        return true;
+        return logik.checkValidQuestion(q);
     }
 
     private boolean checkValidQuiz(Quiz q){
-        return true;
+        return logik.checkValidQuiz(q);
     }
 
     
