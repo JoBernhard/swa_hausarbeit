@@ -11,6 +11,8 @@ import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
+//@author: Johanna Bernhard
+
 @RequestScoped
 public class LogikImpl implements QuizLogikService{
     @Inject

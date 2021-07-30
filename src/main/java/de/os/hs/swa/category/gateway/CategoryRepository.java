@@ -72,7 +72,7 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
         QuizForCategoryDTO dto = new QuizForCategoryDTO();
         dto.linkToQuiz = "quizzes/"+q.getId()+"/play";
         dto.title = q.getTitle();
-        //TODO number of questions
+
         return dto;
     }
 }
