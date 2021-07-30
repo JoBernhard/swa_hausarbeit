@@ -28,7 +28,7 @@ import de.os.hs.swa.category.entity.Category;
 public class CategoryRessource {
 
     @Inject
-    CategoryService catServe;
+    CategoryService categoryService;
     @Inject
     QuizService quizService;
 
@@ -44,21 +44,21 @@ public class CategoryRessource {
     @GET
     @Operation(description = "get a Listing of all category Names")
     public Collection<String> getCategories(){
-        return catServe.getAllCategories();
+        return categoryService.getAllCategories();
     }
 
     @Transactional
     @POST @Path("/{categoryName}")
     @Operation(description = "create a new category is only allowed for administrators")
     public Category addNewCategory(@PathParam("categoryName") String category){
-        return catServe.addCategory(category);
+        return categoryService.addCategory(category);
     }
 
     @Transactional
     @DELETE @Path("/{categoryName}")
     @Operation(description = "delete category by name is only allowed for administrator if category is empty")
     public Response deleteEmptyCategory(@PathParam("categoryName")String category){
-        if(catServe.deleteCategoryByName(category)){
+        if(categoryService.deleteCategoryByName(category)){
             return Response.noContent().build();
         }
         return Response.notModified("Category is Not empty").build();
