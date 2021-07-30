@@ -78,7 +78,11 @@ public class QuizzesRessource {
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
     public Quiz editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
-        return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
+        Quiz q = editQuizService.getEditableQuiz(quizID);
+        if(userService.isAuthorizedToEdit("quizUsername")){
+            return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
+        }
+        return null;
     }
 
     @Transactional
@@ -86,7 +90,11 @@ public class QuizzesRessource {
     @DELETE
     @Operation(description = "delete quiz with id only for creator")
     public void deletQuizByID(@PathParam("quizID") Long quizID){
-        editQuizService.deletQuizByID(quizID);
+        Quiz q = editQuizService.getEditableQuiz(quizID);
+        if(userService.isAuthorizedToEdit("quizUsername")){
+            editQuizService.deletQuizByID(quizID);
+        }
+        
     }
 
 
