@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.gateway;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 
 //@author: Johanna Bernhard, Laura Peter
 
@@ -33,9 +35,12 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @Override
     public PlayQuestionDTO chooseQuiz(Long quizID) {
-        // TODO Auto-generated method stub
-        Question q = questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, 1).firstResult();
-        return null;
+        Question q = questionRepository.find("quiz_id", Sort.by("questionnr"), quizID).firstResult();
+        if(q != null){
+            return questionToPlayDTO(q);
+        }else{
+            throw new NotFoundException("Quiz with ID "+ quizID+ " dosen#t exist");
+        }
     }
 
     @Override
@@ -50,30 +55,44 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
-        // TODO error handeling
-        //TODO lookup question id with quiz id
-        Answer a = find("question_id = ?1 and answernr = ?2", questionNr, answerNr).firstResult();
 
-        if(a==null){
-            throw new NotFoundException();
+        Question question = questionRepository.find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
+        
+        Answer answer;
+        if(question != null){
+            answer = find("question_id = ?1 and answernr = ?2", question.getId(), answerNr).firstResult();
+            if(answer==null){
+                throw new NotFoundException("Answer dosen't exist");
+            }
+        }else{
+            throw new NotFoundException("Question dosen't exist");
         }
 
         ResultDTO result = new ResultDTO();
-        result.correctAnswer = a.getNumber();
+        result.correctAnswers = stream("question_id = ?1 and iscorrect = true", question.getId())
+                                    .map(a->a.getNumber()).collect(Collectors.toList());
        
-        if(a.getIsCorrect()){
+        if(answer.getIsCorrect()){
             result.points = points;         
+        }else{
+            result.points = 0;
         }
 
-        Question nextQuestion = questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr+1).firstResult();
-        //TODO: find next question
+        Question nextQuestion = getNextQuestion(quizID, questionNr);//questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr+1).firstResult();
+        
         if(nextQuestion != null){
-            result.linkToNextQuestion = "/quizzes/"+quizID+"/play/"+ (questionNr+1);
+            result.linkToNextQuestion = "/quizzes/"+quizID+"/play/"+ nextQuestion.getQuestionNr();
         }else{
             result.linkToNextQuestion = "";
         }
         
         return result;
+    }
+
+    private Question getNextQuestion(Long quizID, int currentQuestion){
+        //TODO test if correct
+        Question next = questionRepository.find("quiz_id = ?1 and questionnr > ?2", Sort.by("questionnr"), quizID, currentQuestion).firstResult();
+        return next;
     }
     
 
@@ -83,7 +102,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
         playQuestionDTO.text = q.getText();
 
         Map<Integer,String> answers = new HashMap<>();
-        for(Answer a : q.getAnswers()){
+        for(Answer a : list("question_id", q.getId())){
             answers.put(a.getNumber(), a.getText());
         }
         playQuestionDTO.answers = answers;
