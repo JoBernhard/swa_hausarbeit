@@ -66,7 +66,7 @@ public class QuizzesRessource {
     @Operation(description = "add new Question to quiz allowed for creator")
     public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, Question question){
         Quiz q = editQuizService.getEditableQuiz(quizID);
-        if(userService.isAuthorizedToEdit("quizUsername")){
+        if(userService.isAuthorizedToEdit(q.getCreatorName())){
             return editQuizService.addQuestionToQuiz(quizID, question);
         }
         return null;
@@ -78,7 +78,7 @@ public class QuizzesRessource {
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
     public Quiz editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
         Quiz q = editQuizService.getEditableQuiz(quizID);
-        if(userService.isAuthorizedToEdit("quizUsername")){
+        if(userService.isAuthorizedToEdit(q.getCreatorName())){
             return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
         }
         return null;
@@ -90,7 +90,7 @@ public class QuizzesRessource {
     @Operation(description = "delete quiz with id only for creator")
     public void deletQuizByID(@PathParam("quizID") Long quizID){
         Quiz q = editQuizService.getEditableQuiz(quizID);
-        if(userService.isAuthorizedToEdit("quizUsername")){
+        if(userService.isAuthorizedToEdit(q.getCreatorName())){
             editQuizService.deletQuizByID(quizID);
         }
         

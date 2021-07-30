@@ -19,7 +19,6 @@ public class UserService implements UserAdapter{
     public boolean isAuthorizedToEdit(String quizUsername){
         String username = identity.getPrincipal().getName();
         if(quizUsername.equals("")){
-            //TODO: add response object in exception param?
             Response response = Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials or session").build();
             throw new NotAuthorizedException(response);
         }
