@@ -17,6 +17,8 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.category.control.CategoryService;
+import de.os.hs.swa.category.control.QuizForCategoryDTO;
+import de.os.hs.swa.category.control.QuizService;
 import de.os.hs.swa.category.entity.Category;
 
 //@author: Johanna Benhard
@@ -28,14 +30,16 @@ public class CategoryRessource {
 
     @Inject
     CategoryService catServe;
+    @Inject
+    QuizService quizService;
 
 
 
     
     @GET @Path("/{categoryName}")
     @Operation(description = "get all Quizzes in Category")
-    public Response getAllQuizzesInCategory(@PathParam("categoryName") String category){
-        return null;
+    public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@PathParam("categoryName") String category){
+        return quizService.getAllQuizzes(category);
     }
 
     @GET
