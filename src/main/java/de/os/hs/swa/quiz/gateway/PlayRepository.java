@@ -34,13 +34,13 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     @Override
     public PlayQuestionDTO chooseQuiz(Long quizID) {
         // TODO Auto-generated method stub
-        Question q = questionRepository.find("quiz_id, qustionNr", quizID, 1).singleResult();
+        Question q = questionRepository.find("quiz_id, questionNr", quizID, 1).singleResult();
         return null;
     }
 
     @Override
     public PlayQuestionDTO getQuestion(Long quizID, int questionNr) {
-        Question q = questionRepository.find("quiz_id, qustionNr", quizID, questionNr).firstResult();
+        Question q = questionRepository.find("quiz_id, questionNr", quizID, questionNr).firstResult();
 
         if(q==null){
             throw new NotFoundException();
@@ -51,7 +51,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
         // TODO error handeling
-        Answer a = find("quiz_id, qustionNr, answerNr", quizID, questionNr, answerNr).firstResult();
+        Answer a = find("quiz_id, questionNr, answerNr", quizID, questionNr, answerNr).firstResult();
 
         if(a==null){
             throw new NotFoundException();

@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.boundary;
 
 import java.util.Collection;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
@@ -14,6 +15,7 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizEditDTO;
@@ -30,6 +32,9 @@ public class QuizzesRessource {
     EditQuizService editQuizService;
     @Inject
     EditQuestionService editQuistionService;
+
+    @Inject
+    UserAdapter userService;
 
 //TODO: add security context
     @GET
@@ -49,7 +54,11 @@ public class QuizzesRessource {
     @GET
     @Operation(description = "get created quiz by id to edit")
     public Quiz getQuizByID(@PathParam("quizID") Long quizID){
-        return editQuizService.getEditableQuiz(quizID);
+        Quiz q = editQuizService.getEditableQuiz(quizID);
+        if(userService.isAuthorizedToEdit("quizUsername")){
+            return q;
+        }
+        return null;
     }
 
     @Transactional
@@ -57,7 +66,11 @@ public class QuizzesRessource {
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
     public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, Question question){
-        return editQuizService.addQuestionToQuiz(quizID, question);
+        Quiz q = editQuizService.getEditableQuiz(quizID);
+        if(userService.isAuthorizedToEdit("quizUsername")){
+            return editQuizService.addQuestionToQuiz(quizID, question);
+        }
+        return null;
     }
 
     @Transactional

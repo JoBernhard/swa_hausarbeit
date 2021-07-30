@@ -34,7 +34,7 @@ public class QuizRessourceTest {
     private static String questionTitle = "Was ist keine Zimmerpflanze?";
     private static String firtstAnswerText = "Baum";
     private static String secondAnswerText = "Aloe Vera";
-
+/*
     @BeforeAll
     public static void init(){
         try {
@@ -42,12 +42,12 @@ public class QuizRessourceTest {
             copyIntoTestDB("QuizUser", "./testuser.csv");
             copyIntoTestDB("Quiz", "./testquiz.csv");
             copyIntoTestDB("Question", "./testquestion.csv");
-            copyIntoTestDB("Answer", "./testanwser.csv");
+            copyIntoTestDB("Answer", "./testanswer.csv");
         } catch (Exception e) {
             e.printStackTrace();
         } 
        
-    }
+    }*/
 
     private static void copyIntoTestDB(String tablename, String file){
         try {
