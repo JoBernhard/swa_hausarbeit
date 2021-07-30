@@ -124,15 +124,15 @@ public class EditRessourceTest {
     @TestSecurity(user="theErstellerIn")
     public void createQuizInvalidAnswerText(){
       Long quizId = 1L;
-        ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO("", 2, false));
-        QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
-        given().contentType(ContentType.JSON)
-        .body(quiz)
-        .put("/quizzes"+quizId+"/edit")
-        .then()
-        .statusCode(400);
+      ArrayList<AnswerDTO> answers = new ArrayList<>();
+      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+      answers.add(new AnswerDTO("", 2, false));
+      QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
+      given().contentType(ContentType.JSON)
+      .body(quiz)
+      .put("/quizzes"+quizId+"/edit")
+      .then()
+      .statusCode(400);
     }
   
   public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
