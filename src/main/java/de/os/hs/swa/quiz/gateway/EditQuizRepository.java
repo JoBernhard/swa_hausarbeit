@@ -8,8 +8,8 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
-import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.control.QuizLogikService;
+import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;

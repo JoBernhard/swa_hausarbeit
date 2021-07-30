@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
-import de.os.hs.swa.quiz.control.AnswerDTO;
-import de.os.hs.swa.quiz.control.QuestionDTO;
-import de.os.hs.swa.quiz.control.QuizEditDTO;
+import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import io.quarkus.test.junit.QuarkusTest;

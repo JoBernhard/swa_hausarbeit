@@ -1,4 +1,4 @@
-package de.os.hs.swa.quiz.control;
+package de.os.hs.swa.quiz.control.DOTs;
 
 public class ResultDTO {
     public int correctAnswer;

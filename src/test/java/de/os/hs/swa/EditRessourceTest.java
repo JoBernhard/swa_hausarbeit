@@ -1,9 +1,9 @@
 package de.os.hs.swa;
 import org.junit.jupiter.api.Test;
 
-import de.os.hs.swa.quiz.control.AnswerDTO;
-import de.os.hs.swa.quiz.control.QuestionDTO;
-import de.os.hs.swa.quiz.control.QuizEditDTO;
+import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;

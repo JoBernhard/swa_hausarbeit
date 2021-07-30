@@ -1,4 +1,4 @@
-package de.os.hs.swa.quiz.control;
+package de.os.hs.swa.quiz.control.DOTs;
 
 import java.util.Map;
 
