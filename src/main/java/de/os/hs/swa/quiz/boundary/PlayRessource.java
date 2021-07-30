@@ -10,9 +10,9 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import de.os.hs.swa.quiz.control.PlayQuestionDTO;
 import de.os.hs.swa.quiz.control.PlayService;
-import de.os.hs.swa.quiz.control.ResultDTO;
+import de.os.hs.swa.quiz.control.DOTs.PlayQuestionDTO;
+import de.os.hs.swa.quiz.control.DOTs.ResultDTO;
 
 @Path("/quizzes/{quizID}/play/{questionNr}")
 @Tag(name= "Play Quiz")

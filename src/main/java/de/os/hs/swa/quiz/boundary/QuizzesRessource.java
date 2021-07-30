@@ -18,8 +18,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.control.EditQuizService;
-import de.os.hs.swa.quiz.control.QuizEditDTO;
-import de.os.hs.swa.quiz.control.QuizListDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 

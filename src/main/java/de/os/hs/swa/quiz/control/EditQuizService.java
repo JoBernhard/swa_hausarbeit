@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.control;
 
 import java.util.Collection;
 
+import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
