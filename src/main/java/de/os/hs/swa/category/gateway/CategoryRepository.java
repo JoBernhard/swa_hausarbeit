@@ -5,17 +5,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.category.control.CategoryService;
 import de.os.hs.swa.category.control.QuizForCategoryDTO;
 import de.os.hs.swa.category.control.QuizService;
 import de.os.hs.swa.category.entity.Category;
+import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 //@author: Johanna Bernhard 
 @RequestScoped
 public class CategoryRepository implements QuizService, CategoryService, PanacheRepository<Category>{
+
+    @Inject
+    PanacheRepository<Quiz> quizRepository;
+
 
     @Override
     public Collection<String> getAllCategories() {
@@ -46,17 +52,23 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
     @Override
     public Collection<QuizForCategoryDTO> getAllQuizzes(String categoryName) {
         // TODO Auto-generated method stub
-        Category category = find("name", categoryName).firstResult();
+        Category category = find("category_name", categoryName).firstResult();
         if(category != null){
+            Collection<QuizForCategoryDTO> quizzes = quizRepository.stream("category_name", categoryName)
+            .map(q -> quizToDTO(q)).collect(Collectors.toList());
+            return quizzes;
 
         }else{
             throw new NotFoundException(" Category "+category+" dosen't exist");
         }
-        return null;
     }
 
-    public boolean checkForCategory(String categoryName){
-        return false;
+
+    private QuizForCategoryDTO quizToDTO(Quiz q){
+        QuizForCategoryDTO dto = new QuizForCategoryDTO();
+        dto.linkToQuiz = "quizzes/"+q.getId()+"/play";
+        dto.title = q.getTitle();
+        //TODO number of questions
+        return dto;
     }
-    
 }

@@ -51,7 +51,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
     @Override
     public Question getEditableQuestion(Long quizID, int questionNr) {
         // TODO Error handeling
-        return find("quiz_id, number", quizID, questionNr).firstResult();
+        return find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
         //return null;
     }
 

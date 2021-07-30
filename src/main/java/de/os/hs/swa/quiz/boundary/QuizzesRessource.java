@@ -2,7 +2,6 @@ package de.os.hs.swa.quiz.boundary;
 
 import java.util.Collection;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;

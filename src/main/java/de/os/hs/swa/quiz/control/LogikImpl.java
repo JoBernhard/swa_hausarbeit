@@ -11,13 +11,13 @@ public class LogikImpl implements QuizLogikService{
     @Override
     public boolean checkValidQuiz(Quiz q) {
         // TODO Auto-generated method stub
-        return true;
+        return false;
     }
 
     @Override
     public boolean checkValidQuestion(Question q) {
         // TODO Auto-generated method stub
-        return true;
+        return false;
     }
     
 }

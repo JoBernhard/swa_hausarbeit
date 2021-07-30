@@ -6,7 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import de.os.hs.swa.category.entity.Category;
 
 //@author: Johanna Bernhard
 
@@ -19,6 +23,10 @@ public class Quiz {
     @Transient
     private Collection<Question> questions;
     private String creatorName;
+
+    @ManyToOne
+    @JoinColumn(name = "category_name")
+    private Category category;
 
     public Long getId() {
         return this.id;
@@ -52,5 +60,16 @@ public class Quiz {
     public void setCreatorName(String creatorName) {
         this.creatorName = creatorName;
     }
+
+
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    
 
 }
