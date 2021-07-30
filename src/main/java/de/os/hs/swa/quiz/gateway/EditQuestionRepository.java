@@ -7,6 +7,7 @@ import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.control.QuizLogikService;
+import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -16,9 +17,12 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 @RequestScoped
 public class EditQuestionRepository implements EditQuestionService, PanacheRepository<Question>{
 
-    //check if user is creator
+    //TODO check if user is creator
     @Inject
     PanacheRepository<Quiz> quizRepository; 
+
+    @Inject
+    PanacheRepository<Answer> answerRepository;
 
     @Inject
     QuizLogikService logik;
@@ -27,10 +31,15 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
     public Question updateQuestion(Long quizID, int questionNr, Question question) {
         // TODO Error handeling
         if(checkValidQuestion(question)){
-            question.setQuiz(quizRepository.findById(quizID));
-            question.setQuestionNr(questionNr);
-            persist(question);
-            return question;
+            Quiz q = quizRepository.findById(quizID);
+            if(q!= null){
+                question.setQuiz(q);
+                question.setQuestionNr(questionNr);
+                persist(question);
+                return question;
+            }else{
+                throw new NotFoundException("Quiz with id: "+ quizID+ " dosen't exist");
+            }
         }else {
             throw new BadRequestException();
         }
@@ -38,7 +47,6 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
 
     @Override
     public void deleteQuestion(Long quizID, int questionNr) {
-        // TODO 
         Question todelete = getEditableQuestion(quizID, questionNr);
         if(todelete != null){
             delete(todelete);
@@ -50,13 +58,16 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
 
     @Override
     public Question getEditableQuestion(Long quizID, int questionNr) {
-        // TODO Error handeling
-        return find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
-        //return null;
+        Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
+        if(q != null){
+            q.setAnswers(answerRepository.list("question_id", q.getId()));
+            return q;
+        }else{
+            throw new NotFoundException();
+        }
     }
 
     private boolean checkValidQuestion(Question q){
-        //TODO check if conditions are met
         return logik.checkValidQuestion(q);
     }
     

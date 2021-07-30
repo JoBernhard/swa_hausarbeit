@@ -97,7 +97,6 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     
 
     private PlayQuestionDTO questionToPlayDTO(Question q){
-        //TODO implement
         PlayQuestionDTO playQuestionDTO = new PlayQuestionDTO();
         playQuestionDTO.text = q.getText();
 

@@ -39,7 +39,7 @@ public class QuizzesRessource {
     @GET
     @Operation(description = "get the list of own created quizzes")
     public Collection<QuizListDTO> getOwnQuizzes(){
-        return editQuizService.getOwnQuizzes(0L);
+        return editQuizService.getOwnQuizzes(userService.getCurrentUser());
     }
 
     @Transactional
