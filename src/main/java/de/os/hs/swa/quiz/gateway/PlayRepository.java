@@ -65,7 +65,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
             result.points = points;         
         }
 
-        Question nextQuestion = questionRepository.find("quiz_id, questionNr", quizID, questionNr+1).firstResult();
+        Question nextQuestion = questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr+1).firstResult();
         //TODO: find next question
         if(nextQuestion != null){
             result.linkToNextQuestion = "/quizzes/{quizID}/play/"+ (questionNr+1);

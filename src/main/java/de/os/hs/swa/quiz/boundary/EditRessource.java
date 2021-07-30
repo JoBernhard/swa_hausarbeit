@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.entity.Question;
 
@@ -20,6 +21,9 @@ public class EditRessource {
     //TODO check for authentication
     @Inject
     EditQuestionService questionService;
+
+    @Inject
+    UserAdapter userService;
 
     @GET
     @Operation(description = "gets the Question for the creator in format in wich it can be edited")
