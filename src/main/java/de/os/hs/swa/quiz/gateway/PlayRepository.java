@@ -9,9 +9,9 @@ import javax.ws.rs.NotFoundException;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import de.os.hs.swa.quiz.control.PlayQuestionDTO;
 import de.os.hs.swa.quiz.control.PlayService;
-import de.os.hs.swa.quiz.control.ResultDTO;
+import de.os.hs.swa.quiz.control.DOTs.PlayQuestionDTO;
+import de.os.hs.swa.quiz.control.DOTs.ResultDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
@@ -34,13 +34,13 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     @Override
     public PlayQuestionDTO chooseQuiz(Long quizID) {
         // TODO Auto-generated method stub
-        Question q = questionRepository.find("quiz_id, qustionNr", quizID, 1).singleResult();
+        Question q = questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, 1).firstResult();
         return null;
     }
 
     @Override
     public PlayQuestionDTO getQuestion(Long quizID, int questionNr) {
-        Question q = questionRepository.find("quiz_id, qustionNr", quizID, questionNr).firstResult();
+        Question q = questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr).firstResult();
 
         if(q==null){
             throw new NotFoundException();
@@ -51,7 +51,8 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
         // TODO error handeling
-        Answer a = find("quiz_id, qustionNr, answerNr", quizID, questionNr, answerNr).firstResult();
+        //TODO lookup question id with quiz id
+        Answer a = find("question_id = ?1 and answernr = ?2", questionNr, answerNr).firstResult();
 
         if(a==null){
             throw new NotFoundException();
@@ -64,7 +65,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
             result.points = points;         
         }
 
-        Question nextQuestion = questionRepository.find("quiz_id, qustionNr", quizID, questionNr+1).firstResult();
+        Question nextQuestion = questionRepository.find("quiz_id, questionNr", quizID, questionNr+1).firstResult();
         //TODO: find next question
         if(nextQuestion != null){
             result.linkToNextQuestion = "/quizzes/{quizID}/play/"+ (questionNr+1);

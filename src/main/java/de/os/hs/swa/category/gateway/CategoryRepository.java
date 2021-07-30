@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.category.control.CategoryService;
 import de.os.hs.swa.category.control.QuizForCategoryDTO;
@@ -43,8 +44,14 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
     }
 
     @Override
-    public Collection<QuizForCategoryDTO> getAllQuizzes(String category) {
+    public Collection<QuizForCategoryDTO> getAllQuizzes(String categoryName) {
         // TODO Auto-generated method stub
+        Category category = find("name", categoryName).firstResult();
+        if(category != null){
+
+        }else{
+            throw new NotFoundException(" Category "+category+" dosen't exist");
+        }
         return null;
     }
 

@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.entity;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +12,13 @@ import javax.persistence.Transient;
 
 @Entity
 public class Quiz {
-    @Id @GeneratedValue private Long id;
+    @Id @GeneratedValue 
+    @Column(name = "quiz_id")
+    private Long id;
     private String title;
     @Transient
     private Collection<Question> questions;
+    private String creatorName;
 
     public Long getId() {
         return this.id;
@@ -40,4 +44,13 @@ public class Quiz {
         this.questions = questions;
     }
     
+
+    public String getCreatorName() {
+        return this.creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
 }

@@ -2,9 +2,11 @@ package de.os.hs.swa.quiz.entity;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
@@ -12,12 +14,15 @@ import javax.persistence.Transient;
 
 @Entity
 public class Question {
-    @Id @GeneratedValue private Long id;
+    @Id @GeneratedValue 
+    @Column(name = "question_id")
+    private Long id;
     private String text;
     private int questionNr;
     @Transient
     private Collection<Answer> answers;
     @ManyToOne
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
     public Question() {
