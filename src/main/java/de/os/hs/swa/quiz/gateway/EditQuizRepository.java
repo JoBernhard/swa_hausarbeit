@@ -8,7 +8,6 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.quiz.control.EditQuizService;
-import de.os.hs.swa.quiz.control.QuizEditDTO;
 import de.os.hs.swa.quiz.control.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
@@ -33,13 +32,14 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Override
     public Quiz getEditableQuiz(Long quizID) {
         // TODO error handeling
+        // find Qustions
 
         return findById(quizID);
     }
 
     @Override
     public Question addQuestionToQuiz(Long quizID, Question question) {
-        // TODO Auto-generated method stub
+        // TODO error handeling
         if(checkValidQuestion(question)){
             question.setQuiz(findById(quizID));
             questionRepo.persist(question);
@@ -86,7 +86,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         QuizListDTO dto = new QuizListDTO();
         dto.title = q.getTitle();
         dto.linktToFirstQuestion = "";
-        dto.linktToEdit = "quizzes/"+q.getId();
+        dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
         dto.numberOfQuestions =0;
         return dto;
     }
