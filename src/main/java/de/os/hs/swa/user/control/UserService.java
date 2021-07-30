@@ -1,5 +1,6 @@
 package de.os.hs.swa.user.control;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
@@ -8,6 +9,7 @@ import de.os.hs.swa.quiz.acl.UserAdapter;
 import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.identity.SecurityIdentity;
 
+@RequestScoped
 public class UserService implements UserAdapter{
 
     @Inject
