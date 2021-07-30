@@ -12,10 +12,10 @@ public class CategoryAdapterImpl implements CategoryAdapter {
     PanacheRepository<Category> categoryRepository;
 
     @Override
-    public Long checkForCategory(String categoryName) {
+    public String checkForCategory(String categoryName) {
         Category category = categoryRepository.find("name", categoryName).firstResult();
         if(category != null){
-            return category.getId();
+            return category.getName();
         }else{
             return null;
         }
