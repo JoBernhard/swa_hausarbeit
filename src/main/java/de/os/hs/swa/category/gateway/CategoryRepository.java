@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import de.os.hs.swa.category.control.CategoryService;
@@ -31,18 +32,22 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
 
     @Override
     public Category addCategory(String categoryName) {
-        //TODO: check if name already in use
-        Category category = new Category();
-        category.setName(categoryName);
-        persist(category);
-        return category;
+        if(find("category_name", categoryName).firstResult() == null){
+            Category category = new Category();
+            category.setName(categoryName);
+            persist(category);
+            return category;
+        } else {
+            throw new BadRequestException("Category already exists");
+        }
+        
     }
 
     @Override
     public boolean deleteCategoryByName(String categoryName) {
-        //TODO: check if category is empty
-        if(getAllQuizzes(categoryName) != null){
-            if(delete("name", categoryName)>0){
+        Collection<QuizForCategoryDTO> quizzes = getAllQuizzes(categoryName);
+        if(quizzes != null && quizzes.isEmpty()){
+            if(delete("category_name", categoryName)>0){
                 return true;
             }
         }
@@ -51,7 +56,6 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
 
     @Override
     public Collection<QuizForCategoryDTO> getAllQuizzes(String categoryName) {
-        // TODO Auto-generated method stub
         Category category = find("category_name", categoryName).firstResult();
         if(category != null){
             Collection<QuizForCategoryDTO> quizzes = quizRepository.stream("category_name", categoryName)
