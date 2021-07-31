@@ -9,6 +9,7 @@ public class QuizEditDTO {
     private Category categoryName;
     private String title;
     private Collection<QuestionDTO> questions;
+    private String creatorName;
 
     public QuizEditDTO(String title, Collection<QuestionDTO> questions){
         this.title = title;

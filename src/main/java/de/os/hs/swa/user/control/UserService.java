@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import de.os.hs.swa.quiz.acl.UserAdapter;
 import io.quarkus.security.ForbiddenException;
+import io.quarkus.security.UnauthorizedException;
 import io.quarkus.security.identity.SecurityIdentity;
 
 @RequestScoped
@@ -19,11 +20,10 @@ public class UserService implements UserAdapter{
     public boolean isAuthorizedToEdit(String quizUsername){
         String username = identity.getPrincipal().getName();
         if(quizUsername.equals("")){
-            Response response = Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials or session").build();
-            throw new NotAuthorizedException(response);
+            throw new UnauthorizedException("No Usercredentials found");
         }
         if(!quizUsername.equals(username)){
-            throw new ForbiddenException();
+            throw new ForbiddenException("Username doesn't equal the Quiz's creator name");
         }
 
         return true;

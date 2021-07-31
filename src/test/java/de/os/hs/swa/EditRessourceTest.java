@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
+import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
@@ -52,7 +53,6 @@ public class EditRessourceTest {
             .copyIn("COPY "+tablename+" FROM STDIN (FORMAT csv, HEADER)", new FileReader(file));
             System.out.printf("%d row(s) inserted%n", rowsInserted);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -82,8 +82,8 @@ public class EditRessourceTest {
   public void editQuizOk(){
     Long quizId = 1L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
-    answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-    answers.add(new AnswerDTO(secondAnswerText, 2, false));
+    answers.add(new AnswerDTO(firtstAnswerText, true));
+    answers.add(new AnswerDTO(secondAnswerText, false));
     QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
     given().contentType(ContentType.JSON)
     .body(quiz).put("/quizzes/"+quizId+"/edit")
@@ -96,8 +96,8 @@ public class EditRessourceTest {
   public void editQuizNotFound(){
     Long quizId = 0L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
-    answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-    answers.add(new AnswerDTO(secondAnswerText, 2, false));
+    answers.add(new AnswerDTO(firtstAnswerText, true));
+    answers.add(new AnswerDTO(secondAnswerText, false));
     QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
     given().contentType(ContentType.JSON)
     .body(quiz).put("/quizzes/"+quizId+"/edit")
@@ -110,8 +110,8 @@ public class EditRessourceTest {
   public void editQuizNotCreator(){
     Long quizId = 1L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
-    answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-    answers.add(new AnswerDTO(secondAnswerText, 2, false));
+    answers.add(new AnswerDTO(firtstAnswerText, true));
+    answers.add(new AnswerDTO(secondAnswerText, false));
     QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
     given().contentType(ContentType.JSON)
     .body(quiz).put("/quizzes/"+quizId+"/edit")
@@ -123,8 +123,8 @@ public class EditRessourceTest {
   @TestSecurity(user="theErstellerIn")
   public void editQuizNoQuizTitle(){
     ArrayList<AnswerDTO> answers = new ArrayList<>();
-    answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-    answers.add(new AnswerDTO(secondAnswerText, 2, false));
+    answers.add(new AnswerDTO(firtstAnswerText, true));
+    answers.add(new AnswerDTO(secondAnswerText, false));
     QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
     Long quizId = 1L;
     given().contentType(ContentType.JSON)
@@ -151,7 +151,7 @@ public class EditRessourceTest {
     public void editQuizOneAnswer(){
       Long quizId = 1L;
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -166,8 +166,8 @@ public class EditRessourceTest {
     public void editQuizNoCorrectAnswer(){
       Long quizId = 1L;
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO("", 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO("", false));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -182,8 +182,8 @@ public class EditRessourceTest {
     public void editQuizInvalidAnswerText(){
       Long quizId = 1L;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO("", 2, false));
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO("", false));
       QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
       given().contentType(ContentType.JSON)
       .body(quiz)
@@ -238,8 +238,8 @@ public class EditRessourceTest {
       Long quizId = 1L;
       int questionNr = 1;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
       given().contentType(ContentType.JSON)
       .body(createQuestion(answers)).delete("/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(404);
@@ -253,9 +253,9 @@ public class EditRessourceTest {
       int questionNr = 1;
       String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
       .body(q).delete("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -270,9 +270,9 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(newTitle,answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -287,9 +287,9 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -304,9 +304,9 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -321,9 +321,9 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO("", 1, true));
-      answers.add(new AnswerDTO(secondAnswerText, 2, false));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO("",true));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(newTitle,answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -338,8 +338,8 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText,true));
+      QuestionDTO q = new QuestionDTO(newTitle,answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -354,8 +354,8 @@ public class EditRessourceTest {
       int questionNr = 5;
       String newTitle = "";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-      QuestionDTO q = new QuestionDTO(newTitle,questionNr, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, true));
+      QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
       .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
@@ -363,15 +363,18 @@ public class EditRessourceTest {
     }
 
   public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
-    return new QuestionDTO(questionTitle, 1, answers);
+    return new QuestionDTO(questionTitle,answers);
   }
 
+  
   public QuizEditDTO createQuiz(String categoryName, String title, QuestionDTO question){
         
     ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
     questions.add(question);
-    return new QuizEditDTO(categoryName, title, questions);
-  }
+    Category c = new Category();
+    c.setName(categoryName);
+    return new QuizEditDTO(c, title, questions);
+}
 
 
 

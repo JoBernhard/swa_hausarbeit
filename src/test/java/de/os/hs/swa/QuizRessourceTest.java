@@ -2,10 +2,12 @@ package de.os.hs.swa;
 
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
+import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
@@ -21,8 +23,6 @@ import static io.restassured.RestAssured.given;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,12 +31,29 @@ import java.util.Collection;
 @QuarkusTest @TestSecurity(authorizationEnabled = false)
 public class QuizRessourceTest {
 
-    private static String categoryName="Natur";
+    private static String categoryName="'Natur'";
     private static String title = "Naturquiz";
     private static String questionTitle = "Was ist keine Zimmerpflanze?";
     private static String firtstAnswerText = "Baum";
     private static String secondAnswerText = "Aloe Vera";
+    private static Connection con;
 
+
+    @BeforeEach
+    public void init(){
+        try{
+        con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
+        Statement statement = con.createStatement(); 
+        int result = statement.executeUpdate("TRUNCATE QUIZ CASCADE");
+       /* System.out.println(result + " CLEARED");
+        copyIntoTestDB("Category", "./testcategories.csv");
+            copyIntoTestDB("Quiz", "./testquiz.csv");
+            copyIntoTestDB("Question", "./testquestion.csv");
+            copyIntoTestDB("Answer", "./testanswer.csv");*/
+        }catch(Exception e){
+
+        }
+    }
     /*
     @BeforeAll
     public static void init(){
@@ -49,11 +66,10 @@ public class QuizRessourceTest {
             e.printStackTrace();
         } 
        
-    }
+    }*/
 
     private static void copyIntoTestDB(String tablename, String file){
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
             Statement statement = con.createStatement(); 
                 int result = statement.executeUpdate("TRUNCATE " + tablename + " cascade");
                 System.out.printf("%d deleted%n", result);
@@ -65,14 +81,14 @@ public class QuizRessourceTest {
             e.printStackTrace();
         }
 
-    }*/
+    }
 
     @Test
     @TestTransaction
     public void createQuizOk(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO(secondAnswerText, 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO(secondAnswerText, false));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
@@ -163,14 +179,16 @@ public class QuizRessourceTest {
     }*/
 
     public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
-        return new QuestionDTO(questionTitle, 1, answers);
+        return new QuestionDTO(questionTitle, answers);
     }
 
     public QuizEditDTO createQuiz(String categoryName, String title, QuestionDTO question){
         
         ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
         questions.add(question);
-        return new QuizEditDTO(categoryName, title, questions);
+        Category c = new Category();
+        c.setName(categoryName);
+        return new QuizEditDTO(c, title, questions);
     }
 
 

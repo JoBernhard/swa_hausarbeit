@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.entity;
 
 import java.util.Collection;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +22,7 @@ public class Question {
     private int questionNr;
     @Transient
     private Collection<Answer> answers;
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
+    @ManyToOne @JsonbTransient
     private Quiz quiz;
 
     public Question() {

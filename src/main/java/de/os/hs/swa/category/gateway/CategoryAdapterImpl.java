@@ -1,11 +1,13 @@
 package de.os.hs.swa.category.gateway;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.acl.CategoryAdapter;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
+@RequestScoped
 public class CategoryAdapterImpl implements CategoryAdapter {
 
     @Inject

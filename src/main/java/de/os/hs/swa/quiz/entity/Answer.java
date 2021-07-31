@@ -1,5 +1,6 @@
 package de.os.hs.swa.quiz.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ public class Answer {
     private String text;
     private int answerNr;
     private boolean isCorrect;
-    @ManyToOne
+    @ManyToOne @JsonbTransient
     @JoinColumn(name="question_id")
     private Question question;
 

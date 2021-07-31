@@ -40,8 +40,10 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     public Quiz getEditableQuiz(Long quizID) {
         Quiz q = findById(quizID);
         if(q != null){
+            System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                q.setQuestions(questionRepo.list("quiz_id", q.getId()));
+                //q.setQuestions(questionRepo.list("quiz_id", q.getId()));
+                System.out.println(q.getQuestions());
                 return q;
             }else{
                 throw new UnauthorizedException();
@@ -109,6 +111,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Override
     public Quiz createNewQuiz(Quiz quiz) {
         if(checkValidQuiz(quiz)){
+
             quiz.setCreatorName(userService.getCurrentUser());
             persist(quiz);
             return quiz;

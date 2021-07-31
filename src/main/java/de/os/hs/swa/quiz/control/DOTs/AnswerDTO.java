@@ -2,16 +2,14 @@ package de.os.hs.swa.quiz.control.DOTs;
 
 public class AnswerDTO {
     private String text;
-    private int answerNr;
     private boolean isCorrect;
 
     public AnswerDTO() {
     }
 
 
-    public AnswerDTO(String text, int answerNr, boolean isCorrect) {
+    public AnswerDTO(String text, boolean isCorrect) {
         this.text = text;
-        this.answerNr = answerNr;
         this.isCorrect = isCorrect;
     }
 
@@ -21,14 +19,6 @@ public class AnswerDTO {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getAnswerNr() {
-        return this.answerNr;
-    }
-
-    public void setAnswerNr(int answerNr) {
-        this.answerNr = answerNr;
     }
 
     public boolean isIsCorrect() {
