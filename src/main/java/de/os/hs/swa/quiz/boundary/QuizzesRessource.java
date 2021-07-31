@@ -30,16 +30,15 @@ public class QuizzesRessource {
     @Inject
     EditQuizService editQuizService;
     @Inject
-    EditQuestionService editQuistionService;
+    EditQuestionService editQuestionService;
 
     @Inject
     UserAdapter userService;
 
-//TODO: add security context
     @GET
     @Operation(description = "get the list of own created quizzes")
     public Collection<QuizListDTO> getOwnQuizzes(){
-        return editQuizService.getOwnQuizzes(0L);
+        return editQuizService.getOwnQuizzes(userService.getCurrentUser());
     }
 
     @Transactional
@@ -100,6 +99,8 @@ public class QuizzesRessource {
     private Quiz dtoToQuiz(QuizEditDTO dto){
         Quiz q = new Quiz();
         q.setTitle(dto.getTitle());
+        q.setCreatorName(userService.getCurrentUser());
+        q.setCategory(dto.getCategoryName());
         //TODO: q.setQuestions(dto.getQuestions());
         return q;
     }

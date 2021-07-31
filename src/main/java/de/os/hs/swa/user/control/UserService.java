@@ -28,5 +28,10 @@ public class UserService implements UserAdapter{
 
         return true;
     }
+
+    @Override
+    public String getCurrentUser() {
+        return identity.getPrincipal().getName();
+    }
     
 }

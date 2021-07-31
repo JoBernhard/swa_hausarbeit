@@ -7,70 +7,100 @@ import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
+import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizLogikService;
 import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.security.UnauthorizedException;
 
 //@author: Johannna Benrhard
 
 @RequestScoped
 public class EditQuizRepository implements EditQuizService, PanacheRepository<Quiz> {
-    //TODO: Account handeling
     @Inject
     PanacheRepository<Question> questionRepo;
 
     @Inject
     QuizLogikService logik;
 
+    @Inject
+    UserAdapter userService;
+
     @Override
-    public Collection<QuizListDTO> getOwnQuizzes(Long UserID) {
-        //TODO: filter for creator
+    public Collection<QuizListDTO> getOwnQuizzes(String UserName) {
         Collection<QuizListDTO> dtos;
-        dtos = streamAll().map(q -> quizToListDTO(q)).collect(Collectors.toList());
+        dtos = stream("creatorname", UserName).map(q -> quizToListDTO(q)).collect(Collectors.toList());
         return dtos;
     }
 
     @Override
     public Quiz getEditableQuiz(Long quizID) {
-        // TODO error handeling
-        // find Qustions
-
-        return findById(quizID);
+        Quiz q = findById(quizID);
+        if(q != null){
+            if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                q.setQuestions(questionRepo.list("quiz_id", q.getId()));
+                return q;
+            }else{
+                throw new UnauthorizedException();
+            }
+        }else{
+            throw new NotFoundException();
+        }
     }
 
     @Override
     public Question addQuestionToQuiz(Long quizID, Question question) {
-        // TODO error handeling
-        if(checkValidQuestion(question)){
-            question.setQuiz(findById(quizID));
-            questionRepo.persist(question);
-            return question;
+        Quiz q = findById(quizID);
+        if(q != null){
+            if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                if(checkValidQuestion(question)){
+                    question.setQuiz(q);
+                    questionRepo.persist(question);
+                    return question;
+                }else{
+                    throw new BadRequestException("Question dosen't fullfill Requirements");
+                }
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
-            throw new BadRequestException("Question dosen't fullfill Requirements");
+            throw new NotFoundException();
         }
     }
 
     @Override
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz) {
-        // TODO Auto-generated method stub
-        if(checkValidQuiz(updatedQuiz)){
-            updatedQuiz.setId(quizID);
-            persist(updatedQuiz);
-            return updatedQuiz;
+        Quiz toUpdate = findById(quizID);
+        if(toUpdate != null){
+            if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){
+                if(checkValidQuiz(updatedQuiz)){
+                    updatedQuiz.setId(quizID);
+                    persist(updatedQuiz);
+                    return updatedQuiz;
+                }else{
+                    throw new BadRequestException("Quiz dosen't fullfill Requirements");
+                } 
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
-            throw new BadRequestException("Quiz dosen't fullfill Requirements");
+            throw new NotFoundException();
         }
+        
     }
 
     @Override
     public void deletQuizByID(Long quizID) {
-        // TODO Auto-generated method stub
         Quiz toDelete = findById(quizID);
         if(toDelete!=null){
-            delete(toDelete);
+            if(userService.isAuthorizedToEdit(toDelete.getCreatorName())){
+                delete(toDelete);
+            }else{
+                throw new UnauthorizedException();
+            }
         }else{
             throw new NotFoundException();
         }
@@ -79,6 +109,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Override
     public Quiz createNewQuiz(Quiz quiz) {
         if(checkValidQuiz(quiz)){
+            quiz.setCreatorName(userService.getCurrentUser());
             persist(quiz);
             return quiz;
         } else{
@@ -89,7 +120,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     private QuizListDTO quizToListDTO(Quiz q){
         QuizListDTO dto = new QuizListDTO();
         dto.title = q.getTitle();
-        dto.linktToFirstQuestion = "";
+        dto.linktToFirstQuestion = "quizzes/"+q.getId()+"/play";
         dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
         dto.numberOfQuestions =0;
         return dto;

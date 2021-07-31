@@ -1,11 +1,12 @@
 package de.os.hs.swa.quiz.control.DOTs;
 import java.util.Collection;
 
+import de.os.hs.swa.category.entity.Category;
+
+//@author: Laura Peter
 
 public class QuizEditDTO {
-    private String categoryName;
-    private String creatorName;
-
+    private Category categoryName;
     private String title;
     private Collection<QuestionDTO> questions;
 
@@ -18,18 +19,18 @@ public class QuizEditDTO {
     public QuizEditDTO() {
     }
 
-    public QuizEditDTO(String categoryId, String title, Collection<QuestionDTO> questions) {
+    public QuizEditDTO(Category category, String title, Collection<QuestionDTO> questions) {
        
-        this.categoryName = categoryId;
+        this.categoryName = category;
         this.title = title;
         this.questions = questions;
     }
 
-    public String getCategoryName() {
+    public Category getCategoryName() {
         return this.categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(Category categoryName) {
         this.categoryName = categoryName;
     }
 

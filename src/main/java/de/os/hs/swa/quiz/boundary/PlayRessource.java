@@ -14,7 +14,9 @@ import de.os.hs.swa.quiz.control.PlayService;
 import de.os.hs.swa.quiz.control.DOTs.PlayQuestionDTO;
 import de.os.hs.swa.quiz.control.DOTs.ResultDTO;
 
-@Path("/quizzes/{quizID}/play/{questionNr}")
+
+//@author: Johanna Bernhard
+@Path("/quizzes/{quizID}/play")
 @Tag(name= "Play Quiz")
 public class PlayRessource {
 
@@ -23,6 +25,13 @@ public class PlayRessource {
     PlayService playService;
 
     @GET
+    @Operation(description = "gets the first question of quiz with id")
+    public PlayQuestionDTO playQuiz(@PathParam("quizID") Long quizID){
+        return playService.chooseQuiz(quizID);
+    }
+
+    @GET
+    @Path("/{questionNr}")
     @Operation(description = "get question in a playable format")
     public PlayQuestionDTO playQuestion(@PathParam("quizID") Long quizID, @PathParam("questionNr") int QuestionNr){
         return playService.getQuestion(quizID, QuestionNr);
@@ -30,7 +39,7 @@ public class PlayRessource {
 
     @Transactional
     @POST
-    @Path("/{answerIndex}")
+    @Path("/{questionNr}/{answerIndex}")
     @Operation(description = "answer question, returns response with given points and correct answer as well as link to next question")
     public ResultDTO answerQuestion(@PathParam("quizID") Long quizID, @PathParam("questionNr") int QuestionNr, @PathParam("answerIndex") int choosenAnswer){
         return playService.answerQuestion(quizID, QuestionNr, choosenAnswer);
