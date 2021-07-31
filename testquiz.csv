@@ -1,2 +1,2 @@
-id, title, categoryId, userId
-1, 'Naturquiz', 1, 1
+quiz_id, creatorName, title, category_name
+1, 'theErstellerIn', 'Naturquiz','Natur'

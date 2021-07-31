@@ -4,6 +4,8 @@ import java.util.Collection;
 
 public class QuizEditDTO {
     private String categoryName;
+    private String creatorName;
+
     private String title;
     private Collection<QuestionDTO> questions;
 
@@ -45,5 +47,14 @@ public class QuizEditDTO {
 
     public void setQuestions(Collection<QuestionDTO> questions) {
         this.questions = questions;
+    }
+
+    
+    public String getCreatorName() {
+        return this.creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
 }

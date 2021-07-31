@@ -1,2 +1,2 @@
-nr, text, quizId
-1, 'Zimmerpflanze?', 1
+question_id, questionnr, text, quiz_id
+1, 1, 'Zimmerpflanze?', 1
