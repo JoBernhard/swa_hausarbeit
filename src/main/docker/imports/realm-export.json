@@ -677,7 +677,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "57f24317-2f8b-4056-9308-a779c03c4291",
       "redirectUris": [
         "http://localhost:8180/auth/realms/quiz-fest/"
       ],
