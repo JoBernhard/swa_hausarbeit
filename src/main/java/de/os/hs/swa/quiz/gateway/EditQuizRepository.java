@@ -11,6 +11,7 @@ import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizLogikService;
 import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
+import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -60,6 +61,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
                 if(checkValidQuestion(question)){
                     question.setQuiz(q);
+                    question.setQuestionNr(q.getQuestions().size()+1);
                     questionRepo.persist(question);
                     return question;
                 }else{
@@ -113,7 +115,14 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(checkValidQuiz(quiz)){
 
             quiz.setCreatorName(userService.getCurrentUser());
+            for(Question question : quiz.getQuestions()){
+                question.setQuiz(quiz);
+                for(Answer answer : question.getAnswers()){
+                    answer.setQuestion(question);
+                }
+            }
             persist(quiz);
+            
             return quiz;
         } else{
             throw new BadRequestException("Quiz dosen't fullfill Requirements");

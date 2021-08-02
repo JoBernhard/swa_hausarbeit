@@ -65,8 +65,8 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
-    public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, Question question){
-        return editQuizService.addQuestionToQuiz(quizID, question);
+    public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
+        return editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question));
        
     }
 
@@ -85,7 +85,6 @@ public class QuizzesRessource {
     public void deletQuizByID(@PathParam("quizID") Long quizID){
         editQuizService.deletQuizByID(quizID);       
     }
-
 
     private Quiz dtoToQuiz(QuizEditDTO dto){
         Quiz q = new Quiz();
@@ -107,6 +106,14 @@ public class QuizzesRessource {
             questions.add(questionToAdd);
         }
         return questions;
+    }
+
+    private Question dtoToQuestion(QuestionDTO dto){
+        Question q = new Question();
+        q.setText(dto.getText());
+        //set questionnr. in repository
+        q.setAnswers(dtosToAnswers(dto.getAnswers(), q));
+        return q;
     }
 
     private Collection<Answer> dtosToAnswers(Collection<AnswerDTO> dtos, Question question){

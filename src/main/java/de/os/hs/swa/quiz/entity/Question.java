@@ -3,15 +3,17 @@ package de.os.hs.swa.quiz.entity;
 import java.util.Collection;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 
 @Entity
 public class Question {
@@ -20,9 +22,9 @@ public class Question {
     private Long id;
     private String text;
     private int questionNr;
-    @Transient
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Collection<Answer> answers;
-    @ManyToOne @JsonbTransient
+    @ManyToOne @JsonbTransient @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;
 
     public Question() {
