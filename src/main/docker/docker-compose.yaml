@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: postgres_db
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: quizfestdb
+  keycloak:
+    image: quay.io/keycloak/keycloak:14.0.0
+    container_name: keycloak_server
+    volumes:
+      - ./imports:/tmp/imports 
+    ports:
+      - "8180:8080"
+      - "8543:8443"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: tmp/imports/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
