@@ -20,7 +20,6 @@ public class LogikImpl implements QuizLogikService{
 
     @Override
     public boolean checkValidQuiz(Quiz q) {
-        // TODO test if working
         if(q != null){
             
             if(q.getTitle().isEmpty()){
@@ -47,16 +46,18 @@ public class LogikImpl implements QuizLogikService{
 
     @Override
     public boolean checkValidQuestion(Question q) {
-        //TODO test if working
         if(q != null){
             if(q.getText().isEmpty()){
                 throw new BadRequestException("Question Text can't be empty");
             }
             Collection<Answer> answers = q.getAnswers();
             if(answers != null && !answers.isEmpty()){
-                //check that at least one correct and one incorrect answer is provided for Question
+                //check that at least one correct and one incorrect answer is provided for Question and answertext not empty
                 boolean correctProvided = false, wrongProvided=false;
                 for(Answer answer : answers){
+                    if(answer.getText().isEmpty()){
+                        throw new BadRequestException("Answer Text can't be empty");
+                    }
                     if(answer.getIsCorrect()){
                         correctProvided = true;
                     }else{

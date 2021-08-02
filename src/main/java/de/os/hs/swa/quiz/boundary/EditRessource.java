@@ -1,5 +1,7 @@
 package de.os.hs.swa.quiz.boundary;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
@@ -13,6 +15,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.quiz.control.EditQuestionService;
 import de.os.hs.swa.quiz.control.EditQuizService;
+import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
+import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 
 //@author: Johanna Bernhard
@@ -28,7 +33,7 @@ public class EditRessource {
 
 
     @GET
-    @Operation(description = "gets the Question for the creator in format in wich it can be edited")
+    @Operation(description = "gets the Question for the creator in format in which it can be edited")
     public Question getQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
         
         return questionService.getEditableQuestion(quizID, questionNr);
@@ -37,17 +42,35 @@ public class EditRessource {
 
     @Transactional
     @PUT
-    @Operation(description = "replace question of given Number with new question, for creator")
-    public Question editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, Question question){
-        
-        return questionService.updateQuestion(quizID, questionNr, question);
+    @Operation(description = "replaces question of given Number with new question, only allowed for creator")
+    public Question editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, QuestionDTO question){
+        return questionService.updateQuestion(quizID, questionNr, dtoTQuestion(question));
     }
 
     @Transactional
     @DELETE
-    @Operation(description = "delet question of number, only allowed for creator")
+    @Operation(description = "deletes question of given number, only allowed for creator")
     public void removeQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
         
         questionService.deleteQuestion(quizID, questionNr);
+    }
+
+    private Question dtoTQuestion(QuestionDTO dto){
+        Question q = new Question();
+        q.setText(dto.getText());
+        
+        ArrayList<Answer> answers = new ArrayList<>();
+        int answerIndex = 1;
+        for(AnswerDTO answerDTO : dto.getAnswers()){
+            Answer answerToAdd = new Answer();
+            answerToAdd.setText(answerDTO.getText());
+            answerToAdd.setNumber(answerIndex++);
+            answerToAdd.setIsCorrect(answerDTO.getIsCorrect());
+            answerToAdd.setQuestion(q);
+            answers.add(answerToAdd);
+        }
+        q.setAnswers(answers);
+        return q;
+        
     }
 }

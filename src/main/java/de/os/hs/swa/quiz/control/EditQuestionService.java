@@ -1,5 +1,6 @@
 package de.os.hs.swa.quiz.control;
 
+import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
 import de.os.hs.swa.quiz.entity.Question;
 
 public interface EditQuestionService {

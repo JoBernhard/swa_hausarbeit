@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.gateway;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -36,11 +37,15 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
         if(checkValidQuestion(question)){
             Quiz q = quizRepository.findById(quizID);
             if(q!= null){
-                if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                    question.setQuiz(q);
-                    question.setQuestionNr(questionNr);
-                    //TODO check if valid question
-                    persist(question);
+                Question questionToUpdate = getEditableQuestion(quizID, questionNr);
+                 if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                    if(checkValidQuestion(question)){
+                        delete(questionToUpdate);
+                        question.setQuestionNr(questionToUpdate.getQuestionNr());
+                        question.setQuiz(q);
+                        persist(question);
+                    } 
+                    //TODO: maybe entitymanger.merge damit updated question die selbe id wie die original
                     return question;
                 }else{
                     throw new ForbiddenException();
@@ -74,7 +79,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
                 q.setAnswers(answerRepository.list("question_id", q.getId()));
                 return q;
             }else{
-                throw new NotFoundException();
+                throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);
             }
         }else{
             throw new ForbiddenException();

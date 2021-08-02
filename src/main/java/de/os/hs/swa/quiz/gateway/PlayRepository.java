@@ -79,7 +79,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
         }
 
         Question nextQuestion = getNextQuestion(quizID, questionNr);//questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr+1).firstResult();
-        
+        //System.out.println("NEXT QUESTION: "+nextQuestion.getText());
         if(nextQuestion != null){
             result.linkToNextQuestion = "/quizzes/"+quizID+"/play/"+ nextQuestion.getQuestionNr();
         }else{
@@ -90,7 +90,6 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     }
 
     private Question getNextQuestion(Long quizID, int currentQuestion){
-        //TODO test if correct
         Question next = questionRepository.find("quiz_id = ?1 and questionnr > ?2", Sort.by("questionnr"), quizID, currentQuestion).firstResult();
         return next;
     }

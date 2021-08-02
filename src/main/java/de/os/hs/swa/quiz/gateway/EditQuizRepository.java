@@ -61,6 +61,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
                 if(checkValidQuestion(question)){
                     question.setQuiz(q);
+                    question.setQuestionNr(q.getQuestions().size()+1);
                     questionRepo.persist(question);
                     return question;
                 }else{
