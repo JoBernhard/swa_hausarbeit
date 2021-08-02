@@ -17,8 +17,7 @@ public class Answer {
     private String text;
     private int answerNr;
     private boolean isCorrect;
-    @ManyToOne @JsonbTransient
-    @JoinColumn(name="question_id")
+    @ManyToOne @JsonbTransient @JoinColumn(name="question_id", nullable = false)
     private Question question;
 
     public Answer(){

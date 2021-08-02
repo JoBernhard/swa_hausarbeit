@@ -86,7 +86,6 @@ public class QuizzesRessource {
         editQuizService.deletQuizByID(quizID);       
     }
 
-
     private Quiz dtoToQuiz(QuizEditDTO dto){
         Quiz q = new Quiz();
         q.setTitle(dto.getTitle());
