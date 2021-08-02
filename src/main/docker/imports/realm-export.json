@@ -5,7 +5,7 @@
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
-  "accessTokenLifespan": 300,
+  "accessTokenLifespan": 1200,
   "accessTokenLifespanForImplicitFlow": 900,
   "ssoSessionIdleTimeout": 1800,
   "ssoSessionMaxLifespan": 36000,
@@ -58,6 +58,14 @@
         "id": "e2a33198-6827-44b4-90ff-83375b426409",
         "name": "offline_access",
         "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "quiz-fest",
+        "attributes": {}
+      },
+      {
+        "id": "b1254bed-20fd-462d-b61d-a38128950d70",
+        "name": "user",
         "composite": false,
         "clientRole": false,
         "containerId": "quiz-fest",
@@ -664,6 +672,7 @@
       "clientId": "quiz-fest",
       "rootUrl": "",
       "adminUrl": "",
+      "baseUrl": "http://localhost:8080/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -778,16 +787,6 @@
             "_id": "04e6e9c7-bc0f-4c4a-a75c-b63fd726c7c4",
             "uris": [
               "/*"
-            ]
-          },
-          {
-            "name": "Public",
-            "ownerManagedAccess": false,
-            "displayName": "Public",
-            "attributes": {},
-            "_id": "379fee0b-5fa8-40e8-ab1d-e7717efb7b1a",
-            "uris": [
-              "/hello"
             ]
           }
         ],
