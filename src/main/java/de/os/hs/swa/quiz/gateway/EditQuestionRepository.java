@@ -41,8 +41,8 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
                  if(userService.isAuthorizedToEdit(q.getCreatorName())){
                     if(checkValidQuestion(question)){
                         delete(questionToUpdate);
-                        question.setQuestionNr(questionToUpdate.getQuestionNr());
                         question.setQuiz(q);
+                        question.setQuestionNr(questionToUpdate.getQuestionNr());
                         persist(question);
                     } 
                     //TODO: maybe entitymanger.merge damit updated question die selbe id wie die original

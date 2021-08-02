@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 //@author: Johanna Bernhard, Laura Peter
 
@@ -22,7 +21,7 @@ public class Question {
     private Long id;
     private String text;
     private int questionNr;
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Answer> answers;
     @ManyToOne @JsonbTransient @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;

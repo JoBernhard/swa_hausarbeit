@@ -1,5 +1,6 @@
 package de.os.hs.swa.quiz.gateway;
 import java.util.Collection;
+import java.util.function.ToIntBiFunction;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,6 +24,9 @@ import io.quarkus.security.UnauthorizedException;
 public class EditQuizRepository implements EditQuizService, PanacheRepository<Quiz> {
     @Inject
     PanacheRepository<Question> questionRepo;
+
+    @Inject
+    PanacheRepository<Answer> answerRepository;
 
     @Inject
     QuizLogikService logik;
@@ -81,9 +85,21 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(toUpdate != null){
             if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){
                 if(checkValidQuiz(updatedQuiz)){
-                    updatedQuiz.setId(quizID);
-                    persist(updatedQuiz);
-                    return updatedQuiz;
+                    setForeignKeysOfQuestionAndAnswer(toUpdate);
+                    toUpdate.setTitle(updatedQuiz.getTitle());
+
+                    /*toUpdate.getQuestions().clear();
+                    for(Question question : updatedQuiz.getQuestions()){
+                        question.getAnswers().clear();
+                        question.setQuiz(toUpdate);
+                        questionRepo.persist(question);
+                    }
+                    toUpdate.setQuestions(updatedQuiz.getQuestions());*/
+                    //setForeignKeysOfQuestionAndAnswer(toUpdate);
+                    this.getEntityManager().merge(toUpdate);
+
+                    
+                    return toUpdate;
                 }else{
                     throw new BadRequestException("Quiz dosen't fullfill Requirements");
                 } 
@@ -95,6 +111,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         }
         
     }
+
 
     @Override
     public void deletQuizByID(Long quizID) {
@@ -115,17 +132,21 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(checkValidQuiz(quiz)){
 
             quiz.setCreatorName(userService.getCurrentUser());
-            for(Question question : quiz.getQuestions()){
-                question.setQuiz(quiz);
-                for(Answer answer : question.getAnswers()){
-                    answer.setQuestion(question);
-                }
-            }
+            setForeignKeysOfQuestionAndAnswer(quiz);
             persist(quiz);
             
             return quiz;
         } else{
             throw new BadRequestException("Quiz dosen't fullfill Requirements");
+        }
+    }
+
+    private void setForeignKeysOfQuestionAndAnswer(Quiz quiz){
+        for(Question question : quiz.getQuestions()){
+            question.setQuiz(quiz);
+            for(Answer answer : question.getAnswers()){
+                answer.setQuestion(question);
+            }
         }
     }
 
@@ -145,8 +166,5 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     private boolean checkValidQuiz(Quiz q){
         return logik.checkValidQuiz(q);
     }
-
-    
-
     
 }

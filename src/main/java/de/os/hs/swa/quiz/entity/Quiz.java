@@ -24,7 +24,7 @@ public class Quiz {
     @Column(name = "quiz_id")
     private Long id;
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz", orphanRemoval = true)
     private Collection<Question> questions;
     private String creatorName;
 
