@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ import de.os.hs.swa.category.entity.Category;
 
 @Entity
 public class Quiz {
-    @Id @GeneratedValue 
+    @Id @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "quiz_id")
     private Long id;
 
