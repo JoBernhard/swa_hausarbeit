@@ -18,3 +18,7 @@ users examples configured in keykloak
  - laupeter, laupeter
  - jdoe, jdoe
  - category-admin, admin (with role to edit category)
+
+ with path q/dokumentation openapi swagger dokumentation can be found to use ist a token needs to be aqured from keycloak
+ //TODO postman curl post example token
+ the aqured token needs to be usesd with swagger in oder to work propperly

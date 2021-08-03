@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -34,6 +35,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     UserAdapter userService;
 
     @Override
+    @Transactional
     public Collection<QuizListDTO> getOwnQuizzes(String UserName) {
         //TODO pagination
         Collection<QuizListDTO> dtos;
@@ -155,10 +157,9 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     private QuizListDTO quizToListDTO(Quiz q){
         QuizListDTO dto = new QuizListDTO();
-        dto.title = q.getTitle();
-        dto.linktToFirstQuestion = "quizzes/"+q.getId()+"/play";
+        dto.title = q.getTitle();//+" "+q.getQuestions().size();
+        dto.linktToPlay = "quizzes/"+q.getId()+"/play";
         dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
-        dto.numberOfQuestions =0;
         return dto;
     }
 
