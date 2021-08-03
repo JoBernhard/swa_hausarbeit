@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import de.os.hs.swa.category.entity.Category;
 
@@ -20,15 +23,20 @@ public class Quiz {
     @Id @GeneratedValue 
     @Column(name = "quiz_id")
     private Long id;
+
+    @NotBlank(message = "Quiz Title shall not be blank")
     private String title;
 
+    @NotBlank(message = "Creatorname shall not be blank")
     private String creatorName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz", orphanRemoval = true)
+    @NotEmpty(message = "Quiz must contain questions") @NotNull(message = "Questions shall not be null")
     private Collection<Question> questions;
 
     @ManyToOne 
     @JoinColumn(name = "category_name")
+    @NotNull(message = "Category shall not be null")
     private Category category;
 
     public Quiz(){}

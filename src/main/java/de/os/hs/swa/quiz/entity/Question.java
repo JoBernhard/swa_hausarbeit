@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 //@author: Johanna Bernhard, Laura Peter
 
@@ -19,9 +22,13 @@ public class Question {
     @Id @GeneratedValue 
     @Column(name = "question_id")
     private Long id;
+
+    @NotBlank(message = "Questiontext shall not be blank")
     private String text;
     private int questionNr;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotEmpty(message = "Question must contain Answers") @NotNull(message = "Answers shall not be null")
     private Collection<Answer> answers;
     //TODO remove json annotation when done with boundary
     @ManyToOne @JsonbTransient @JoinColumn(name="quiz_id", nullable = false)

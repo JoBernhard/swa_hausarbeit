@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 //@author: Johanna Bernhard
 @Entity
@@ -14,6 +16,8 @@ public class Answer {
     @Id @GeneratedValue 
     @Column(name = "answer_id")
     private Long id;
+
+    @NotBlank(message = "Answertext shall not be blank")
     private String text;
     private int answerNr;
     private boolean isCorrect;

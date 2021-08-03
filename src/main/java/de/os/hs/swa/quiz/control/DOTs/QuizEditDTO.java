@@ -2,20 +2,15 @@ package de.os.hs.swa.quiz.control.DOTs;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
 import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.entity.Quiz;
 
 //@author: Laura Peter
 
 public class QuizEditDTO {
-    @NotBlank
+    
     private Category categoryName;
-    @NotBlank
     private String title;
-    @NotEmpty
     private Collection<QuestionDTO> questions;
     private String creatorName;
 
