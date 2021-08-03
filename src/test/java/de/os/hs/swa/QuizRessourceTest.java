@@ -16,6 +16,7 @@ import de.os.hs.swa.quiz.entity.Question;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
@@ -27,6 +28,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.ws.rs.BadRequestException;
+
 // @author: Laura Peter
 @QuarkusTest @TestSecurity(authorizationEnabled = false)
 public class QuizRessourceTest {
@@ -36,52 +39,8 @@ public class QuizRessourceTest {
     private static String questionTitle = "Was ist keine Zimmerpflanze?";
     private static String firtstAnswerText = "Baum";
     private static String secondAnswerText = "Aloe Vera";
-    private static Connection con;
 
-
-    @BeforeEach
-    public void init(){
-        try{
-        con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
-        Statement statement = con.createStatement(); 
-        int result = statement.executeUpdate("TRUNCATE QUIZ CASCADE");
-       /* System.out.println(result + " CLEARED");
-        copyIntoTestDB("Category", "./testcategories.csv");
-            copyIntoTestDB("Quiz", "./testquiz.csv");
-            copyIntoTestDB("Question", "./testquestion.csv");
-            copyIntoTestDB("Answer", "./testanswer.csv");*/
-        }catch(Exception e){
-
-        }
-    }
-    /*
-    @BeforeAll
-    public static void init(){
-        try {
-            copyIntoTestDB("Category", "./testcategories.csv");
-            copyIntoTestDB("Quiz", "./testquiz.csv");
-            copyIntoTestDB("Question", "./testquestion.csv");
-            copyIntoTestDB("Answer", "./testanswer.csv");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-       
-    }*/
-
-    private static void copyIntoTestDB(String tablename, String file){
-        try {
-            Statement statement = con.createStatement(); 
-                int result = statement.executeUpdate("TRUNCATE " + tablename + " cascade");
-                System.out.printf("%d deleted%n", result);
-            long rowsInserted = new CopyManager((BaseConnection) con)
-            .copyIn("COPY "+tablename+" FROM STDIN (FORMAT csv, HEADER)", new FileReader(file));
-            System.out.printf("%d row(s) inserted%n", rowsInserted);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
+    
 
     @Test
     @TestTransaction
@@ -96,21 +55,27 @@ public class QuizRessourceTest {
         .then()
         .statusCode(201);
     }
-/*
+
     @Test
     @TestTransaction
     public void createQuizNoTitle(){
+        
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO(secondAnswerText, 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO(secondAnswerText, false));
         QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+
+        try{
         given().contentType(ContentType.JSON)
         .body(quiz)
         .post("/quizzes")
         .then()
         .statusCode(400);
-    }
+        }catch(BadRequestException e){
 
+        }
+    }
+/*
     @Test
     @TestTransaction
     public void createQuizInvalidCategory(){
