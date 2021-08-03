@@ -1,9 +1,15 @@
 package de.os.hs.swa.quiz.control;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validator;
 import javax.ws.rs.BadRequestException;
 
 import de.os.hs.swa.quiz.acl.CategoryAdapter;
@@ -11,65 +17,84 @@ import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 
 @RequestScoped
 public class LogikImpl implements QuizLogikService{
     @Inject
     CategoryAdapter categoryAdapter;
 
+    @Inject
+    Validator validator;
+
     @Override
     public boolean checkValidQuiz(Quiz q) {
-        if(q != null){
-            
-            if(q.getTitle().isEmpty()){
-                throw new BadRequestException("Quiz Title can't be empty");
-            }
+        Set<ConstraintViolation<Quiz>> violations = validator.validate(q);
+        if(violations.isEmpty() && q != null){
             if(categoryAdapter.checkForCategory(q.getCategory().getName())== null){
                 throw new BadRequestException("Category not found");
             }
             
             Collection<Question> questions = q.getQuestions();
-            if(questions != null && !questions.isEmpty()){
-                for(Question quest : questions){
-                    if(!checkValidQuestion(quest)){
-                        throw new BadRequestException("Question Nr"+quest.getQuestionNr()+" dosen't fullfill requrements");
-                    }
+                for(Question question : questions){
+                    checkValidQuestion(question);
                 }
-            }else{
-                throw new BadRequestException("Quiz must contain questions");
-            }
             return true;
+            
         }
-        return false;
+        String violationMessage = violations.stream()
+        .map(cv -> cv.getMessage())
+        .collect(Collectors.joining(", "));
+        throw new BadRequestException(violationMessage);
+        //return false;
     }
 
     @Override
     public boolean checkValidQuestion(Question q) {
-        if(q != null){
-            if(q.getText().isEmpty()){
-                throw new BadRequestException("Question Text can't be empty");
-            }
+        Set<ConstraintViolation<Question>> questionViolations = validator.validate(q);
+        if(questionViolations.isEmpty()){
+            
             Collection<Answer> answers = q.getAnswers();
-            if(answers != null && !answers.isEmpty()){
-                //check that at least one correct and one incorrect answer is provided for Question and answertext not empty
-                boolean correctProvided = false, wrongProvided=false;
+            if(correctAnswerExists(answers)){
                 for(Answer answer : answers){
-                    if(answer.getText().isEmpty()){
-                        throw new BadRequestException("Answer Text can't be empty");
-                    }
-                    if(answer.getIsCorrect()){
-                        correctProvided = true;
-                    }else{
-                        wrongProvided = true;
-                    }
+                      checkValidAnswer(answer);
                 }
-                return correctProvided && wrongProvided;
+            }
+            return true;          
+        }else{
+            String violationMessage = questionViolations.stream()
+            .map(cv -> cv.getMessage())
+            .collect(Collectors.joining(", "));
+            throw new BadRequestException(violationMessage);
+        }
+        //return false;
+    }
+
+    private boolean checkValidAnswer(Answer answer){
+        Set<ConstraintViolation<Answer>> answerViolations = validator.validate(answer);
+        if(!answerViolations.isEmpty()){
+            String violationMessage = answerViolations.stream()
+            .map(cv -> cv.getMessage())
+            .collect(Collectors.joining(", "));
+            throw new BadRequestException(violationMessage);
+        }
+        return true;
+    }
+
+    //check that at least one correct and one incorrect answer is provided for Question and answertext not empty
+    private boolean correctAnswerExists(Collection<Answer> answers){
+        boolean correctProvided = false, wrongProvided=false;
+        for(Answer answer : answers){
+            if(answer.getIsCorrect()){
+                correctProvided = true;
             }else{
-                throw new BadRequestException("Question needs Answers");
+                wrongProvided = true;
             }
         }
-        return false;
+        if (!(correctProvided && wrongProvided)){
+            throw new BadRequestException("Question must contain an Answer marked as correct");
+        }
+        return true;
     }
     
 }

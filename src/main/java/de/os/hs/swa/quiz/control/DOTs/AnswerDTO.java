@@ -7,7 +7,6 @@ public class AnswerDTO {
     public AnswerDTO() {
     }
 
-
     public AnswerDTO(String text, boolean isCorrect) {
         this.text = text;
         this.isCorrect = isCorrect;

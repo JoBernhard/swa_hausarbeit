@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -77,7 +78,7 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
-    public Quiz editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
+    public Quiz editQuiz(@PathParam("quizID") Long quizID,QuizEditDTO quiz){
         //TODO quiz to DTO
         return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
     }

@@ -1,5 +1,7 @@
 package de.os.hs.swa.quiz.control;
 
+import javax.validation.Valid;
+
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
