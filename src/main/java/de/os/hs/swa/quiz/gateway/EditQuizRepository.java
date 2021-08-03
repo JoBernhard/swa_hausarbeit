@@ -18,7 +18,7 @@ import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.security.UnauthorizedException;
 
-//@author: Johannna Benrhard
+//@author: Johannna Benrhard, Laura Peter
 
 @RequestScoped
 public class EditQuizRepository implements EditQuizService, PanacheRepository<Quiz> {
@@ -47,7 +47,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(q != null){
             System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                //q.setQuestions(questionRepo.list("quiz_id", q.getId()));
                 System.out.println(q.getQuestions());
                 return q;
             }else{
@@ -85,20 +84,21 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(toUpdate != null){
             if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){
                 if(checkValidQuiz(updatedQuiz)){
-                    setForeignKeysOfQuestionAndAnswer(toUpdate);
+                    toUpdate.setCategory(updatedQuiz.getCategory());
                     toUpdate.setTitle(updatedQuiz.getTitle());
 
-                    /*toUpdate.getQuestions().clear();
+                    for(Question question : toUpdate.getQuestions()){
+                        questionRepo.delete(question);
+                    }
+
                     for(Question question : updatedQuiz.getQuestions()){
-                        question.getAnswers().clear();
                         question.setQuiz(toUpdate);
                         questionRepo.persist(question);
                     }
-                    toUpdate.setQuestions(updatedQuiz.getQuestions());*/
-                    //setForeignKeysOfQuestionAndAnswer(toUpdate);
-                    this.getEntityManager().merge(toUpdate);
 
-                    
+                    toUpdate.getQuestions().clear();
+                    toUpdate.getQuestions().addAll(updatedQuiz.getQuestions());
+
                     return toUpdate;
                 }else{
                     throw new BadRequestException("Quiz dosen't fullfill Requirements");
