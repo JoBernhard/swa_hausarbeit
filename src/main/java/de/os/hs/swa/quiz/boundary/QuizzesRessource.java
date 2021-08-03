@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -52,15 +53,19 @@ public class QuizzesRessource {
     @POST
     @Operation(description = "create a new Quiz in a category")
     public Response createNewQuiz(QuizEditDTO quiz){
-        Quiz q = editQuizService.createNewQuiz(dtoToQuiz(quiz));
-        return Response.status(Response.Status.CREATED).entity(new QuizEditDTO(q)).build();
+        if(quiz!=null){
+            Quiz q = editQuizService.createNewQuiz(dtoToQuiz(quiz));
+            return Response.status(Response.Status.CREATED).entity(new QuizEditDTO(q)).build();
+        } else {
+            throw new BadRequestException("Quiz shall not be null");
+        }
+        
     }
 
     @Path("{quizID}/edit")
     @GET
     @Operation(description = "get created quiz by id to edit")
     public QuizEditDTO getQuizByID(@PathParam("quizID") Long quizID){
-        //TODO quiz to DTO
         return new QuizEditDTO(editQuizService.getEditableQuiz(quizID));       
     }
 
@@ -69,9 +74,7 @@ public class QuizzesRessource {
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
     public QuestionDTO addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
-        //TODO question to DTO
         return new QuestionDTO(editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question)));
-       
     }
 
     @Transactional
@@ -101,16 +104,20 @@ public class QuizzesRessource {
     }
 
     private Collection<Question> dtosToQuestions(Collection<QuestionDTO> dtos){
-        ArrayList<Question> questions = new ArrayList<>();
-        int questionIndex = 1;
-        for(QuestionDTO questionDTO : dtos){
-            Question questionToAdd = new Question();
-            questionToAdd.setText(questionDTO.getText());
-            questionToAdd.setQuestionNr(questionIndex++);
-            questionToAdd.setAnswers(dtosToAnswers(questionDTO.getAnswers(),questionToAdd));
-            questions.add(questionToAdd);
+        if(dtos!=null){
+            ArrayList<Question> questions = new ArrayList<>();
+            int questionIndex = 1;
+            for(QuestionDTO questionDTO : dtos){
+                Question questionToAdd = new Question();
+                questionToAdd.setText(questionDTO.getText());
+                questionToAdd.setQuestionNr(questionIndex++);
+                questionToAdd.setAnswers(dtosToAnswers(questionDTO.getAnswers(),questionToAdd));
+                questions.add(questionToAdd);
+            }
+            return questions;
+        }else{
+            throw new BadRequestException("Questions shall not be null");
         }
-        return questions;
     }
 
     private Question dtoToQuestion(QuestionDTO dto){

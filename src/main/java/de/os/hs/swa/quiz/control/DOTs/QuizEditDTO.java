@@ -12,7 +12,6 @@ public class QuizEditDTO {
     private Category categoryName;
     private String title;
     private Collection<QuestionDTO> questions;
-    private String creatorName;
 
     public QuizEditDTO(String title, Collection<QuestionDTO> questions){
         this.title = title;
@@ -33,7 +32,6 @@ public class QuizEditDTO {
     public QuizEditDTO(Quiz quiz){
         this.categoryName = quiz.getCategory();
         this.title = quiz.getTitle();
-        this.creatorName = quiz.getCreatorName();
         this.questions =  quiz.getQuestions().stream().map(a->new QuestionDTO(a)).collect(Collectors.toList());
     }
 
@@ -61,12 +59,4 @@ public class QuizEditDTO {
         this.questions = questions;
     }
 
-    
-    public String getCreatorName() {
-        return this.creatorName;
-    }
-
-    public void setCreatorName(String creatorName) {
-        this.creatorName = creatorName;
-    }
 }
