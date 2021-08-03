@@ -53,24 +53,24 @@ public class QuizzesRessource {
     @Operation(description = "create a new Quiz in a category")
     public Response createNewQuiz(QuizEditDTO quiz){
         Quiz q = editQuizService.createNewQuiz(dtoToQuiz(quiz));
-        return Response.status(Response.Status.CREATED).entity(q).build();
+        return Response.status(Response.Status.CREATED).entity(new QuizEditDTO(q)).build();
     }
 
     @Path("{quizID}/edit")
     @GET
     @Operation(description = "get created quiz by id to edit")
-    public Quiz getQuizByID(@PathParam("quizID") Long quizID){
+    public QuizEditDTO getQuizByID(@PathParam("quizID") Long quizID){
         //TODO quiz to DTO
-        return editQuizService.getEditableQuiz(quizID);       
+        return new QuizEditDTO(editQuizService.getEditableQuiz(quizID));       
     }
 
     @Transactional
     @Path("{quizID}/edit")
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
-    public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
+    public QuestionDTO addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
         //TODO question to DTO
-        return editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question));
+        return new QuestionDTO(editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question)));
        
     }
 
@@ -78,9 +78,9 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
-    public Quiz editQuiz(@PathParam("quizID") Long quizID,QuizEditDTO quiz){
+    public QuizEditDTO editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
         //TODO quiz to DTO
-        return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
+        return new QuizEditDTO(editQuizService.updateQuiz(quizID, dtoToQuiz(quiz)));
     }
 
     @Transactional
