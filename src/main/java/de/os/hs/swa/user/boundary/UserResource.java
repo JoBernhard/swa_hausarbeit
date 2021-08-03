@@ -9,7 +9,7 @@ import org.jboss.resteasy.annotations.cache.NoCache;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
-@Path("/api/users")
+@Path("/users")
 @Tag(name = "Users")
 public class UserResource {
 

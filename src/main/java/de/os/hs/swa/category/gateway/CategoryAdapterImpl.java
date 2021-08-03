@@ -7,6 +7,7 @@ import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.acl.CategoryAdapter;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
+//@author: Johanna Bernhard
 @RequestScoped
 public class CategoryAdapterImpl implements CategoryAdapter {
 

@@ -43,6 +43,7 @@ public class QuizzesRessource {
     @GET
     @Operation(description = "get the list of own created quizzes")
     public Collection<QuizListDTO> getOwnQuizzes(){
+        //TODO pagination
         return editQuizService.getOwnQuizzes(userService.getCurrentUser());
     }
 
@@ -58,6 +59,7 @@ public class QuizzesRessource {
     @GET
     @Operation(description = "get created quiz by id to edit")
     public Quiz getQuizByID(@PathParam("quizID") Long quizID){
+        //TODO quiz to DTO
         return editQuizService.getEditableQuiz(quizID);       
     }
 
@@ -66,6 +68,7 @@ public class QuizzesRessource {
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
     public Question addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
+        //TODO question to DTO
         return editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question));
        
     }
@@ -75,6 +78,7 @@ public class QuizzesRessource {
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
     public Quiz editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
+        //TODO quiz to DTO
         return editQuizService.updateQuiz(quizID, dtoToQuiz(quiz));
     }
 
