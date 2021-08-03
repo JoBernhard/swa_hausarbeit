@@ -1,6 +1,5 @@
 package de.os.hs.swa.quiz.gateway;
 import java.util.Collection;
-import java.util.function.ToIntBiFunction;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +35,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Collection<QuizListDTO> getOwnQuizzes(String UserName) {
+        //TODO pagination
         Collection<QuizListDTO> dtos;
         dtos = stream("creatorname", UserName).map(q -> quizToListDTO(q)).collect(Collectors.toList());
         return dtos;
@@ -43,11 +43,13 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz getEditableQuiz(Long quizID) {
+        //TODO check if correct
         Quiz q = findById(quizID);
         if(q != null){
             System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                System.out.println(q.getQuestions());
+                //q.setQuestions(questionRepo.list("quiz_id", q.getId()));
+                //System.out.println(q.getQuestions());
                 return q;
             }else{
                 throw new UnauthorizedException();
@@ -80,6 +82,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz) {
+        //TODO remove unused code
         Quiz toUpdate = findById(quizID);
         if(toUpdate != null){
             if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){

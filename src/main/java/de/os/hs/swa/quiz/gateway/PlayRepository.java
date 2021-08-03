@@ -39,7 +39,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
         if(q != null){
             return questionToPlayDTO(q);
         }else{
-            throw new NotFoundException("Quiz with ID "+ quizID+ " dosen#t exist");
+            throw new NotFoundException("Quiz with ID "+ quizID+ " dosen't exist");
         }
     }
 
@@ -55,7 +55,8 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
-
+        //TODO remove unused code
+        //TODO comment code
         Question question = questionRepository.find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
         
         Answer answer;
@@ -90,6 +91,7 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     }
 
     private Question getNextQuestion(Long quizID, int currentQuestion){
+        //TODO check if correct
         Question next = questionRepository.find("quiz_id = ?1 and questionnr > ?2", Sort.by("questionnr"), quizID, currentQuestion).firstResult();
         return next;
     }

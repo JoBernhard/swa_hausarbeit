@@ -22,6 +22,8 @@ import de.os.hs.swa.category.entity.Category;
 
 //@author: Johanna Benhard
 // @author Laura Peter
+
+//TODO check for admin role
 @RequestScoped
 @Path("/category")
 @Tag(name = "category", description = "get and edit info about categorys")

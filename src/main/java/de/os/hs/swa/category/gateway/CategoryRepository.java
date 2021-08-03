@@ -56,6 +56,7 @@ public class CategoryRepository implements QuizService, CategoryService, Panache
 
     @Override
     public Collection<QuizForCategoryDTO> getAllQuizzes(String categoryName) {
+        //TODO pagination
         Category category = find("category_name", categoryName).firstResult();
         if(category != null){
             Collection<QuizForCategoryDTO> quizzes = quizRepository.stream("category_name", categoryName)

@@ -17,6 +17,7 @@ public class Answer {
     private String text;
     private int answerNr;
     private boolean isCorrect;
+    //TODO remove json annotation when done with boundary
     @ManyToOne @JsonbTransient @JoinColumn(name="question_id", nullable = false)
     private Question question;
 
@@ -24,7 +25,10 @@ public class Answer {
         
     }
 
-    public Answer(String firtstAnswerText, int i, boolean b) {
+    public Answer(String answerText, int answerNr, boolean isCorrect) {
+        this.text = answerText;
+        this.answerNr = answerNr;
+        this.isCorrect = isCorrect;
     }
 
     public String getText() {

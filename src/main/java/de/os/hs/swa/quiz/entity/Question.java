@@ -23,13 +23,17 @@ public class Question {
     private int questionNr;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Answer> answers;
+    //TODO remove json annotation when done with boundary
     @ManyToOne @JsonbTransient @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;
 
     public Question() {
     }
 
-    public Question(String questionTitle, int i, Collection<Answer> answers) {
+    public Question(String questionTitle, int questionNr, Collection<Answer> answers) {
+        this.text = questionTitle;
+        this.questionNr = questionNr;
+        this.answers = answers;
     }
 
 
