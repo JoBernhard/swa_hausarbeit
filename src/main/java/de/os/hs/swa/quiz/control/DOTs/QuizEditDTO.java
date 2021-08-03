@@ -1,10 +1,12 @@
 package de.os.hs.swa.quiz.control.DOTs;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import de.os.hs.swa.category.entity.Category;
+import de.os.hs.swa.quiz.entity.Quiz;
 
 //@author: Laura Peter
 
@@ -31,6 +33,13 @@ public class QuizEditDTO {
         this.categoryName = category;
         this.title = title;
         this.questions = questions;
+    }
+
+    public QuizEditDTO(Quiz quiz){
+        this.categoryName = quiz.getCategory();
+        this.title = quiz.getTitle();
+        this.creatorName = quiz.getCreatorName();
+        this.questions =  quiz.getQuestions().stream().map(a->new QuestionDTO(a)).collect(Collectors.toList());
     }
 
     public Category getCategoryName() {
