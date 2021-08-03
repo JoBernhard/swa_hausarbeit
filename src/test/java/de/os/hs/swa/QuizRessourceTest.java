@@ -1,6 +1,7 @@
 package de.os.hs.swa;
 
 
+import org.hibernate.AssertionFailure;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,12 +9,14 @@ import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
 import de.os.hs.swa.category.entity.Category;
+import de.os.hs.swa.quiz.boundary.QuizzesRessource;
 import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
 import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import io.quarkus.test.TestTransaction;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.RestAssured;
@@ -34,7 +37,7 @@ import java.util.Collection;
 import javax.ws.rs.BadRequestException;
 
 // @author: Laura Peter
-@QuarkusTest @TestSecurity(authorizationEnabled = false)
+@QuarkusTest @TestSecurity(authorizationEnabled = false) 
 public class QuizRessourceTest {
 
     private static String categoryName="Natur";
@@ -43,10 +46,13 @@ public class QuizRessourceTest {
     private static String firtstAnswerText = "Baum";
     private static String secondAnswerText = "Aloe Vera";
 
-    
+    @BeforeAll
+	public static void setup() {
+	}
 
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizOk(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, true));
@@ -54,94 +60,95 @@ public class QuizRessourceTest {
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(201);
     }
 
     @Test
-    @TestTransaction
+    @TestTransaction @TestSecurity(user = "laupeter")
     public void createQuizNoTitle(){
         
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, true));
         answers.add(new AnswerDTO(secondAnswerText, false));
         QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
-
-        try{
-            given().contentType(ContentType.JSON)
+        given().contentType(ContentType.JSON)
             .body(quiz)
-            .post("/quizzes").then().statusCode(400);
-        }catch(BadRequestException e){
-        }
+            .post("/quiz-fest/api/quizzes").then().statusCode(400);
     }
-/*
+
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizInvalidCategory(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO(secondAnswerText, 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO(secondAnswerText, false));
         QuizEditDTO quiz = createQuiz("", title, createQuestion(answers) );
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(400);
     }
     
+    
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizOneAnswer(){
-        
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(400);
     }
 
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizNoQuestion(){
         QuizEditDTO quiz = createQuiz(categoryName, title, null);
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(400);
     }
 
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizInvalidAnswerText(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO("", 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO("", false));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(400);
     }
 
     @Test
     @TestTransaction
+    @TestSecurity(user = "laupeter")
     public void createQuizNoCorrectAnswer(){
         ArrayList<AnswerDTO> answers = new ArrayList<>();
-        answers.add(new AnswerDTO(firtstAnswerText, 1, true));
-        answers.add(new AnswerDTO("", 2, false));
+        answers.add(new AnswerDTO(firtstAnswerText, true));
+        answers.add(new AnswerDTO("", false));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .post("/quizzes")
+        .post("/quiz-fest/api/quizzes")
         .then()
         .statusCode(400);
-    }*/
+    }
 
     public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
         return new QuestionDTO(questionTitle, answers);
@@ -158,30 +165,30 @@ public class QuizRessourceTest {
 
 
     @Test
-    @TestSecurity(user = "theErstellerIn")
+    @TestSecurity(user = "laupeter")
     public void getOwnQuizzesOk(){
         given().contentType(ContentType.JSON)
-        .get("/quizzes")
+        .get("/quiz-fest/api/quizzes")
         .then()
         .statusCode(200);
     }
 
     @Test
-    @TestSecurity(user = "theSpielerIn")
+    @TestSecurity(user = "admin")
     public void getOwnQuizzesNoContent(){
         given().contentType(ContentType.JSON)
-        .get("/quizzes")
+        .get("/quiz-fest/api/quizzes")
         .then()
-        .statusCode(204);
+        .statusCode(200);
     }
 
     @Test
     @TestSecurity(user = "")
     public void getOwnQuizzesNotLoggedIn(){
         given().contentType(ContentType.JSON)
-        .get("/quizzes")
+        .get("/quiz-fest/api/quizzes")
         .then()
-        .statusCode(403);
+        .statusCode(401);
     }
 
 
