@@ -11,3 +11,10 @@ when keycloak and postgresql are fully started you can run
 .\mvnw clean compile quarku:dev
 or
 .\mvnw test
+
+users examples configured in keykloak
+    Username, Password
+ - jobernhard, AB1234
+ - laupeter, laupeter
+ - jdoe, jdoe
+ - category-admin, admin (with role to edit category)

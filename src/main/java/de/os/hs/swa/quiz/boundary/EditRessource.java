@@ -34,18 +34,18 @@ public class EditRessource {
 
     @GET
     @Operation(description = "gets the Question for the creator in format in which it can be edited")
-    public Question getQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
+    public QuestionDTO getQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
         //TODO question to DTO
-        return questionService.getEditableQuestion(quizID, questionNr);
+        return new QuestionDTO(questionService.getEditableQuestion(quizID, questionNr));
         
     }
 
     @Transactional
     @PUT
     @Operation(description = "replaces question of given Number with new question, only allowed for creator")
-    public Question editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, QuestionDTO question){
+    public QuestionDTO editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, QuestionDTO question){
         //TODO Question to DTO
-        return questionService.updateQuestion(quizID, questionNr, dtoTQuestion(question));
+        return new QuestionDTO(questionService.updateQuestion(quizID, questionNr, dtoTQuestion(question)));
     }
 
     @Transactional
