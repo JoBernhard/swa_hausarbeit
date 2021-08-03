@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -24,7 +25,6 @@ import de.os.hs.swa.category.entity.Category;
 //@author: Johanna Benhard
 // @author Laura Peter
 
-//TODO check for admin role
 @RequestScoped
 @Path("/category")
 @Tag(name = "category", description = "get and edit info about categorys")
@@ -36,12 +36,10 @@ public class CategoryRessource {
     QuizService quizService;
 
 
-
-    
     @GET @Path("/{categoryName}")
     @Operation(description = "get all Quizzes in Category")
-    public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@PathParam("categoryName") String category){
-        return quizService.getAllQuizzes(category);
+    public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@PathParam("categoryName") String category, @QueryParam("page") int page){
+        return quizService.getAllQuizzes(category, page);
     }
 
     @GET

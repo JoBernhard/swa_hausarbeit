@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import de.os.hs.swa.quiz.acl.UserAdapter;
 import de.os.hs.swa.quiz.control.EditQuizService;
 import de.os.hs.swa.quiz.control.QuizLogikService;
@@ -15,7 +17,9 @@ import de.os.hs.swa.quiz.control.DOTs.QuizListDTO;
 import de.os.hs.swa.quiz.entity.Answer;
 import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Page;
 import io.quarkus.security.UnauthorizedException;
 
 //@author: Johannna Benrhard, Laura Peter
@@ -34,12 +38,15 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
     @Inject
     UserAdapter userService;
 
+    @ConfigProperty(name = "page.size")
+    Integer pageSize;
+
     @Override
     @Transactional
-    public Collection<QuizListDTO> getOwnQuizzes(String UserName) {
-        //TODO pagination
+    public Collection<QuizListDTO> getOwnQuizzes(String UserName, int page) {
         Collection<QuizListDTO> dtos;
-        dtos = stream("creatorname", UserName).map(q -> quizToListDTO(q)).collect(Collectors.toList());
+        PanacheQuery<Quiz> ownQuizzes = find("creatorname", UserName);
+        dtos = ownQuizzes.page(Page.of(page, pageSize)).stream().map(q -> quizToListDTO(q)).collect(Collectors.toList());
         return dtos;
     }
 
@@ -50,8 +57,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(q != null){
             System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                //q.setQuestions(questionRepo.list("quiz_id", q.getId()));
-                //System.out.println(q.getQuestions());
                 return q;
             }else{
                 throw new UnauthorizedException();
@@ -157,7 +162,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     private QuizListDTO quizToListDTO(Quiz q){
         QuizListDTO dto = new QuizListDTO();
-        dto.title = q.getTitle();//+" "+q.getQuestions().size();
+        dto.title = q.getTitle();
         dto.linktToPlay = "quizzes/"+q.getId()+"/play";
         dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
         return dto;

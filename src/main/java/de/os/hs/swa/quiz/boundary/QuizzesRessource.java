@@ -13,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -44,9 +45,8 @@ public class QuizzesRessource {
 
     @GET
     @Operation(description = "get the list of own created quizzes")
-    public Collection<QuizListDTO> getOwnQuizzes(){
-        //TODO pagination
-        return editQuizService.getOwnQuizzes(userService.getCurrentUser());
+    public Collection<QuizListDTO> getOwnQuizzes(@QueryParam("page") int page){
+        return editQuizService.getOwnQuizzes(userService.getCurrentUser(), page);
     }
 
     @Transactional

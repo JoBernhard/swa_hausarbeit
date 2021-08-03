@@ -55,7 +55,6 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
-        //TODO remove unused code
         //TODO comment code
         Question question = questionRepository.find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
         
@@ -72,15 +71,13 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
         ResultDTO result = new ResultDTO();
         result.correctAnswers = stream("question_id = ?1 and iscorrect = true", question.getId())
                                     .map(a->a.getNumber()).collect(Collectors.toList());
-       
         if(answer.getIsCorrect()){
             result.points = points;         
         }else{
             result.points = 0;
         }
 
-        Question nextQuestion = getNextQuestion(quizID, questionNr);//questionRepository.find("quiz_id = ?1 and questionNr = ?2", quizID, questionNr+1).firstResult();
-        //System.out.println("NEXT QUESTION: "+nextQuestion.getText());
+        Question nextQuestion = getNextQuestion(quizID, questionNr);
         if(nextQuestion != null){
             result.linkToNextQuestion = "/quizzes/"+quizID+"/play/"+ nextQuestion.getQuestionNr();
         }else{
@@ -91,7 +88,6 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
     }
 
     private Question getNextQuestion(Long quizID, int currentQuestion){
-        //TODO check if correct
         Question next = questionRepository.find("quiz_id = ?1 and questionnr > ?2", Sort.by("questionnr"), quizID, currentQuestion).firstResult();
         return next;
     }
