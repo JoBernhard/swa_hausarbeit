@@ -24,7 +24,6 @@ import de.os.hs.swa.category.entity.Category;
 //@author: Johanna Benhard
 // @author Laura Peter
 
-//TODO check for admin role
 @RequestScoped
 @Path("/category")
 @Tag(name = "category", description = "get and edit info about categorys")
@@ -36,8 +35,6 @@ public class CategoryRessource {
     QuizService quizService;
 
 
-
-    
     @GET @Path("/{categoryName}")
     @Operation(description = "get all Quizzes in Category")
     public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@PathParam("categoryName") String category){

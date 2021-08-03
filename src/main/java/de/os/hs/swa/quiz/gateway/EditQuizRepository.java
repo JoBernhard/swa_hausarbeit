@@ -50,8 +50,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         if(q != null){
             System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                //q.setQuestions(questionRepo.list("quiz_id", q.getId()));
-                //System.out.println(q.getQuestions());
                 return q;
             }else{
                 throw new UnauthorizedException();
@@ -157,7 +155,7 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     private QuizListDTO quizToListDTO(Quiz q){
         QuizListDTO dto = new QuizListDTO();
-        dto.title = q.getTitle();//+" "+q.getQuestions().size();
+        dto.title = q.getTitle();
         dto.linktToPlay = "quizzes/"+q.getId()+"/play";
         dto.linktToEdit = "quizzes/"+q.getId()+"/edit";
         return dto;

@@ -2,7 +2,6 @@ package de.os.hs.swa.quiz.entity;
 
 import java.util.Collection;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,8 +29,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @NotEmpty(message = "Question must contain Answers") @NotNull(message = "Answers shall not be null")
     private Collection<Answer> answers;
-    //TODO remove json annotation when done with boundary
-    @ManyToOne @JsonbTransient @JoinColumn(name="quiz_id", nullable = false)
+    @ManyToOne @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;
 
     public Question() {

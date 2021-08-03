@@ -31,11 +31,9 @@ public class EditRessource {
     @Inject
     EditQuizService editQuizService;
 
-
     @GET
     @Operation(description = "gets the Question for the creator in format in which it can be edited")
     public QuestionDTO getQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
-        //TODO question to DTO
         return new QuestionDTO(questionService.getEditableQuestion(quizID, questionNr));
         
     }
@@ -44,7 +42,6 @@ public class EditRessource {
     @PUT
     @Operation(description = "replaces question of given Number with new question, only allowed for creator")
     public QuestionDTO editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, QuestionDTO question){
-        //TODO Question to DTO
         return new QuestionDTO(questionService.updateQuestion(quizID, questionNr, dtoTQuestion(question)));
     }
 
@@ -52,10 +49,11 @@ public class EditRessource {
     @DELETE
     @Operation(description = "deletes question of given number, only allowed for creator")
     public void removeQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
-        
         questionService.deleteQuestion(quizID, questionNr);
     }
 
+
+    //@author: Laura Peter
     private Question dtoTQuestion(QuestionDTO dto){
         Question q = new Question();
         q.setText(dto.getText());
@@ -71,7 +69,6 @@ public class EditRessource {
             answers.add(answerToAdd);
         }
         q.setAnswers(answers);
-        return q;
-        
+        return q; 
     }
 }

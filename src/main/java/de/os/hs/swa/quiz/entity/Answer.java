@@ -1,6 +1,5 @@
 package de.os.hs.swa.quiz.entity;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 //@author: Johanna Bernhard
 @Entity
@@ -21,8 +19,7 @@ public class Answer {
     private String text;
     private int answerNr;
     private boolean isCorrect;
-    //TODO remove json annotation when done with boundary
-    @ManyToOne @JsonbTransient @JoinColumn(name="question_id", nullable = false)
+    @ManyToOne @JoinColumn(name="question_id", nullable = false)
     private Question question;
 
     public Answer(){
