@@ -7,7 +7,7 @@ import de.os.hs.swa.quiz.entity.Question;
 import de.os.hs.swa.quiz.entity.Quiz;
 
 public interface EditQuizService {
-    public Collection<QuizListDTO> getOwnQuizzes(String UserName);
+    public Collection<QuizListDTO> getOwnQuizzes(String UserName, int page);
     public Quiz getEditableQuiz(Long quizID);
     public Question addQuestionToQuiz(Long quizID, Question question);
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz);
