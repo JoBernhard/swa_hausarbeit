@@ -1,6 +1,7 @@
 # quiz-fest Project
 
-first start docker compose with
+first start docker and wait for the engine to start
+then run docker compose with
 docker-compose -f "C:\Users\jobernha\Desktop\swa\quiz-fest\src\main\docker\docker-compose.yaml" up
 or
 docker-compose up

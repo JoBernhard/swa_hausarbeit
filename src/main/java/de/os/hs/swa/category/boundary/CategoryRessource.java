@@ -2,6 +2,7 @@ package de.os.hs.swa.category.boundary;
 
 import java.util.Collection;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -51,6 +52,7 @@ public class CategoryRessource {
 
     @Transactional
     @POST @Path("/{categoryName}")
+    @RolesAllowed("quiz-fest-category-admin")
     @Operation(description = "create a new category is only allowed for administrators")
     public Category addNewCategory(@PathParam("categoryName") String category){
         return categoryService.addCategory(category);
@@ -58,6 +60,7 @@ public class CategoryRessource {
 
     @Transactional
     @DELETE @Path("/{categoryName}")
+    @RolesAllowed("quiz-fest-category-admin")
     @Operation(description = "delete category by name is only allowed for administrator if category is empty")
     public Response deleteEmptyCategory(@PathParam("categoryName")String category){
         if(categoryService.deleteCategoryByName(category)){

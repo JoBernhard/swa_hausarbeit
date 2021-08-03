@@ -27,6 +27,6 @@ insert into answer values(8, 2, false, 'In Frankreich', 3);
 
 insert into answer values(9, 1, true, 'Ein Logiker', 4);
 insert into answer values(10, 2, true, 'Ein Mathematiker', 4);
-insert into answer values(11, 3, false, 'Ein Schriftsteller', 4);
+insert into answer values(11, 3, false, 'Ein Barde', 4);
 
 commit;
