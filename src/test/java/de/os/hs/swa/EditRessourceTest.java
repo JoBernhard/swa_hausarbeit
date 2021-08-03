@@ -31,33 +31,7 @@ public class EditRessourceTest {
   private static String firtstAnswerText = "Baum";
   private static String secondAnswerText = "Aloe Vera";
 
-  @BeforeAll
-    public static void init(){
-        try {
-            copyIntoTestDB("Category", "./testcategories.csv");
-            copyIntoTestDB("Quiz", "./testquiz.csv");
-            copyIntoTestDB("Question", "./testquestion.csv");
-            copyIntoTestDB("Answer", "./testanswer.csv");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } 
-       
-    }
-
-    private static void copyIntoTestDB(String tablename, String file){
-        try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/quizfestdb","postgres","annie_box");
-            Statement statement = con.createStatement(); 
-                statement.executeUpdate("TRUNCATE " + tablename+" CASCADE");
-            long rowsInserted = new CopyManager((BaseConnection) con)
-            .copyIn("COPY "+tablename+" FROM STDIN (FORMAT csv, HEADER)", new FileReader(file));
-            System.out.printf("%d row(s) inserted%n", rowsInserted);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
+  /*
   @Test 
   public void getQuizOk(){
       Long quizId = 1L;
@@ -374,7 +348,7 @@ public class EditRessourceTest {
     Category c = new Category();
     c.setName(categoryName);
     return new QuizEditDTO(c, title, questions);
-}
+}*/
 
 
 

@@ -18,8 +18,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.smallrye.common.constraint.Assert;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileReader;
 import java.sql.Connection;
@@ -34,7 +37,7 @@ import javax.ws.rs.BadRequestException;
 @QuarkusTest @TestSecurity(authorizationEnabled = false)
 public class QuizRessourceTest {
 
-    private static String categoryName="'Natur'";
+    private static String categoryName="Natur";
     private static String title = "Naturquiz";
     private static String questionTitle = "Was ist keine Zimmerpflanze?";
     private static String firtstAnswerText = "Baum";
@@ -66,13 +69,10 @@ public class QuizRessourceTest {
         QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
 
         try{
-        given().contentType(ContentType.JSON)
-        .body(quiz)
-        .post("/quizzes")
-        .then()
-        .statusCode(400);
+            given().contentType(ContentType.JSON)
+            .body(quiz)
+            .post("/quizzes").then().statusCode(400);
         }catch(BadRequestException e){
-
         }
     }
 /*
