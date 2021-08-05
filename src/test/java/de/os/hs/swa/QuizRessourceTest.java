@@ -1,40 +1,23 @@
 package de.os.hs.swa;
 
 
-import org.hibernate.AssertionFailure;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.postgresql.copy.CopyManager;
-import org.postgresql.core.BaseConnection;
-
-import de.os.hs.swa.category.entity.Category;
-import de.os.hs.swa.quiz.boundary.QuizzesRessource;
-import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
-import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
-import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
-import de.os.hs.swa.quiz.entity.Answer;
-import de.os.hs.swa.quiz.entity.Question;
-import io.quarkus.test.TestTransaction;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.security.TestSecurity;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.smallrye.common.constraint.Assert;
-
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.ws.rs.BadRequestException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import de.os.hs.swa.category.entity.Category;
+import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuestionDTO;
+import de.os.hs.swa.quiz.control.DOTs.QuizEditDTO;
+import io.quarkus.test.TestTransaction;
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
+import io.restassured.http.ContentType;
+
 
 // @author: Laura Peter
 @QuarkusTest @TestSecurity(authorizationEnabled = false) 

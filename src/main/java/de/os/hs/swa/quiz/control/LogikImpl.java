@@ -38,13 +38,11 @@ public class LogikImpl implements QuizLogikService{
                     checkValidQuestion(question);
                 }
             return true;
-            
         }
         String violationMessage = violations.stream()
         .map(cv -> cv.getMessage())
         .collect(Collectors.joining(", "));
         throw new BadRequestException(violationMessage);
-        //return false;
     }
 
     @Override
@@ -65,7 +63,6 @@ public class LogikImpl implements QuizLogikService{
             .collect(Collectors.joining(", "));
             throw new BadRequestException(violationMessage);
         }
-        //return false;
     }
 
     private boolean checkValidAnswer(Answer answer){

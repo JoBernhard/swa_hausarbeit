@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.quiz.control.EditQuestionService;
@@ -33,7 +34,7 @@ public class EditRessource {
 
     @GET
     @Operation(description = "gets the Question for the creator in format in which it can be edited")
-    public QuestionDTO getQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
+    public QuestionDTO getQuestionByNumber(@Parameter(example = "200")@PathParam("quizID") Long quizID,@Parameter(example = "1") @PathParam("questionNr") int questionNr){
         return new QuestionDTO(questionService.getEditableQuestion(quizID, questionNr));
         
     }
@@ -41,14 +42,14 @@ public class EditRessource {
     @Transactional
     @PUT
     @Operation(description = "replaces question of given Number with new question, only allowed for creator")
-    public QuestionDTO editQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr, QuestionDTO question){
+    public QuestionDTO editQuestionByNumber(@Parameter(example = "200") @PathParam("quizID") Long quizID,@Parameter(example = "1") @PathParam("questionNr") int questionNr, QuestionDTO question){
         return new QuestionDTO(questionService.updateQuestion(quizID, questionNr, dtoTQuestion(question)));
     }
 
     @Transactional
     @DELETE
     @Operation(description = "deletes question of given number, only allowed for creator")
-    public void removeQuestionByNumber(@PathParam("quizID") Long quizID, @PathParam("questionNr") int questionNr){
+    public void removeQuestionByNumber(@Parameter(example = "100")@PathParam("quizID") Long quizID,@Parameter(example = "1") @PathParam("questionNr") int questionNr){
         questionService.deleteQuestion(quizID, questionNr);
     }
 

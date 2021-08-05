@@ -1,10 +1,6 @@
 package de.os.hs.swa;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.postgresql.copy.CopyManager;
-import org.postgresql.core.BaseConnection;
 
 import de.os.hs.swa.category.entity.Category;
 import de.os.hs.swa.quiz.control.DOTs.AnswerDTO;
@@ -19,8 +15,6 @@ import static io.restassured.RestAssured.given;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.transaction.Transactional;
 
 @QuarkusTest
 public class EditRessourceTest {

@@ -14,7 +14,7 @@ import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.security.ForbiddenException;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 
 @RequestScoped
 public class EditQuestionRepository implements EditQuestionService, PanacheRepository<Question>{
@@ -36,21 +36,31 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
         if(checkValidQuestion(question)){
             Quiz q = quizRepository.findById(quizID);
             if(q!= null){
-                Question questionToUpdate = getEditableQuestion(quizID, questionNr);
-                 if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                    if(checkValidQuestion(question)){
-                        delete(questionToUpdate);
-                        question.setQuiz(q);
-                        question.setQuestionNr(questionToUpdate.getQuestionNr());
-                        persist(question);
-                    } 
-                    //TODO: maybe entitymanger.merge damit updated question die selbe id wie die original
-                    //TODO: warum nicht wie updateQuiz
-                    return question;
+                Question questionToUpdate = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
+                if(questionToUpdate!=null){
+                    if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                        if(checkValidQuestion(question)){
+                            questionToUpdate.setText(question.getText());
+
+                            for(Answer a: questionToUpdate.getAnswers()){
+                                answerRepository.delete(a);
+                            }
+                            
+                            for(Answer a: question.getAnswers()){
+                                a.setQuestion(questionToUpdate);
+                                answerRepository.persist(a);
+                            }
+
+                            questionToUpdate.getAnswers().clear();
+                            questionToUpdate.getAnswers().addAll(question.getAnswers());
+                        } 
+                        return questionToUpdate;
+                    }else{
+                        throw new ForbiddenException();
+                    }
                 }else{
-                    throw new ForbiddenException();
+                    throw new NotFoundException();
                 }
-                
             }else{
                 throw new NotFoundException("Quiz with id: "+ quizID+ " dosen't exist");
             }
@@ -77,7 +87,6 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
             if(userService.isAuthorizedToEdit(quiz.getCreatorName())){
                 Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
                 if(q != null){
-                    //q.setAnswers(answerRepository.list("question_id", q.getId()));
                     return q;
                 }else{
                     throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);

@@ -2,6 +2,7 @@ package de.os.hs.swa.quiz.control.DOTs;
 
 import de.os.hs.swa.quiz.entity.Answer;
 
+//@author: Laura Peter
 public class AnswerDTO {
     private String text;
     private boolean isCorrect;

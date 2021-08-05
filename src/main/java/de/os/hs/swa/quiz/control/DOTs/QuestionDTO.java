@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import de.os.hs.swa.quiz.entity.Question;
 
+//qauthor: Laura Peter
 public class QuestionDTO {
     private String text;
     private Collection<AnswerDTO> answers;

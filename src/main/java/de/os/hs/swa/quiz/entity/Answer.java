@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 @Entity
 public class Answer {
     @Id @GeneratedValue 
@@ -17,8 +17,11 @@ public class Answer {
 
     @NotBlank(message = "Answertext shall not be blank")
     private String text;
+
     private int answerNr;
+
     private boolean isCorrect;
+    
     @ManyToOne @JoinColumn(name="question_id", nullable = false)
     private Question question;
 

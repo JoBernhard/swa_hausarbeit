@@ -55,10 +55,11 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
 
     @Override
     public ResultDTO answerQuestion(Long quizID, int questionNr, int answerNr) {
-        //TODO comment code
+        //find question by number
         Question question = questionRepository.find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
         
         Answer answer;
+        //check if answer exists
         if(question != null){
             answer = find("question_id = ?1 and answernr = ?2", question.getId(), answerNr).firstResult();
             if(answer==null){
@@ -69,14 +70,18 @@ public class PlayRepository implements PlayService, PanacheRepository<Answer> {
         }
 
         ResultDTO result = new ResultDTO();
+        //select correct answers
         result.correctAnswers = stream("question_id = ?1 and iscorrect = true", question.getId())
                                     .map(a->a.getNumber()).collect(Collectors.toList());
+        
+        //reward points if answerd correctly
         if(answer.getIsCorrect()){
             result.points = points;         
         }else{
             result.points = 0;
         }
 
+        //link to next question if present
         Question nextQuestion = getNextQuestion(quizID, questionNr);
         if(nextQuestion != null){
             result.linkToNextQuestion = "/quizzes/"+quizID+"/play/"+ nextQuestion.getQuestionNr();
