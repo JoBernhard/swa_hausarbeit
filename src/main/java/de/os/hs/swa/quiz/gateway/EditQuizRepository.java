@@ -89,7 +89,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz updateQuiz(Long quizID, Quiz updatedQuiz) {
-        //TODO remove unused code
         Quiz toUpdate = findById(quizID);
         if(toUpdate != null){
             if(userService.isAuthorizedToEdit(toUpdate.getCreatorName())){
