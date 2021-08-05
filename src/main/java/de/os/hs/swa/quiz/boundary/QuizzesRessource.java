@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,7 +38,6 @@ public class QuizzesRessource {
     EditQuizService editQuizService;
     @Inject
     EditQuestionService editQuestionService;
-
     @Inject
     UserAdapter userService;
 
@@ -82,7 +80,6 @@ public class QuizzesRessource {
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
     public QuizEditDTO editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
-        //TODO quiz to DTO
         return new QuizEditDTO(editQuizService.updateQuiz(quizID, dtoToQuiz(quiz)));
     }
 
@@ -123,7 +120,6 @@ public class QuizzesRessource {
     private Question dtoToQuestion(QuestionDTO dto){
         Question q = new Question();
         q.setText(dto.getText());
-        //set questionnr. in repository
         q.setAnswers(dtosToAnswers(dto.getAnswers(), q));
         return q;
     }

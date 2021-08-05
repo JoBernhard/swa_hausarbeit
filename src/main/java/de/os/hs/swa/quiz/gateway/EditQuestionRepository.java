@@ -45,6 +45,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
                         persist(question);
                     } 
                     //TODO: maybe entitymanger.merge damit updated question die selbe id wie die original
+                    //TODO: warum nicht wie updateQuiz
                     return question;
                 }else{
                     throw new ForbiddenException();
