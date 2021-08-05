@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "6550ab22-26cb-411c-bbf1-701e471d694e",
+		"name": "quiz-fest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate Accesstoken",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "aed22a66-94ba-439e-b42f-027a7792bcc7",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "quiz-fest",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8180/auth/realms/quiz-fest/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8180",
+					"path": [
+						"auth",
+						"realms",
+						"quiz-fest",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get me with token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc2MzcwNDIsImlhdCI6MTYyNzYzNjc0MiwianRpIjoiMDczZmUxYjAtZTVmNS00N2Y1LThhYmEtN2IxMTE1YjczMTgxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiMDczNzA1NjgtNmQ2Yy00ZTNmLWEzMWMtOWFiOWFlOTBmNTQ0IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIyIn0.cJ8DA0xNIWuQ1OFf_AK6nIlhDU9NGrGOctZF0O3PC9lMJaZN1yhmPTnV5iQSPSBujszp1I06gAhRivB5XbuqWdUtEfwQnIKFHX5AyvcQrQ1aIp-HVbYBCI2cPY7EMETXUFMiF1ATScCpq6BjhGe2DQiGvwsfq37fxK1le3lcz6cibchp6lTzDNjweYQkrdrSPTVJ7j66gBmycrwhp72a7DiopAWFn8OzUiU4PeOxOWS6dtt2pANDQE5ff1JEvbkRyomlHODM0z6er9pj8yi3xEcH6FTF9DEoZ_Qs_w1w9DVdUpCvdp4EVoLAiSLsgmuNr9HyyRJWU0y6ZBDVfGUBtQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3MzI2MjQsImlhdCI6MTYyNzczMDgyNCwianRpIjoiYTBkMTJlYjAtNzE5MC00Y2NhLWE1YzQtMTM0YTc3MDIxNzU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiM2JjMWM2YzAtNWUyMy00YTIxLTk2NWEtNzI5Y2U1N2E3NGMxIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.p9jIQEXHQ9-8tX0orXNQBfk-4FYpoD22o8MDFCZp54hnCAJ7AqCF3lpb5DCzU82pgO2SIEOwct2ugAob3ntoQDUnPvCDpEfwYwZe66KdRWMz0hDoHrrWAF5co2L3p8X7usckWsoEOmZtN35XdH_iQn2PssUwf-UtKe3AZFlVgSz80cTuBD4zQqmOquhpjyBYDIW1QOOZJsmw_jSLvYgjf3y8aCDCqtei3IBWSK0H8XANHAV05nqtgWXsX3lpxu0P4D_Rnr8yqleug3U_YY5M-ZW2SmtYkUWyttjIeogCQtFCvBcmwv5u2KxBnqxxTMKaRxjJgDTS2F6W5YOb8-yd9w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"creatorName\": \"user2\",\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"answerNr\": 1,\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },{\r\n          \"answerNr\": 2,\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"questionNr\": 1,\r\n      \"text\": \"wtf?\"\r\n    }\r\n  ],\r\n  \"title\": \"wtfquiz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/quizzes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "get question by number",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete question by number",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/16/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"16",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update question by number",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get quiz to edit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc5NzY5MDAsImlhdCI6MTYyNzk3NTEwMCwianRpIjoiNTU4YTRiOGYtYWI2Yy00Zjk5LWEwMTMtMzBhYjMxZjg1NTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiMDhhMWZhMmUtYzQwMC00Zjg4LWFkY2ItY2E1OTFhMTMzNjY3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.jgYPHjiJ6wwToXbz_LhgVRJ7t8kcca0JuSwRk6q5Ci-lKNXLIlbDPaeKjDhT3clv8xOFBW2f8mv8EMm3tFrTZgQ7Njiw33wUca3D-qKu5qYbf4w00mpMZ0cYTk8HL2eZ6UJaDbLw-M5nbMOP_QoM8Uuo7zY52VtFVofac9NoTJreR9nc3jhSQcVji80KekSQsJZentu5WTmlDskE7YZDMCpAbmk7F9_7flap0YiZvFzdVsHUXkxTZYZ92wrqYwSS50HfDUC4GeEppJDLaeSRIVlYxjq40VhW_JudqtmJ_IRTIjHfs5T_7fJxXKiTlhB9Ryqp-uiekvhbdCDzXs5SUA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"creatorName\": \"user2\",\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"zweite antwort\"\r\n        },\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"wtf?\"\r\n    },\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"wtf2.0?\"\r\n    }\r\n  ],\r\n  \"title\": \"wtfquizUPDATED2.0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get own quizzes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "get first question of quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer question",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new question to quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"isCorrect\": false,\r\n            \"text\": \"string\"\r\n        },\r\n        {\r\n            \"isCorrect\": true,\r\n            \"text\": \"string\"\r\n        }\r\n    ],\r\n    \"text\": \"new?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/quizzes/1/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quizzes",
+						"1",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get quizzes by categoryname",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

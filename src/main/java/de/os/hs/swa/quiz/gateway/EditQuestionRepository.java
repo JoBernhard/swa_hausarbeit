@@ -77,7 +77,7 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
             if(userService.isAuthorizedToEdit(quiz.getCreatorName())){
                 Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
                 if(q != null){
-                    q.setAnswers(answerRepository.list("question_id", q.getId()));
+                    //q.setAnswers(answerRepository.list("question_id", q.getId()));
                     return q;
                 }else{
                     throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);

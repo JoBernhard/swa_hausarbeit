@@ -8,12 +8,14 @@ import io.quarkus.security.ForbiddenException;
 import io.quarkus.security.UnauthorizedException;
 import io.quarkus.security.identity.SecurityIdentity;
 
+//@author: Laura Peter
 @RequestScoped
 public class UserService implements UserAdapter{
 
     @Inject
     SecurityIdentity identity;
 
+    //checks if username from principla equals the username saved in the quiz
     @Override
     public boolean isAuthorizedToEdit(String quizUsername){
         String username = identity.getPrincipal().getName();
