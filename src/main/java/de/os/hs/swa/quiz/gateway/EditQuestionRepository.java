@@ -14,7 +14,7 @@ import de.os.hs.swa.quiz.entity.Quiz;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.security.ForbiddenException;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 
 @RequestScoped
 public class EditQuestionRepository implements EditQuestionService, PanacheRepository<Question>{
@@ -87,7 +87,6 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
             if(userService.isAuthorizedToEdit(quiz.getCreatorName())){
                 Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
                 if(q != null){
-                    q.setAnswers(answerRepository.list("question_id", q.getId()));
                     return q;
                 }else{
                     throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);

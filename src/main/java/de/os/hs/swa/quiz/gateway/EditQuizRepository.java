@@ -52,7 +52,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
 
     @Override
     public Quiz getEditableQuiz(Long quizID) {
-        //TODO check if correct
         Quiz q = findById(quizID);
         if(q != null){
             if(userService.isAuthorizedToEdit(q.getCreatorName())){

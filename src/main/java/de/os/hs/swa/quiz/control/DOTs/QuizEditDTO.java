@@ -13,12 +13,6 @@ public class QuizEditDTO {
     private String title;
     private Collection<QuestionDTO> questions;
 
-    public QuizEditDTO(String title, Collection<QuestionDTO> questions){
-        this.title = title;
-        this.questions = questions;
-    }
-
-
     public QuizEditDTO() {
     }
 

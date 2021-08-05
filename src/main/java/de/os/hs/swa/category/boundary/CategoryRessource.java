@@ -24,7 +24,7 @@ import de.os.hs.swa.category.control.QuizService;
 import de.os.hs.swa.category.entity.Category;
 
 //@author: Johanna Benhard
-// @author Laura Peter
+//@author: Laura Peter
 
 @RequestScoped
 @Path("/category")

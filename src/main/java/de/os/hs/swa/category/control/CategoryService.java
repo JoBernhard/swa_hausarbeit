@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import de.os.hs.swa.category.entity.Category;
 
+//@author: Johanna Bernhard
 public interface CategoryService {
     public Collection<String> getAllCategories();
     public Category addCategory(String categoryName);

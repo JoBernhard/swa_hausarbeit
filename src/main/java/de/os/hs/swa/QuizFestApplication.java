@@ -31,5 +31,5 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
     )
 )
 public class QuizFestApplication extends Application {
-    
+    //empty class that extendes Application for OpenApi Documentation
 }

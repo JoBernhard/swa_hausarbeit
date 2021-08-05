@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.quiz.acl.UserAdapter;
@@ -57,13 +58,12 @@ public class QuizzesRessource {
         } else {
             throw new BadRequestException("Quiz shall not be null");
         }
-        
     }
 
     @Path("{quizID}/edit")
     @GET
     @Operation(description = "get created quiz by id to edit")
-    public QuizEditDTO getQuizByID(@PathParam("quizID") Long quizID){
+    public QuizEditDTO getQuizByID(@Parameter(example = "100") @PathParam("quizID") Long quizID){
         return new QuizEditDTO(editQuizService.getEditableQuiz(quizID));       
     }
 
@@ -71,7 +71,7 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @POST
     @Operation(description = "add new Question to quiz allowed for creator")
-    public QuestionDTO addQuestionToQuiz(@PathParam("quizID") Long quizID, QuestionDTO question){
+    public QuestionDTO addQuestionToQuiz(@Parameter(example = "100") @PathParam("quizID") Long quizID, QuestionDTO question){
         return new QuestionDTO(editQuizService.addQuestionToQuiz(quizID, dtoToQuestion(question)));
     }
 
@@ -79,7 +79,7 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @PUT
     @Operation(description = "override quiz with given id with new quiz only for creator, returns the edited quiz")
-    public QuizEditDTO editQuiz(@PathParam("quizID") Long quizID, QuizEditDTO quiz){
+    public QuizEditDTO editQuiz(@Parameter(example = "100") @PathParam("quizID") Long quizID, QuizEditDTO quiz){
         return new QuizEditDTO(editQuizService.updateQuiz(quizID, dtoToQuiz(quiz)));
     }
 
@@ -87,7 +87,7 @@ public class QuizzesRessource {
     @Path("{quizID}/edit")
     @DELETE
     @Operation(description = "delete quiz with id only for creator")
-    public void deletQuizByID(@PathParam("quizID") Long quizID){
+    public void deletQuizByID(@Parameter(example = "100") @PathParam("quizID") Long quizID){
         editQuizService.deletQuizByID(quizID);       
     }
 

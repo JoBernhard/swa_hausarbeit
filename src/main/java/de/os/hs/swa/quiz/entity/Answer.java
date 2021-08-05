@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 @Entity
 public class Answer {
     @Id @GeneratedValue 
