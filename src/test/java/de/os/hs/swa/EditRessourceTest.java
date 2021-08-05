@@ -335,11 +335,11 @@ public class EditRessourceTest {
     @TestTransaction
     @TestSecurity(user="jobernhard")
     public void deleteQuizOk(){
-      Long quizId = 1000L;
+      Long quizId = 100L;
       given().when().delete("/quiz-fest/api/quizzes/"+quizId+"/edit")
       .then().statusCode(204);
     }
-    
+
   public Collection<QuestionDTO> createQuestion(Collection<AnswerDTO> answers){
         ArrayList<QuestionDTO> questions = new ArrayList<>();
         questions.add(new QuestionDTO(questionTitle, answers));

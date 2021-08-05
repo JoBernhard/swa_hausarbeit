@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import de.os.hs.swa.category.entity.Category;
 
-//@author: Johanna Bernhard
+//@author: Johanna Bernhard, Laura Peter
 
 @Entity
 public class Quiz {
@@ -32,7 +32,8 @@ public class Quiz {
     private String creatorName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz", orphanRemoval = true)
-    @NotEmpty(message = "Quiz must contain questions") @NotNull(message = "Questions shall not be null")
+    @NotEmpty(message = "Quiz must contain questions") 
+    @NotNull(message = "Questions shall not be null")
     private Collection<Question> questions;
 
     @ManyToOne 
