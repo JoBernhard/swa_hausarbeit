@@ -3,18 +3,18 @@ begin;
 insert into category values ('Natur');
 insert into category values ('Kultur');
 
-/*insert into quiz values (1, 'jobernhard', 'Naturquiz', 'Natur');
+insert into quiz values (100, 'jobernhard', 'Naturquiz', 'Natur');
 
 
-insert into question values(1, 1, 'Was ist ein Apfel?', 1);
-insert into question values(2, 2, 'Was ist ein Kürbis?', 1);
+insert into question values(10, 1, 'Was ist ein Apfel?', 100);
+insert into question values(20, 2, 'Was ist ein Kürbis?', 100);
 
-insert into answer values(1, 1, true, 'Ein Obst', 1);
-insert into answer values(2, 2, false, 'Ein Gemüse', 1);
+insert into answer values(15, 1, true, 'Ein Obst', 10);
+insert into answer values(25, 2, false, 'Ein Gemüse', 10);
 
-insert into answer values(4, 1, false, 'Ein Obst', 2);
-insert into answer values(5, 2, true, 'Ein Gemüse', 2);
-insert into answer values(6, 3, false, 'Ein Tier', 2);*/
+insert into answer values(45, 1, false, 'Ein Obst', 20);
+insert into answer values(55, 2, true, 'Ein Gemüse', 20);
+insert into answer values(65, 3, false, 'Ein Tier', 20);
 
 
 insert into quiz values (200, 'laupeter', 'Kultur 101', 'Natur');
