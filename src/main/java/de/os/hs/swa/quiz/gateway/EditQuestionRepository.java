@@ -72,17 +72,22 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
     @Override
     public Question getEditableQuestion(Long quizID, int questionNr) {
         Quiz quiz = quizRepository.findById(quizID);
-        if(userService.isAuthorizedToEdit(quiz.getCreatorName())){
-            Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
-            if(q != null){
-                q.setAnswers(answerRepository.list("question_id", q.getId()));
-                return q;
+        if(quiz!=null){
+            if(userService.isAuthorizedToEdit(quiz.getCreatorName())){
+                Question q = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
+                if(q != null){
+                    q.setAnswers(answerRepository.list("question_id", q.getId()));
+                    return q;
+                }else{
+                    throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);
+                }
             }else{
-                throw new NotFoundException("Qustion with Nr: "+ questionNr+ " dosen't exist in Quiz with id: "+quizID);
+                throw new ForbiddenException();
             }
         }else{
-            throw new ForbiddenException();
+            throw new NotFoundException("Quiz with ID: "+ quizID+ " dosen't exist");
         }
+        
     }
 
     private boolean checkValidQuestion(Question q){

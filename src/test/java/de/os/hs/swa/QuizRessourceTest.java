@@ -150,14 +150,14 @@ public class QuizRessourceTest {
         .statusCode(400);
     }
 
-    public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
-        return new QuestionDTO(questionTitle, answers);
+    public Collection<QuestionDTO> createQuestion(Collection<AnswerDTO> answers){
+        ArrayList<QuestionDTO> questions = new ArrayList<>();
+        questions.add(new QuestionDTO(questionTitle, answers));
+        return questions;
     }
 
-    public QuizEditDTO createQuiz(String categoryName, String title, QuestionDTO question){
-        
-        ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
-        questions.add(question);
+    public QuizEditDTO createQuiz(String categoryName, String title, Collection<QuestionDTO> questions){
+               
         Category c = new Category();
         c.setName(categoryName);
         return new QuizEditDTO(c, title, questions);
