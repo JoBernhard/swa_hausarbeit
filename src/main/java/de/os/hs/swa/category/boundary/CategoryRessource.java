@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import de.os.hs.swa.category.control.CategoryService;
@@ -38,7 +39,7 @@ public class CategoryRessource {
 
     @GET @Path("/{categoryName}")
     @Operation(description = "get all Quizzes in Category")
-    public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@PathParam("categoryName") String category, @QueryParam("page") int page){
+    public Collection<QuizForCategoryDTO> getAllQuizzesInCategory(@Parameter(example = "Natur") @PathParam("categoryName") String category, @QueryParam("page") int page){
         return quizService.getAllQuizzes(category, page);
     }
 
@@ -52,7 +53,7 @@ public class CategoryRessource {
     @POST @Path("/{categoryName}")
     @RolesAllowed("quiz-fest-category-admin")
     @Operation(description = "create a new category is only allowed for administrators")
-    public Category addNewCategory(@PathParam("categoryName") String category){
+    public Category addNewCategory(@Parameter(example = "NeueKategorie") @PathParam("categoryName") String category){
         return categoryService.addCategory(category);
     }
 
@@ -60,7 +61,7 @@ public class CategoryRessource {
     @DELETE @Path("/{categoryName}")
     @RolesAllowed("quiz-fest-category-admin")
     @Operation(description = "delete category by name is only allowed for administrator if category is empty")
-    public Response deleteEmptyCategory(@PathParam("categoryName")String category){
+    public Response deleteEmptyCategory(@Parameter(example = "NeueKategorie") @PathParam("categoryName")String category){
         if(categoryService.deleteCategoryByName(category)){
             return Response.noContent().build();
         }
