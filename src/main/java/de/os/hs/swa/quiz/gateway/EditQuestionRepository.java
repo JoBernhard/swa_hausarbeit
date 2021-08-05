@@ -36,29 +36,31 @@ public class EditQuestionRepository implements EditQuestionService, PanacheRepos
         if(checkValidQuestion(question)){
             Quiz q = quizRepository.findById(quizID);
             if(q!= null){
-                Question questionToUpdate = getEditableQuestion(quizID, questionNr);
-                 if(userService.isAuthorizedToEdit(q.getCreatorName())){
-                    if(checkValidQuestion(question)){
-                        //delete(questionToUpdate);
-                        for(Answer a: questionToUpdate.getAnswers()){
-                            answerRepository.delete(a);
-                        }
+                Question questionToUpdate = find("quiz_id = ?1 and questionnr = ?2", quizID, questionNr).firstResult();
+                if(questionToUpdate!=null){
+                    if(userService.isAuthorizedToEdit(q.getCreatorName())){
+                        if(checkValidQuestion(question)){
+                            questionToUpdate.setText(question.getText());
 
-                        for(Answer a: question.getAnswers()){
-                            a.setQuestion(questionToUpdate);
-                            answerRepository.persist(a);
-                        }
-                        questionToUpdate.getAnswers().clear();
-                        questionToUpdate.getAnswers().addAll(question.getAnswers());
-                        //persist(questionToUpdate);
-                    } 
-                    //TODO: maybe entitymanger.merge damit updated question die selbe id wie die original
-                    //TODO: warum nicht wie updateQuiz
-                    return questionToUpdate;
+                            for(Answer a: questionToUpdate.getAnswers()){
+                                answerRepository.delete(a);
+                            }
+                            
+                            for(Answer a: question.getAnswers()){
+                                a.setQuestion(questionToUpdate);
+                                answerRepository.persist(a);
+                            }
+
+                            questionToUpdate.getAnswers().clear();
+                            questionToUpdate.getAnswers().addAll(question.getAnswers());
+                        } 
+                        return questionToUpdate;
+                    }else{
+                        throw new ForbiddenException();
+                    }
                 }else{
-                    throw new ForbiddenException();
+                    throw new NotFoundException();
                 }
-                
             }else{
                 throw new NotFoundException("Quiz with id: "+ quizID+ " dosen't exist");
             }

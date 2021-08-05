@@ -24,12 +24,14 @@ public class Question {
 
     @NotBlank(message = "Questiontext shall not be blank")
     private String text;
+    
     private int questionNr;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @NotEmpty(message = "Question must contain Answers") 
     @NotNull(message = "Answers shall not be null")
     private Collection<Answer> answers;
+
     @ManyToOne @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;
 

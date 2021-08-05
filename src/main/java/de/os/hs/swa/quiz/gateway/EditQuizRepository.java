@@ -55,7 +55,6 @@ public class EditQuizRepository implements EditQuizService, PanacheRepository<Qu
         //TODO check if correct
         Quiz q = findById(quizID);
         if(q != null){
-            System.out.println(q.getCreatorName());
             if(userService.isAuthorizedToEdit(q.getCreatorName())){
                 return q;
             }else{
