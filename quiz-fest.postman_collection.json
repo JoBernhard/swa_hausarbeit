@@ -109,7 +109,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3MzI2MjQsImlhdCI6MTYyNzczMDgyNCwianRpIjoiYTBkMTJlYjAtNzE5MC00Y2NhLWE1YzQtMTM0YTc3MDIxNzU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiM2JjMWM2YzAtNWUyMy00YTIxLTk2NWEtNzI5Y2U1N2E3NGMxIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.p9jIQEXHQ9-8tX0orXNQBfk-4FYpoD22o8MDFCZp54hnCAJ7AqCF3lpb5DCzU82pgO2SIEOwct2ugAob3ntoQDUnPvCDpEfwYwZe66KdRWMz0hDoHrrWAF5co2L3p8X7usckWsoEOmZtN35XdH_iQn2PssUwf-UtKe3AZFlVgSz80cTuBD4zQqmOquhpjyBYDIW1QOOZJsmw_jSLvYgjf3y8aCDCqtei3IBWSK0H8XANHAV05nqtgWXsX3lpxu0P4D_Rnr8yqleug3U_YY5M-ZW2SmtYkUWyttjIeogCQtFCvBcmwv5u2KxBnqxxTMKaRxjJgDTS2F6W5YOb8-yd9w",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4akZWY0luQXFOdW9tSURNR0hjZlpVSmpjVDFQMmRQdnlFd2pldlJvVVg4In0.eyJleHAiOjE2MjgxNTIwMTMsImlhdCI6MTYyODE0ODQxMywianRpIjoiZjExMDg0ODUtZjI2My00NWNhLWJhMTMtOTJmZGUwMjcxZDk5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMjI4MWIyOC1lY2MyLTQ5OGQtYjc0NS1lODk1MGNhNjg5MjIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGMxNGY5MTEtYWNkNC00NjY2LWJmNjgtMDNiOTkzNmM0MTRlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxhdXBldGVyIn0.EX4EJ9Fvns9OFQ5iYGkcGyjBUn5IYgSwy3roPQ5vabliM3nF3KZrCYKA4AGZW5TndNA7GaptBsWQ_E1WwFDR1LtihsUFaX88RtUd12LS6FKKCDxKS8_PpBlRlXbFV8FW07iR7_BMYU8UZRSv3dBWNTJo1gV7Pi0H-YuSz0kEhQTuBf0T0fmgjj1UAVumJy4GUcwWjkZdTIdFdN77g4CdqGMP5mzCfprPmvK_VcC77TSWtJJXIW0vvlck89aYx3g7-fnl3OhzfaZxtRBv6MFx_qYo_HMQhVR_sxkqJ75x3BLoo7q8slY4TSB5Rwuaxf9rnNQ9LDcbEXwrBheXKOAyeQ",
 							"type": "string"
 						}
 					]
@@ -118,7 +118,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"creatorName\": \"user2\",\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"answerNr\": 1,\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },{\r\n          \"answerNr\": 2,\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"questionNr\": 1,\r\n      \"text\": \"wtf?\"\r\n    }\r\n  ],\r\n  \"title\": \"wtfquiz\"\r\n}",
+					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"erste antwort\"\r\n        },\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"zweite antwort\"\r\n        }\r\n      ],\r\n      \"text\": \"erste Frage?\"\r\n    },\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"zweite frage\"\r\n    }\r\n  ],\r\n  \"title\": \"quiz2\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,13 +126,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quizzes",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes"
 					]
 				}
