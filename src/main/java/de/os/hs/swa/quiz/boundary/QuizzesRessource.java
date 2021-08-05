@@ -101,7 +101,7 @@ public class QuizzesRessource {
     }
 
     private Collection<Question> dtosToQuestions(Collection<QuestionDTO> dtos){
-        if(dtos!=null){
+        if(dtos!=null && !dtos.isEmpty()){
             ArrayList<Question> questions = new ArrayList<>();
             int questionIndex = 1;
             for(QuestionDTO questionDTO : dtos){

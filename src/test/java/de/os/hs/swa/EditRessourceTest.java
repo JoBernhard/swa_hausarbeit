@@ -1,6 +1,8 @@
 package de.os.hs.swa;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
@@ -15,250 +17,245 @@ import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
-import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.transaction.Transactional;
 
 @QuarkusTest
 public class EditRessourceTest {
 
   private static String categoryName="Natur";
-  private static String title = "Naturquiz";
-  private static String questionTitle = "Was ist keine Zimmerpflanze?";
-  private static String firtstAnswerText = "Baum";
-  private static String secondAnswerText = "Aloe Vera";
+  private static String title = "Neuer Titel";
+  private static String questionTitle = "Was ist die bessere Antwort?";
+  private static String firtstAnswerText = "neue Antwort1";
+  private static String secondAnswerText = "neue Antwort2";
 
-  /*
+  @BeforeAll
+  public static void setup(){
+
+  }
+
   @Test 
+  @TestSecurity(user="laupeter")
   public void getQuizOk(){
-      Long quizId = 1L;
+      Long quizId = 200L;
       given()
-        .when().get("/quizzes/"+quizId+"/edit")
+        .when().get("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then().statusCode(200);
   }
 
   @Test
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
   public void getQuizNotFound(){
       Long quizId = 0L;
       given()
-        .when().get("/quizzes/"+quizId+"/edit")
+        .when().get("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then().statusCode(404);
   }
 
   
   @Test 
   @TestTransaction
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
   public void editQuizOk(){
-    Long quizId = 1L;
+    Long quizId = 200L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
     answers.add(new AnswerDTO(firtstAnswerText, true));
     answers.add(new AnswerDTO(secondAnswerText, false));
-    QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+    QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
     given().contentType(ContentType.JSON)
-    .body(quiz).put("/quizzes/"+quizId+"/edit")
+    .body(quiz).put("/quiz-fest/api/quizzes/"+quizId+"/edit")
       .then().statusCode(200);
   }
-
+  
   @Test    
   @TestTransaction
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
   public void editQuizNotFound(){
     Long quizId = 0L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
     answers.add(new AnswerDTO(firtstAnswerText, true));
     answers.add(new AnswerDTO(secondAnswerText, false));
-    QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+    QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
     given().contentType(ContentType.JSON)
-    .body(quiz).put("/quizzes/"+quizId+"/edit")
+    .body(quiz).put("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then().statusCode(404);
   }
 
   @Test
   @TestTransaction
-  @TestSecurity(user="theSpielerIn")
+  @TestSecurity(user="jobernhard")
   public void editQuizNotCreator(){
-    Long quizId = 1L;
+    Long quizId = 200L;
     ArrayList<AnswerDTO> answers = new ArrayList<>();
     answers.add(new AnswerDTO(firtstAnswerText, true));
     answers.add(new AnswerDTO(secondAnswerText, false));
-    QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
+    QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
     given().contentType(ContentType.JSON)
-    .body(quiz).put("/quizzes/"+quizId+"/edit")
+    .body(quiz).put("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then().statusCode(403);
   }
 
   @Test
   @TestTransaction
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
   public void editQuizNoQuizTitle(){
     ArrayList<AnswerDTO> answers = new ArrayList<>();
     answers.add(new AnswerDTO(firtstAnswerText, true));
     answers.add(new AnswerDTO(secondAnswerText, false));
     QuizEditDTO quiz = createQuiz(categoryName, "", createQuestion(answers));
-    Long quizId = 1L;
+    Long quizId = 200L;
     given().contentType(ContentType.JSON)
-    .body(quiz).put("/quizzes/"+quizId+"/edit")
+    .body(quiz).put("/quiz-fest/api/quizzes/"+quizId+"/edit")
       .then().statusCode(400);
   }
 
   @Test
   @TestTransaction
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
   public void editQuizNoQuestion(){
     QuizEditDTO quiz = createQuiz(categoryName, title, null);
-    Long quizId = 1L;
+    Long quizId = 200L;
     given().contentType(ContentType.JSON)
         .body(quiz)
-        .put("/quizzes/"+quizId+"/edit")
+        .put("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then()
         .statusCode(400);
   }
 
   @Test
   @TestTransaction
-  @TestSecurity(user="theErstellerIn")
+  @TestSecurity(user="laupeter")
     public void editQuizOneAnswer(){
-      Long quizId = 1L;
+      Long quizId = 200L;
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, true));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .put("/quizzes/"+quizId+"/edit")
+        .put("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then()
         .statusCode(400);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuizNoCorrectAnswer(){
-      Long quizId = 1L;
+      Long quizId = 200L;
         ArrayList<AnswerDTO> answers = new ArrayList<>();
         answers.add(new AnswerDTO(firtstAnswerText, true));
         answers.add(new AnswerDTO("", false));
         QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
         given().contentType(ContentType.JSON)
         .body(quiz)
-        .put("/quizzes/"+quizId+"/edit")
+        .put("/quiz-fest/api/quizzes/"+quizId+"/edit")
         .then()
         .statusCode(400);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuizInvalidAnswerText(){
-      Long quizId = 1L;
+      Long quizId = 200L;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
       answers.add(new AnswerDTO("", false));
       QuizEditDTO quiz = createQuiz(categoryName, title, createQuestion(answers));
       given().contentType(ContentType.JSON)
       .body(quiz)
-      .put("/quizzes/"+quizId+"/edit")
+      .put("/quiz-fest/api/quizzes/"+quizId+"/edit")
       .then()
       .statusCode(400);
     }
 
-    @Test
-    @TestTransaction
-    @TestSecurity(user="theErstellerIn")
-    public void deleteQuizOk(){
-      Long quizId = 1L;
-      given().when().delete("/quizzes/"+quizId+"/edit")
-      .then().statusCode(200);
-    }
+    
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void getQuestionToEditOk(){
-      Long quizId = 1L;
+      Long quizId = 200L;
       int questionNr = 1;
-      given().when().delete("/quizzes/"+quizId+"/edit/"+questionNr)
+      given().when().get("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(200);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void getQuestionToEditQuizNotFound(){
       Long quizId = 0L;
       int questionNr = 1;
-      given().when().delete("/quizzes/"+quizId+"/edit/"+questionNr)
+      given().when().get("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(404);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void getQuestionToEditQuestionNotFound(){
-      Long quizId = 1L;
+      Long quizId = 200L;
       int questionNr = 5;
-      given().when().delete("/quizzes/"+quizId+"/edit/"+questionNr)
+      given().when().get("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(404);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionOk(){
-      Long quizId = 1L;
+      Long quizId = 200L;
       int questionNr = 1;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
       answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(questionTitle, answers);
       given().contentType(ContentType.JSON)
-      .body(createQuestion(answers)).delete("/quizzes/"+quizId+"/edit/"+questionNr)
-      .then().statusCode(404);
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
+      .then().statusCode(200);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionQuizNotFound(){
       Long quizId = 0L;
       int questionNr = 1;
-      String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
       answers.add(new AnswerDTO(secondAnswerText, false));
-      QuestionDTO q = new QuestionDTO(newTitle, answers);
+      QuestionDTO q = new QuestionDTO(questionTitle, answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).delete("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(404);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionQuestionNrNotFound(){
-      Long quizId = 0L;
+      Long quizId = 200L;
       int questionNr = 5;
-      String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
       answers.add(new AnswerDTO(secondAnswerText, false));
-      QuestionDTO q = new QuestionDTO(newTitle,answers);
+      QuestionDTO q = new QuestionDTO(questionTitle,answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(404);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theSpielerIn")
+    @TestSecurity(user="jobernhard")
     public void editQuestionNotCreator(){
-      Long quizId = 0L;
-      int questionNr = 5;
+      Long quizId = 200L;
+      int questionNr = 1;
       String newTitle = "Was ist keine Sukkulente?";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
@@ -266,16 +263,16 @@ public class EditRessourceTest {
       QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(403);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionTitleEmpty(){
-      Long quizId = 0L;
-      int questionNr = 5;
+      Long quizId = 200L;
+      int questionNr = 1;
       String newTitle = "";
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText, true));
@@ -283,72 +280,78 @@ public class EditRessourceTest {
       QuestionDTO q = new QuestionDTO(newTitle, answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(400);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionAnswerTextEmpty(){
-      Long quizId = 0L;
-      int questionNr = 5;
-      String newTitle = "";
+      Long quizId = 200L;
+      int questionNr = 1;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO("",true));
       answers.add(new AnswerDTO(secondAnswerText, false));
-      QuestionDTO q = new QuestionDTO(newTitle,answers);
+      QuestionDTO q = new QuestionDTO(questionTitle,answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(400);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionOneAnswer(){
-      Long quizId = 0L;
-      int questionNr = 5;
-      String newTitle = "";
+      Long quizId = 200L;
+      int questionNr = 1;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
       answers.add(new AnswerDTO(firtstAnswerText,true));
-      QuestionDTO q = new QuestionDTO(newTitle,answers);
+      QuestionDTO q = new QuestionDTO(questionTitle,answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(400);
     }
 
     @Test
     @TestTransaction
-    @TestSecurity(user="theErstellerIn")
+    @TestSecurity(user="laupeter")
     public void editQuestionNoCorrectAnswer(){
-      Long quizId = 0L;
-      int questionNr = 5;
-      String newTitle = "";
+      Long quizId = 200L;
+      int questionNr = 1;
       ArrayList<AnswerDTO> answers = new ArrayList<>();
-      answers.add(new AnswerDTO(firtstAnswerText, true));
-      QuestionDTO q = new QuestionDTO(newTitle, answers);
+      answers.add(new AnswerDTO(firtstAnswerText, false));
+      answers.add(new AnswerDTO(secondAnswerText, false));
+      QuestionDTO q = new QuestionDTO(questionTitle, answers);
 
       given().contentType(ContentType.JSON)
-      .body(q).put("/quizzes/"+quizId+"/edit/"+questionNr)
+      .body(q).put("/quiz-fest/api/quizzes/"+quizId+"/edit/"+questionNr)
       .then().statusCode(400);
     }
 
-  public QuestionDTO createQuestion(Collection<AnswerDTO> answers){
-    return new QuestionDTO(questionTitle,answers);
-  }
+    /*@Test
+    @TestTransaction
+    @TestSecurity(user="laupeter")
+    public void deleteQuizOk(){
+      Long quizId = 200L;
+      given().when().delete("/quiz-fest/api/quizzes/"+quizId+"/edit")
+      .then().statusCode(204);
+    }*/
+    
+  public Collection<QuestionDTO> createQuestion(Collection<AnswerDTO> answers){
+        ArrayList<QuestionDTO> questions = new ArrayList<>();
+        questions.add(new QuestionDTO(questionTitle, answers));
+        return questions;
+    }
 
-  
-  public QuizEditDTO createQuiz(String categoryName, String title, QuestionDTO question){
-        
-    ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
-    questions.add(question);
-    Category c = new Category();
-    c.setName(categoryName);
-    return new QuizEditDTO(c, title, questions);
-}*/
+    public QuizEditDTO createQuiz(String categoryName, String title, Collection<QuestionDTO> questions){
+               
+        Category c = new Category();
+        c.setName(categoryName);
+        return new QuizEditDTO(c, title, questions);
+    }
 
 
 
