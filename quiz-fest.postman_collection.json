@@ -188,7 +188,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc5MTE0NDIsImlhdCI6MTYyNzkwOTY0MiwianRpIjoiMWU2ZWUzNGMtZmFhMC00OTdhLTlhZjMtNzQyNzdhMTYxNjIxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiNzI2Nzk5NmYtOTExZi00MGQwLWEyYWYtYzlhOGM3NGI1OWY0IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.UkY_PI6XDI8Y38-6CuF4ryB2S5YhPqcs9VcPEGu6Xkm_1eq3grvihf1wUy_J7oAxMOiYUkm91HpwV-QcX3iw93HptX1GuztzaH3xa4h8WoTOWYfk3KiCoExhaMF5hVEksuthH6r1A1lrshVZV-xFsh2E46-YL88bvLVer2E4-QtII6HQ5LwX6kYCmo8u5ix2mDL4QNEckCgo3WPTsSH44_5cOPsRXRWPFz3kL7cHxli8UOJXCwYVPvr2Ay-nkev7ghBlDKa4754VNyhzjrc6g9MB4fk-zEckn7S1LF7S8TE8pDgKgNcFraixAVGNyEkftT_U25QXdpiloRyWL8FCvQ",
 							"type": "string"
 						}
 					]
@@ -196,15 +196,17 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quizzes/16/edit/1",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes/200/edit/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes",
-						"16",
+						"200",
 						"edit",
 						"1"
 					]
@@ -292,15 +294,17 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes/200/edit/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes",
-						"1",
+						"200",
 						"edit",
 						"1"
 					]
@@ -316,7 +320,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc5NzY5MDAsImlhdCI6MTYyNzk3NTEwMCwianRpIjoiNTU4YTRiOGYtYWI2Yy00Zjk5LWEwMTMtMzBhYjMxZjg1NTA2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiMDhhMWZhMmUtYzQwMC00Zjg4LWFkY2ItY2E1OTFhMTMzNjY3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.jgYPHjiJ6wwToXbz_LhgVRJ7t8kcca0JuSwRk6q5Ci-lKNXLIlbDPaeKjDhT3clv8xOFBW2f8mv8EMm3tFrTZgQ7Njiw33wUca3D-qKu5qYbf4w00mpMZ0cYTk8HL2eZ6UJaDbLw-M5nbMOP_QoM8Uuo7zY52VtFVofac9NoTJreR9nc3jhSQcVji80KekSQsJZentu5WTmlDskE7YZDMCpAbmk7F9_7flap0YiZvFzdVsHUXkxTZYZ92wrqYwSS50HfDUC4GeEppJDLaeSRIVlYxjq40VhW_JudqtmJ_IRTIjHfs5T_7fJxXKiTlhB9Ryqp-uiekvhbdCDzXs5SUA",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4akZWY0luQXFOdW9tSURNR0hjZlpVSmpjVDFQMmRQdnlFd2pldlJvVVg4In0.eyJleHAiOjE2MjgxNTU5NjUsImlhdCI6MTYyODE1MjM2NSwianRpIjoiYTVhZjUzMDctYjNkMi00NmI1LWFmNmEtNjU4MTY5OWJmNTZjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMjI4MWIyOC1lY2MyLTQ5OGQtYjc0NS1lODk1MGNhNjg5MjIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiODU5ZGY2ZDQtMDdjNC00NzMzLWIwYTctYjRmMzEyODU4YjU4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxhdXBldGVyIn0.B8n8Ie0B7AUKgRduP-gAxF0DOGV4vHvENhoNRO-JWHOuQg9HrkoNv3OwDzpP8v3sDuLfvfFfqUxoZmhCZJLzcDLSwFlXeVtDXnkPBQ48QHrmQXrsr8iHVn1eLfCuDuTOKA_f0jM4K1RZ9hfwf3sT2CWrKlnzVjNNpT75wgh6CUJGlPTvCI1EYOdbWZTn6MFgTbfRFACicjNjfPGAL53tDYLvBhyR9JurWQCtKT0omLgUo6OH7Hc1oDUKeZLG9MfhtN00kGkovWc2a6h14Cy3yiM4J9UsIY69znjmBnGGDM47XqL0BK8wA-PreFc5yntYM-hBUeq2RZrsi2FOJZ-oXw",
 							"type": "string"
 						}
 					]
@@ -325,7 +329,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"creatorName\": \"user2\",\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"zweite antwort\"\r\n        },\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"wtf?\"\r\n    },\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"wtf2.0?\"\r\n    }\r\n  ],\r\n  \"title\": \"wtfquizUPDATED2.0\"\r\n}",
+					"raw": "{\r\n  \"categoryName\": {\r\n    \"name\": \"Natur\"\r\n  },\r\n  \"questions\": [\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"erste antwort\"\r\n        },\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"zweite antwort\"\r\n        }\r\n      ],\r\n      \"text\": \"erste Frage?\"\r\n    },\r\n    {\r\n      \"answers\": [\r\n        {\r\n          \"isCorrect\": false,\r\n          \"text\": \"string\"\r\n        },\r\n        {\r\n          \"isCorrect\": true,\r\n          \"text\": \"string\"\r\n        }\r\n      ],\r\n      \"text\": \"zweite frage\"\r\n    }\r\n  ],\r\n  \"title\": \"neues quiz\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -333,15 +337,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quizzes/1/edit",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes/200/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes",
-						"1",
+						"200",
 						"edit"
 					]
 				}
@@ -365,7 +371,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4akZWY0luQXFOdW9tSURNR0hjZlpVSmpjVDFQMmRQdnlFd2pldlJvVVg4In0.eyJleHAiOjE2Mjc5OTY2MDgsImlhdCI6MTYyNzk5MzAwOCwianRpIjoiMWQwOTQ4N2EtOTBiYS00NTM3LWEzODQtM2Y5YzdjNzZkOWRiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMjI4MWIyOC1lY2MyLTQ5OGQtYjc0NS1lODk1MGNhNjg5MjIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiZGUwNGY1YTItNzc4MC00M2Q3LTk3NDItYWVkMzI3ZGYzOWNjIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxhdXBldGVyIn0.OkdZ7vLsPwkCejKll0Yve9JxK6r1gl7P-5wvJVwn9etAnrV--OxJuFbiyjSGc9ol7bE7ddWfQRbi4rmfYuH5qTZ5mE3DlVx1srQ1uoKVruYvE5egqUofUAmaYbgFG7qNj2oIOZLO8i1AKxdAhNyTSLIBwMeeJLN8Xhcqx3zcgEDm-qD5NNB4-2FnHJfTGKYPbu8Tl2o7g6bwm5HRMfS7dnq8MCES3ZpKXlI15jXo9nJqHAp2h0BR9I1MV1HeC6TIYeP_KkBmlmNE-icvmsqzxwyNyFNcOOFPw46ibUOCs-d9WoIfaVtsJqmwGUpGBpNx6mEq81QNpmjtW-HtO44VYA",
 							"type": "string"
 						}
 					]
@@ -373,17 +379,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quizzes/1/edit/1",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes/200/play",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes",
-						"1",
-						"edit",
-						"1"
+						"200",
+						"play"
 					]
 				}
 			},
@@ -429,7 +436,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc3NDAzNDQsImlhdCI6MTYyNzczODU0NCwianRpIjoiOGIxYmNlNjUtZmNiMC00OThhLThjMDgtNDc4MmViODMwNWFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiOGY0NGQyZGEtNTM3NS00MWZhLWEwYjMtNTdkMmE2MDEzOWNmIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.YbNjzk6LScf7BGEaeQ8aKZPDAW5e6jA0IYccJAJ_tj527zVOY9zZljoyHK2faYqttk0bPsfXyEjsqjt_w-Wwg7A6gSRXDIVABI281k853OUwUW-BiLweUxakvIzv7T81wnt2T0T3gk0o3tFk0OZTfpSGxvtufXkinBQy_Y3xtneJVxnOVDzFAcgigPC59vITQ7Nkc7Lz-AvqH_H77GgJj9Te2St4ips6mlhpP4_5B6FpN4cOrwpjALbwdnv6keH_2vPlBVD7YZ5AI6WJTIwtebRo3VQXjMO4BoJBGLXpDS20KNHwtgy-4U0vg8XAOIGppIMokffR5wHJZwXLwv7QQA",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhUDhZcTJVbDVjYkdIU3BQc0hOcnZ6NGdna3ptN29YaHRBZlFMbURZcGxNIn0.eyJleHAiOjE2Mjc5MTc3ODEsImlhdCI6MTYyNzkxNTk4MSwianRpIjoiYWNlOTBlMjktMTgyYy00MjViLWIwOTctOWJlYjc5NzI0MzU1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3F1aXotZmVzdCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiMTk5MTljZi1kZWQzLTQ0MjAtODQ5Ni0zNzJmZTcyN2VjMzMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJxdWl6LWZlc3QiLCJzZXNzaW9uX3N0YXRlIjoiMWJjZWRjMGItNDdmNy00NGY3LThlNzAtNTg5OTkzNDUxYjViIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtcXVpei1mZXN0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiJ9.FVlH33kiIi7gOEyESTzwOAHNZBcWQiSLwtNjffUOmo4wegwO1tnImmoqnjcTc1gx-DqQHjeQqdRvxgaQ5PAR_ShnTAvpiX-9kplL8wX4BedUuJdnLF2a3hGN9j4efa1miHVI0cUKhHIgGnnGiaMQNrLNxAupaLVoBF3piASItzJIo-1eGtOTcQzaDeQ6_xd6CGnLeRM1SkTqRElAhN2UH2gvD-og6rTEInpai9lgsoGCVQ6rCas_EHe_jc5QonZXQOFLMfkYGBXR0hYM_KWhE_EYDBq_WB9o65mBoBYk3D1etFFX6ITn_EMOWMpcRAsJ0L6jU1pyVgbZEuHKfULQyw",
 							"type": "string"
 						}
 					]
@@ -438,7 +445,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"isCorrect\": false,\r\n            \"text\": \"string\"\r\n        },\r\n        {\r\n            \"isCorrect\": true,\r\n            \"text\": \"string\"\r\n        }\r\n    ],\r\n    \"text\": \"new?\"\r\n}",
+					"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"isCorrect\": false,\r\n            \"text\": \"string\"\r\n        },\r\n        {\r\n            \"isCorrect\": true,\r\n            \"text\": \"string\"\r\n        }\r\n    ],\r\n    \"text\": \"new2?\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -446,15 +453,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/quizzes/1/edit",
+					"raw": "http://localhost:8080/quiz-fest/api/quizzes/200/edit",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"quiz-fest",
+						"api",
 						"quizzes",
-						"1",
+						"200",
 						"edit"
 					]
 				}
