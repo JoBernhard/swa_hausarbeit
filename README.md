@@ -9,9 +9,9 @@ in the docker directory ``cd .\Desktop\swa\quiz-fest\src\main\docker\``
 
 when keycloak and postgresql are fully started (this may take a few minutes)
 you can run
-.\mvnw clean compile quarku:dev
+``.\mvnw clean compile quarku:dev``
 or
-.\mvnw test
+``.\mvnw test``
 from the ``Desktop\swa\quiz-fest`` Direktory
 
 users examples configured in keykloak
@@ -31,3 +31,10 @@ curl --location --request POST "http://localhost:8180/auth/realms/quiz-fest/prot
  --data-urlencode "grant_type=password"
 
  the aquired token needs to be usesd with swagger in oder to work propperly
+
+ a collection of postman tests is provided at
+ ``.\quiz-fest.postman_collection.json``
+ if you use this collection first run the "Generate Accestoken" so the access token is set for he other tests
+
+ when your done stop the quarkus server
+ and run ``docker compose down`` to delete the containers
