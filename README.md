@@ -13,6 +13,7 @@ docker-compose up
 ```
 in the docker directory ``.\Desktop\swa\quiz-fest\src\main\docker\``
 <br>when keycloak and postgresql are fully started __(this may take a few minutes)__
+if you wish you can look at the [keycloak configuration](http://localhost:8180/auth/admin) using the name ``admin`` and the password ``admin``
 ***
 
 ## run server
@@ -40,7 +41,7 @@ users examples configured in keykloak are
 ***
 
 ## swagger dokumentation
- with path `q/dokumentation` openapi swagger dokumentation can be found 
+ with path `q/dokumentation` openapi swagger [dokumentation](http://localhost:8080/q/documentation/) can be found 
  </br>to use it a token needs to be aquired from keycloak
  
 ```bash 
