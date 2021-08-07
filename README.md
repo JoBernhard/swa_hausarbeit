@@ -54,6 +54,7 @@ curl --location --request POST "http://localhost:8180/auth/realms/quiz-fest/prot
 ```
 
  the aquired token needs to be usesd with swagger in oder to work propperly
+ </br>just click the Authorize button and use the input
  ***
 
 ## Postman tests
