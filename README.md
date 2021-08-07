@@ -18,7 +18,7 @@ if you wish you can look at the [keycloak configuration](http://localhost:8180/a
 
 ## run server
 ```bash
-.\mvnw clean compile quarku:dev
+.\mvnw clean compile quarkus:dev
 ```
 from the ``Desktop\swa\quiz-fest`` Direktory
 or
