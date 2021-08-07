@@ -1,7 +1,7 @@
-# quiz-fest Project
+# QuizFest Project
 
 first start docker and *wait* for the engine to start
-then 
+</br>then 
 ## run docker compose 
 with
 ```bash
@@ -12,14 +12,14 @@ or
 docker-compose up
 ```
 in the docker directory ``.\Desktop\swa\quiz-fest\src\main\docker\``
-
-when keycloak and postgresql are fully started __(this may take a few minutes)__
+<br>when keycloak and postgresql are fully started __(this may take a few minutes)__
 ***
 
 ## run server
 ```bash
 .\mvnw clean compile quarku:dev
 ```
+from the ``Desktop\swa\quiz-fest`` Direktory
 or
 ## test server
 ```bash
@@ -40,7 +40,8 @@ users examples configured in keykloak are
 ***
 
 ## swagger dokumentation
- with path `q/dokumentation` openapi swagger dokumentation can be found to use it a token needs to be aquired from keycloak
+ with path `q/dokumentation` openapi swagger dokumentation can be found 
+ </br>to use it a token needs to be aquired from keycloak
  
 ```bash 
 curl --location --request POST "http://localhost:8180/auth/realms/quiz-fest/protocol/openid-connect/token"^
@@ -54,11 +55,13 @@ curl --location --request POST "http://localhost:8180/auth/realms/quiz-fest/prot
  the aquired token needs to be usesd with swagger in oder to work propperly
  ***
 
-## Postman
- a collection of postman tests is provided at
+## Postman tests
+ a collection of postman tests is provided at </br>
  ``.\quiz-fest.postman_collection.json``
- This can be Imported into Postman
- if you use this collection first run the "Generate Accestoken" so the access token is set for the other tests
+ </br>This can be Imported into Postman
+ if you use this collection 
+ </br>first run the "Generate Accestoken" so the access token is set for the other tests
+ ***
 
 ## Finish
  when your done stop the quarkus server with ``Strg + C``
